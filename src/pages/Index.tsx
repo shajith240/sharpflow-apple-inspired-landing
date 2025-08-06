@@ -3,6 +3,8 @@ import WhatWeDoSection from "@/components/landing/WhatWeDoSection";
 import FeaturesSection from "@/components/landing/FeaturesSection";
 import HowItWorksSection from "@/components/landing/HowItWorksSection";
 import UseCasesSection from "@/components/landing/UseCasesSection";
+import ElevenLabsSection from "@/components/landing/ElevenLabsSection";
+import PricingSection from "@/components/landing/PricingSection";
 import CTASection from "@/components/landing/CTASection";
 import Footer from "@/components/landing/Footer";
 
@@ -14,6 +16,8 @@ const Index = () => {
       <FeaturesSection />
       <HowItWorksSection />
       <UseCasesSection />
+      <ElevenLabsSection />
+      <PricingSection />
       <CTASection />
       <Footer />
     </div>
