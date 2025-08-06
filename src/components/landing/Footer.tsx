@@ -1,4 +1,22 @@
+import { Sun, Moon } from "lucide-react";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
+
 const Footer = () => {
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
+
+  if (!mounted) {
+    return null;
+  };
   return (
     <footer className="bg-surface-elevated border-t border-border">
       <div className="container-padding py-16">
@@ -53,7 +71,21 @@ const Footer = () => {
           <p className="text-caption text-text-tertiary">
             © 2024 SharpFlow. All rights reserved.
           </p>
-          <div className="flex gap-6 mt-4 md:mt-0">
+          <div className="flex items-center gap-6 mt-4 md:mt-0">
+            {/* Theme Toggle */}
+            <button 
+              onClick={toggleTheme}
+              className="w-10 h-10 rounded-lg bg-secondary hover:bg-secondary/80 transition-all duration-200 flex items-center justify-center border border-border"
+              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-5 h-5 text-text-secondary" />
+              ) : (
+                <Moon className="w-5 h-5 text-text-secondary" />
+              )}
+            </button>
+            
+            {/* Links */}
             <a href="#" className="text-caption text-text-tertiary hover:text-primary transition-colors">Privacy</a>
             <a href="#" className="text-caption text-text-tertiary hover:text-primary transition-colors">Terms</a>
             <a href="#" className="text-caption text-text-tertiary hover:text-primary transition-colors">Security</a>
