@@ -7,18 +7,18 @@ const HowItWorksSection = () => {
     },
     {
       number: "02", 
-      title: "Integration",
-      description: "Connect SharpFlow to your existing phone system, CRM, and business tools with our simple API integrations."
+      title: "Training",
+      description: "We train the voice agent according to you need with your custom knowledge base."
     },
     {
       number: "03",
-      title: "Training & Testing",
-      description: "Our AI learns your business processes and we test the system to ensure optimal performance before going live."
+      title: "Intigration",
+      description: "We intigrate the voice agent in your website without any complex code costamisation."
     },
     {
       number: "04",
       title: "Launch & Monitor",
-      description: "Deploy your AI voice agents and monitor performance with real-time analytics and continuous optimization."
+      description: "Then we Deploy the voice agent and test it in real time."
     }
   ];
 

@@ -9,7 +9,7 @@ const WhatWeDoSection = () => {
             What SharpFlow Does
           </h2>
           <p className="text-body fade-in fade-in-delay-1">
-            Our AI voice agents seamlessly integrate into your business operations, 
+            We integrate AI voice agents seamlessly into your business operations, 
             handling customer interactions with natural conversation and intelligent automation.
           </p>
         </div>
@@ -31,7 +31,7 @@ const WhatWeDoSection = () => {
             </div>
             <h3 className="text-subheading text-primary mb-2">Engage Customers</h3>
             <p className="text-caption">
-              Provide instant support and information with AI precision
+              Provide instant support and information with AI with maximum presission.
             </p>
           </div>
           

@@ -23,14 +23,7 @@ const Footer = () => {
         <div className="grid lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-accent rounded-lg"></div>
-              <span className="text-subheading font-semibold text-primary">SharpFlow</span>
-            </div>
-            <p className="text-body text-text-secondary max-w-sm">
-              Intelligent AI voice agents that automate your business communications 
-              with human-like precision.
-            </p>
+            <img src={theme === 'dark' ? '/sharpflow_white.svg' : '/sharpflow_black.svg'} alt="SharpFlow" className="h-12" />
           </div>
           
           {/* Product */}

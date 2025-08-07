@@ -116,7 +116,7 @@ const PricingSection = () => {
         
         <div className="max-w-2xl mx-auto text-center mt-12">
           <p className="text-caption fade-in fade-in-delay-3">
-            ⚙️ Custom voice, WhatsApp, CRM, or analytics available as add-ons.
+            For Custom voice, WhatsApp, CRM, or analytics available as add-ons.
           </p>
         </div>
       </div>

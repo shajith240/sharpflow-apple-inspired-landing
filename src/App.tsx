@@ -6,6 +6,14 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'elevenlabs-convai': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & { 'agent-id'?: string };
+    }
+  }
+}
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -20,6 +28,7 @@ const App = () => (
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
+      <elevenlabs-convai agent-id="agent_1401k20e27j9ewb91en80wecd15m"></elevenlabs-convai>
     </TooltipProvider>
   </QueryClientProvider>
 );

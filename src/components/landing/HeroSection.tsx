@@ -1,15 +1,19 @@
+import { useTheme } from "next-themes";
+
 const HeroSection = () => {
+  const { theme } = useTheme();
+
   return (
     <section className="section-padding min-h-screen flex items-center">
       <div className="container-padding w-full">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-display text-primary mb-6 fade-in">
-            Automate Your Business with
+            Let Your Website Speak with
             <span className="block">AI Voice Agents</span>
           </h1>
           
           <p className="text-body max-w-2xl mx-auto mb-12 fade-in fade-in-delay-1">
-            SharpFlow creates intelligent voice agents that handle customer calls, 
+            SharpFlow intigrate intelligent voice agents that handle customer calls, 
             book appointments, and manage conversations with human-like precision.
           </p>
           
