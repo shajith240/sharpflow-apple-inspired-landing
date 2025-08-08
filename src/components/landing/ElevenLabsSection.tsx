@@ -1,5 +1,7 @@
 import { Volume2 } from "lucide-react";
 import { useTheme } from "next-themes";
+import GradientText from "@/components/ui/gradient-text";
+import SphereAudioVisualizer from "@/components/ui/spherical-audio-visualizer";
 
 const ElevenLabsSection = () => {
   const { theme } = useTheme();
@@ -11,8 +13,15 @@ const ElevenLabsSection = () => {
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             {/* Text Content */}
             <div className="fade-in">
-              <h2 className="text-heading text-primary mb-6">
-                Powered by ElevenLabs
+              <h2 className="text-heading text-primary mb-6 whitespace-nowrap">
+                Powered by <GradientText
+                  colors={["#ff6b6b", "#4ecdc4", "#45b7d1", "#96ceb4", "#feca57", "#3fc911ff", "rgba(249, 5, 253, 1)"]}
+                  animationSpeed={6}
+                  className="inline"
+                >
+                  <strong>ElevenLabs</strong>
+
+                </GradientText>
               </h2>
               <p className="text-body mb-8">
                 we use industry leading natural sound production company Ellevenlabs for voice engine.
@@ -29,13 +38,7 @@ const ElevenLabsSection = () => {
 
             {/* Visual Content */}
             <div className="fade-in fade-in-delay-1">
-              <div className="bg-surface-elevated p-12 rounded-2xl border border-border">
-                <div className="text-center">
-                  <div className="w-32 h-32 flex items-center justify-center mx-auto mb-6">
-                    <img src={theme === 'dark' ? '/elevenlabs-logo-white.svg' : '/elevenlabs-logo-black.svg'} alt="ElevenLabs Logo" className="w-20 h-20" />
-                  </div>
-                </div>
-              </div>
+              <SphereAudioVisualizer />
             </div>
           </div>
         </div>

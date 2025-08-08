@@ -1,9 +1,8 @@
 import Header from "@/components/landing/Header";
 import HeroSection from "@/components/landing/HeroSection";
-import WhatWeDoSection from "@/components/landing/WhatWeDoSection";
 import FeaturesSection from "@/components/landing/FeaturesSection";
 import HowItWorksSection from "@/components/landing/HowItWorksSection";
-import UseCasesSection from "@/components/landing/UseCasesSection";
+import GlowingUseCasesSection from "@/components/landing/GlowingUseCasesSection";
 import ElevenLabsSection from "@/components/landing/ElevenLabsSection";
 import PricingSection from "@/components/landing/PricingSection";
 import CTASection from "@/components/landing/CTASection";
@@ -14,10 +13,9 @@ const Index = () => {
     <div className="min-h-screen">
       <Header />
       <HeroSection />
-      <WhatWeDoSection />
       <FeaturesSection />
       <HowItWorksSection />
-      <UseCasesSection />
+      <GlowingUseCasesSection />
       <ElevenLabsSection />
       <PricingSection />
       <CTASection />
