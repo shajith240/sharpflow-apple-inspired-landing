@@ -324,20 +324,6 @@ All colors MUST be HSL.
         transform: none !important;
       }
     }
-
-    /* Optimize canvas rendering on mobile */
-    canvas {
-      -webkit-transform: translateZ(0);
-      transform: translateZ(0);
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-    }
-
-    /* Reduce motion blur during fast scrolling */
-    * {
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
   }
 
   /* Apple-inspired animations */

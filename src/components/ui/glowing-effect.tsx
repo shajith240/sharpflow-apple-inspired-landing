@@ -34,35 +34,8 @@ const GlowingEffect = memo(
     const lastPosition = useRef({ x: 0, y: 0 });
     const animationFrameRef = useRef<number>(0);
     const scrollTimeoutRef = useRef<number>(0);
-    const intersectionObserverRef = useRef<IntersectionObserver | null>(null);
     const [isMobile, setIsMobile] = useState(false);
     const [isScrolling, setIsScrolling] = useState(false);
-    const [isVisible, setIsVisible] = useState(true);
-
-    // Setup IntersectionObserver for visibility detection
-    useEffect(() => {
-      if (!containerRef.current) return;
-
-      intersectionObserverRef.current = new IntersectionObserver(
-        (entries) => {
-          const [entry] = entries;
-          setIsVisible(entry.isIntersecting);
-        },
-        {
-          root: null,
-          rootMargin: "20px", // Start animating 20px before entering viewport
-          threshold: 0.1, // Trigger when 10% visible
-        }
-      );
-
-      intersectionObserverRef.current.observe(containerRef.current);
-
-      return () => {
-        if (intersectionObserverRef.current) {
-          intersectionObserverRef.current.disconnect();
-        }
-      };
-    }, []);
 
     // Detect mobile device
     useEffect(() => {
@@ -77,8 +50,7 @@ const GlowingEffect = memo(
 
     const handleMove = useCallback(
       (e?: MouseEvent | { x: number; y: number }) => {
-        if (!containerRef.current || (isMobile && isScrolling) || !isVisible)
-          return;
+        if (!containerRef.current || (isMobile && isScrolling)) return;
 
         if (animationFrameRef.current) {
           cancelAnimationFrame(animationFrameRef.current);
@@ -137,14 +109,7 @@ const GlowingEffect = memo(
           });
         });
       },
-      [
-        inactiveZone,
-        proximity,
-        movementDuration,
-        isMobile,
-        isScrolling,
-        isVisible,
-      ]
+      [inactiveZone, proximity, movementDuration, isMobile, isScrolling]
     );
 
     useEffect(() => {
@@ -204,7 +169,7 @@ const GlowingEffect = memo(
         window.removeEventListener("scroll", throttledScrollHandler);
         document.body.removeEventListener("pointermove", handlePointerMove);
       };
-    }, [handleMove, disabled, isMobile, isScrolling, isVisible]);
+    }, [handleMove, disabled, isMobile, isScrolling]);
 
     return (
       <>
