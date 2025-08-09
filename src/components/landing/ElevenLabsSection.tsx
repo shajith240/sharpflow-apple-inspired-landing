@@ -2,6 +2,8 @@ import { Volume2 } from "lucide-react";
 import { useTheme } from "next-themes";
 import GradientText from "@/components/ui/gradient-text";
 import SphereAudioVisualizer from "@/components/ui/spherical-audio-visualizer";
+import { GlowingEffect } from "@/components/ui/glowing-effect";
+import { RainbowButton } from "@/components/ui/rainbow-button";
 
 const ElevenLabsSection = () => {
   const { theme } = useTheme();
@@ -27,9 +29,9 @@ const ElevenLabsSection = () => {
                 we use industry leading natural sound production company Ellevenlabs for voice engine.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="btn-primary">
+                <RainbowButton>
                   Hear Sample
-                </button>
+                </RainbowButton>
                 <button className="btn-secondary">
                   Watch Demo
                 </button>
@@ -38,7 +40,19 @@ const ElevenLabsSection = () => {
 
             {/* Visual Content */}
             <div className="fade-in fade-in-delay-1">
-              <SphereAudioVisualizer />
+              <div className="relative rounded-[1.25rem] border-[0.75px] border-border p-4 md:rounded-[1.5rem] md:p-6">
+                <GlowingEffect
+                  spread={60}
+                  glow={true}
+                  disabled={false}
+                  proximity={80}
+                  inactiveZone={0.01}
+                  borderWidth={2}
+                />
+                <div className="relative overflow-hidden rounded-xl border-[0.75px] bg-background/50 backdrop-blur-sm shadow-sm dark:shadow-[0px_0px_27px_0px_rgba(45,45,45,0.3)]">
+                  <SphereAudioVisualizer />
+                </div>
+              </div>
             </div>
           </div>
         </div>

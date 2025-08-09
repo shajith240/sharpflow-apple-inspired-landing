@@ -4,13 +4,15 @@ import StarBorder from "@/components/ui/star-border";
 import { Play } from "lucide-react";
 import { BookingDialog } from "@/components/ui/booking-dialog";
 import { CAL_CONFIG } from "@/config/cal";
+import { RainbowButton } from "@/components/ui/rainbow-button";
+import { AuroraEffect } from "@/components/ui/aurora-effect";
 
 const HeroSection = () => {
   const { theme } = useTheme();
 
   return (
     <section className="section-padding min-h-screen flex items-center relative">
-      {theme === 'dark' && <DarkVeil speed={1.5} />}
+      {theme === 'dark' ? <DarkVeil speed={1.5} /> : <AuroraEffect />}
 
       <div className="container-padding w-full">
         <div className="max-w-4xl mx-auto text-center">
@@ -26,11 +28,11 @@ const HeroSection = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center fade-in fade-in-delay-2">
             <BookingDialog calLink={CAL_CONFIG.fullLink}>
-              <button className="btn-primary">Free Consultation</button>
+              <RainbowButton>Free Consultation</RainbowButton>
             </BookingDialog>
             <StarBorder
               as="button"
-              className="hover:scale-105 transition-transform duration-200"
+              className="h-11 px-8 py-2 font-medium hover:scale-105 transition-transform duration-200 inline-flex items-center justify-center rounded-xl bg-transparent text-primary hover:bg-accent/5"
               color="hsl(var(--accent))"
               speed="3s"
               thickness={2}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useCallback } from "react";
+import { useTheme } from "next-themes";
 
 interface Particle {
   homeX: number;
@@ -22,6 +23,7 @@ interface Mouse {
 }
 
 const SphereAudioVisualizer = () => {
+  const { theme } = useTheme();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>();
   const particlesRef = useRef<Particle[]>([]);
@@ -41,8 +43,8 @@ const SphereAudioVisualizer = () => {
     vx: 0,
     vy: 0,
     vz: 0,
-    color: `rgba(173, 216, 230, 0.8)` // Light blue with opacity
-  }), []);
+    color: theme === 'light' ? `rgba(0, 0, 0, 0.8)` : `rgba(173, 216, 230, 0.8)` // Pure black in light theme, light blue in dark theme
+  }), [theme]);
 
   const projectParticle = useCallback((particle: Particle, width: number, height: number) => {
     const fov = width * 1.2;
@@ -192,11 +194,13 @@ const SphereAudioVisualizer = () => {
 
         // Create gradient effect based on depth with better visibility
         const alpha = Math.max(0.3, Math.min(0.9, (z2 + sphereRadiusRef.current) / (sphereRadiusRef.current * 1.5)));
-        ctx.fillStyle = `rgba(173, 216, 230, ${alpha})`;
+        const particleColor = theme === 'light' ? `rgba(0, 0, 0, ${alpha})` : `rgba(173, 216, 230, ${alpha})`;
+        ctx.fillStyle = particleColor;
         ctx.fill();
 
         // Add subtle glow effect
-        ctx.shadowColor = 'rgba(173, 216, 230, 0.3)';
+        const glowColor = theme === 'light' ? `rgba(0, 0, 0, 0.2)` : `rgba(173, 216, 230, 0.3)`;
+        ctx.shadowColor = glowColor;
         ctx.shadowBlur = 2;
         ctx.fill();
         ctx.shadowBlur = 0;
@@ -204,7 +208,7 @@ const SphereAudioVisualizer = () => {
     });
 
     animationRef.current = requestAnimationFrame(animate);
-  }, [createParticle, updateParticle, projectParticle]);
+  }, [createParticle, updateParticle, projectParticle, theme]);
 
   useEffect(() => {
     setupCanvas();

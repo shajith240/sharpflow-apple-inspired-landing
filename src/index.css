@@ -8,6 +8,13 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
+    /* Rainbow button colors */
+    --color-1: 0 100% 63%;
+    --color-2: 270 100% 63%;
+    --color-3: 210 100% 63%;
+    --color-4: 195 100% 63%;
+    --color-5: 90 100% 63%;
+
     /* Pure backgrounds */
     --background: 0 0% 100%;
     --foreground: 0 0% 6%;
@@ -430,5 +437,19 @@ All colors MUST be HSL.
   
   .no-scrollbar::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Ballpit cursor styles */
+  .cursor-none {
+    cursor: none !important;
+  }
+  
+  .cursor-none * {
+    cursor: none !important;
+  }
+  
+  /* Override cursor for interactive elements in ballpit sections */
+  .cursor-pointer {
+    cursor: pointer !important;
   }
 }

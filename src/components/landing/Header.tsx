@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { BookingDialog } from "@/components/ui/booking-dialog";
 import { CAL_CONFIG } from "@/config/cal";
+import { RainbowButton } from "@/components/ui/rainbow-button";
 
 const Header = () => {
   const { theme } = useTheme();
@@ -32,7 +33,7 @@ const Header = () => {
 
             <div className="flex items-center ml-4">
               <BookingDialog calLink={CAL_CONFIG.fullLink}>
-                <Button size="sm" className="nav-cta">Book Consultation</Button>
+                <RainbowButton className="h-9 px-4 text-sm">Book Consultation</RainbowButton>
               </BookingDialog>
             </div>
           </div>
@@ -81,7 +82,7 @@ const Header = () => {
               </a>
               <div className="pt-2">
                 <BookingDialog calLink={CAL_CONFIG.fullLink}>
-                  <Button size="sm" className="nav-cta w-full">Book Consultation</Button>
+                  <RainbowButton className="h-9 px-4 text-sm w-full">Book Consultation</RainbowButton>
                 </BookingDialog>
               </div>
             </nav>

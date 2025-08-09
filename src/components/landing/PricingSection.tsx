@@ -1,8 +1,4 @@
 import { Pricing } from "@/components/ui/pricing";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { BookingDialog } from "@/components/ui/booking-dialog";
-import { CAL_CONFIG } from "@/config/cal";
 
 const PricingSection = () => {
   const plans = [
@@ -75,13 +71,7 @@ const PricingSection = () => {
           title="Service Packages"
           description="Custom solutions tailored to your business needs. Every package includes a free consultation to understand your requirements and provide accurate pricing.
 Final pricing determined after consultation based on your specific needs."
-          renderButton={(plan, buttonClassName) => (
-            <BookingDialog calLink={CAL_CONFIG.fullLink}>
-              <button className={buttonClassName}>
-                {plan.buttonText}
-              </button>
-            </BookingDialog>
-          )}
+          renderButton={() => null}
         />
 
       </div>

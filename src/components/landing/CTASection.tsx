@@ -1,19 +1,38 @@
 import Ballpit from '@/components/ui/ballpit';
 import { BookingDialog } from "@/components/ui/booking-dialog";
 import { CAL_CONFIG } from "@/config/cal";
+import { useTheme } from "next-themes";
+import { RainbowButton } from "@/components/ui/rainbow-button";
 
 const CTASection = () => {
+  const { theme } = useTheme();
+
+  // Theme-aware colors for ballpit
+  const ballColors = theme === 'dark'
+    ? [0x333333, 0x0088ff, 0x00ccff, 0x66aaff, 0x4d79ff] // Brighter colors for dark theme
+    : [0x1a1a1a, 0x0066ff, 0x00aaff, 0x4d79ff]; // Original colors for light theme
+
   return (
-    <section className="section-padding bg-primary relative overflow-hidden">
-      {/* Ballpit Background */}
-      <div style={{ position: 'absolute', inset: '0', overflow: 'hidden', minHeight: '500px', maxHeight: '500px', width: '100%', opacity: '0.6', zIndex: 1 }}>
+    <section className="section-padding bg-primary relative overflow-hidden cursor-none">
+      {/* Ballpit Background - Full Coverage */}
+      <div style={{
+        position: 'absolute',
+        inset: '0',
+        overflow: 'hidden',
+        width: '100%',
+        height: '100%',
+        opacity: '0.8',
+        zIndex: 1,
+        cursor: 'none'
+      }}>
         <Ballpit
-          count={120}
+          count={150}
           gravity={0.7}
           friction={0.8}
           wallBounce={0.95}
           followCursor={true}
-          colors={[0x000000, 0x0066ff]}
+          colors={ballColors}
+          className="cursor-none"
         />
       </div>
 
@@ -28,13 +47,13 @@ const CTASection = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center fade-in fade-in-delay-2">
             <BookingDialog calLink={CAL_CONFIG.fullLink}>
-              <button className="bg-background text-primary px-8 py-3 rounded-xl font-medium transition-all duration-200 hover:bg-background/90 hover:shadow-lg hover:scale-[1.02] relative z-30">
+              <RainbowButton className="relative z-30 cursor-pointer">
                 Book Your Call
-              </button>
+              </RainbowButton>
             </BookingDialog>
             <a
               href="mailto:contact@sharpflow.com"
-              className="text-primary-foreground px-6 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-white/10 relative z-30"
+              className="text-primary-foreground px-6 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-white/10 relative z-30 cursor-pointer"
             >
               Send Email
             </a>
