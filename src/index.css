@@ -81,7 +81,7 @@ All colors MUST be HSL.
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
-
+    
     /* For glowing effect component */
     --black: 0 0% 0%;
   }
@@ -140,7 +140,7 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 0 0% 100%;
     --sidebar-border: 0 0% 10%;
     --sidebar-ring: 211 100% 60%;
-
+    
     /* For glowing effect component */
     --black: 0 0% 0%;
   }
@@ -153,9 +153,7 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    font-family:
-      -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
-      Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     letter-spacing: -0.01em;
     line-height: 1.6;
   }
@@ -206,23 +204,23 @@ All colors MUST be HSL.
     @apply hover:shadow-xl hover:shadow-black/10;
     @apply dark:bg-background/80 dark:border-border/30;
     @apply dark:shadow-black/20 dark:hover:shadow-black/30;
-
+    
     /* Enhanced glass effect */
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-
+    
     /* Subtle inner glow */
-    box-shadow:
+    box-shadow: 
       0 8px 32px rgba(0, 0, 0, 0.08),
       inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
-
+  
   .dark .floating-nav {
-    box-shadow:
+    box-shadow: 
       0 8px 32px rgba(0, 0, 0, 0.3),
       inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
-
+  
   /* Navigation links with Apple-style hover effects */
   .nav-link {
     @apply px-3 py-2 rounded-lg text-sm font-medium;
@@ -230,25 +228,25 @@ All colors MUST be HSL.
     @apply hover:bg-secondary/50 transition-all duration-200;
     @apply relative overflow-hidden;
   }
-
+  
   .nav-link::before {
-    content: "";
+    content: '';
     @apply absolute inset-0 bg-gradient-to-r from-accent/10 to-accent/5;
     @apply opacity-0 transition-opacity duration-200;
     @apply rounded-lg;
   }
-
+  
   .nav-link:hover::before {
     @apply opacity-100;
   }
-
+  
   /* Theme toggle button */
   .nav-theme-toggle {
     @apply w-9 h-9 rounded-lg;
     @apply hover:bg-secondary/50 transition-all duration-200;
     @apply relative overflow-hidden;
   }
-
+  
   /* CTA button in nav */
   .nav-cta {
     @apply bg-accent text-accent-foreground;
@@ -257,7 +255,7 @@ All colors MUST be HSL.
     @apply hover:scale-105 hover:shadow-lg;
     @apply text-sm;
   }
-
+  
   /* Glass dropdown */
   .glass-dropdown {
     @apply bg-background/90 backdrop-blur-xl border border-border/50;
@@ -265,7 +263,7 @@ All colors MUST be HSL.
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
   }
-
+  
   /* Mobile menu animations */
   @media (max-width: 768px) {
     .floating-nav {
@@ -273,7 +271,7 @@ All colors MUST be HSL.
       animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
   }
-
+  
   @keyframes slideDown {
     from {
       opacity: 0;
@@ -284,46 +282,15 @@ All colors MUST be HSL.
       transform: translateY(0);
     }
   }
-
+  
   /* Enhanced hover effects for better interaction feedback */
   .floating-nav:hover {
     transform: translateY(-1px);
   }
-
+  
   /* Smooth scrolling for anchor links */
   html {
     scroll-behavior: smooth;
-  }
-
-  /* Mobile scroll optimization */
-  @media (max-width: 768px) {
-    * {
-      -webkit-transform: translateZ(0);
-      transform: translateZ(0);
-      -webkit-backface-visibility: hidden;
-      backface-visibility: hidden;
-      -webkit-perspective: 1000;
-      perspective: 1000;
-    }
-
-    /* Optimize scrolling performance on mobile */
-    body {
-      -webkit-overflow-scrolling: touch;
-      overflow-scrolling: touch;
-    }
-
-    /* Reduce motion for better mobile performance */
-    .fade-in {
-      animation-duration: 0.3s;
-    }
-
-    /* Disable complex animations during scroll on mobile */
-    @media (prefers-reduced-motion: no-preference) {
-      .mobile-scroll-optimized {
-        will-change: auto;
-        transform: none !important;
-      }
-    }
   }
 
   /* Apple-inspired animations */
@@ -374,26 +341,25 @@ All colors MUST be HSL.
     @apply hover:shadow-2xl hover:-translate-y-2;
     @apply relative overflow-hidden;
   }
-
+  
   .pricing-card::before {
-    content: "";
+    content: '';
     @apply absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent;
     @apply opacity-0 transition-opacity duration-300;
   }
-
+  
   .pricing-card:hover::before {
     @apply opacity-100;
   }
-
+  
   /* Popular plan glow effect */
   .pricing-popular {
     @apply shadow-xl shadow-accent/20;
     animation: pulse-glow 3s ease-in-out infinite;
   }
-
+  
   @keyframes pulse-glow {
-    0%,
-    100% {
+    0%, 100% {
       box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
     }
     50% {
@@ -406,15 +372,15 @@ All colors MUST be HSL.
     perspective: 1000px;
     transform-style: preserve-3d;
   }
-
+  
   .pricing-card-3d {
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
-
+  
   .pricing-card-3d:hover {
     transform: rotateY(5deg) translateZ(20px);
   }
-
+  
   /* Number flow animations */
   .number-flow-container {
     @apply font-mono tabular-nums;
@@ -426,31 +392,30 @@ All colors MUST be HSL.
     @apply transition-all duration-300 ease-out;
     @apply hover:scale-105 hover:shadow-xl;
   }
-
+  
   .star-border-button::before {
-    content: "";
+    content: '';
     @apply absolute inset-0 bg-gradient-to-r from-accent/10 via-accent/5 to-accent/10;
     @apply opacity-0 transition-opacity duration-300;
     @apply rounded-lg;
   }
-
+  
   .star-border-button:hover::before {
     @apply opacity-100;
   }
-
+  
   /* Enhanced star animations */
   @keyframes star-twinkle {
-    0%,
-    100% {
-      opacity: 0;
-      transform: scale(0) rotate(0deg);
+    0%, 100% { 
+      opacity: 0; 
+      transform: scale(0) rotate(0deg); 
     }
-    50% {
-      opacity: 1;
-      transform: scale(1) rotate(180deg);
+    50% { 
+      opacity: 1; 
+      transform: scale(1) rotate(180deg); 
     }
   }
-
+  
   .star-twinkle {
     animation: star-twinkle 2s ease-in-out infinite;
   }
@@ -469,7 +434,7 @@ All colors MUST be HSL.
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
-
+  
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
@@ -478,11 +443,11 @@ All colors MUST be HSL.
   .cursor-none {
     cursor: none !important;
   }
-
+  
   .cursor-none * {
     cursor: none !important;
   }
-
+  
   /* Override cursor for interactive elements in ballpit sections */
   .cursor-pointer {
     cursor: pointer !important;
