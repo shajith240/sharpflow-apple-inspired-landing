@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Volume2, AudioWaveform } from "lucide-react";
 import GradientText from "@/components/ui/gradient-text";
 import SphereAudioVisualizer from "@/components/ui/spherical-audio-visualizer";
 import { RainbowButton } from "@/components/ui/rainbow-button";
@@ -59,35 +58,11 @@ const ElevenLabsSection = () => {
 
             {/* Visual Content */}
             <div className="fade-in fade-in-delay-1">
-              <div className="relative rounded-[1.25rem] border-[0.75px] border-border p-4 md:rounded-[1.5rem] md:p-6">
-                <div className="relative overflow-hidden rounded-xl border-[0.75px] bg-background/50 backdrop-blur-sm shadow-sm dark:shadow-[0px_0px_27px_0px_rgba(45,45,45,0.3)]">
-                  {!isMobile ? (
-                    // Desktop: Show full audio visualizer
-                    <SphereAudioVisualizer />
-                  ) : (
-                    // Mobile: Show lightweight alternative
-                    <div className="w-full h-64 md:h-80 flex flex-col items-center justify-center text-center p-8">
-                      <div className="mb-6">
-                        <div className="relative">
-                          <AudioWaveform className="w-16 h-16 text-primary mx-auto mb-4" />
-                          <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full blur-xl"></div>
-                        </div>
-                      </div>
-                      <h3 className="text-lg font-semibold text-primary mb-2">
-                        ElevenLabs Voice Engine
-                      </h3>
-                      <p className="text-sm text-muted-foreground mb-4">
-                        Experience natural, human-like voice synthesis powered
-                        by cutting-edge AI technology.
-                      </p>
-                      <div className="flex items-center justify-center space-x-2 text-xs text-muted-foreground">
-                        <Volume2 className="w-4 h-4" />
-                        <span>High-quality audio processing</span>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
+              {!isMobile ? (
+                // Desktop: Show audio visualizer without frame
+                <SphereAudioVisualizer />
+              ) : // Mobile: Hide audio visualizer completely - no visual content
+              null}
             </div>
           </div>
         </div>

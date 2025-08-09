@@ -27,7 +27,10 @@ interface PricingProps {
   plans: PricingPlan[];
   title?: string;
   description?: string;
-  renderButton?: (plan: PricingPlan, buttonClassName: string) => React.ReactNode;
+  renderButton?: (
+    plan: PricingPlan,
+    buttonClassName: string
+  ) => React.ReactNode;
 }
 
 export function Pricing({
@@ -80,7 +83,12 @@ export function Pricing({
       </div>
 
       <div className="flex justify-center items-center mb-10 gap-4">
-        <span className={cn("font-semibold transition-colors", isMonthly ? "text-foreground" : "text-muted-foreground")}>
+        <span
+          className={cn(
+            "font-semibold transition-colors",
+            isMonthly ? "text-foreground" : "text-muted-foreground"
+          )}
+        >
           Monthly
         </span>
         <label className="relative inline-flex items-center cursor-pointer">
@@ -93,7 +101,12 @@ export function Pricing({
             />
           </Label>
         </label>
-        <span className={cn("font-semibold transition-colors", !isMonthly ? "text-foreground" : "text-muted-foreground")}>
+        <span
+          className={cn(
+            "font-semibold transition-colors",
+            !isMonthly ? "text-foreground" : "text-muted-foreground"
+          )}
+        >
           Annual <span className="text-primary">(Save 20%)</span>
         </span>
       </div>
@@ -106,11 +119,11 @@ export function Pricing({
             whileInView={
               isDesktop
                 ? {
-                  y: plan.isPopular ? -20 : 0,
-                  opacity: 1,
-                  x: index === 2 ? -30 : index === 0 ? 30 : 0,
-                  scale: index === 0 || index === 2 ? 0.94 : 1.0,
-                }
+                    y: plan.isPopular ? -20 : 0,
+                    opacity: 1,
+                    x: index === 2 ? -30 : index === 0 ? 30 : 0,
+                    scale: index === 0 || index === 2 ? 0.94 : 1.0,
+                  }
                 : {}
             }
             viewport={{ once: true }}
@@ -149,17 +162,11 @@ export function Pricing({
               </p>
               <div className="mt-6 flex items-center justify-center gap-x-2">
                 <span className="text-5xl font-bold tracking-tight text-foreground">
+                  $
                   <NumberFlow
                     value={
                       isMonthly ? Number(plan.price) : Number(plan.yearlyPrice)
                     }
-                    format={{
-                      style: "currency",
-                      currency: "USD",
-                      minimumFractionDigits: 0,
-                      maximumFractionDigits: 0,
-                    }}
-                    formatter={(value) => `$${value}`}
                     transformTiming={{
                       duration: 500,
                       easing: "ease-out",

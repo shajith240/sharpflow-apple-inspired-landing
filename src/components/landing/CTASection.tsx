@@ -1,14 +1,18 @@
-import Ballpit from '@/components/ui/ballpit';
+import Ballpit from "@/components/ui/ballpit";
 import { BookingDialog } from "@/components/ui/booking-dialog";
 import { CAL_CONFIG } from "@/config/cal";
 import { useTheme } from "next-themes";
 import { RainbowButton } from "@/components/ui/rainbow-button";
 import { useEffect, useState } from "react";
-import { getDevicePerformanceProfile, PerformanceProfile } from "@/lib/performance-utils";
+import {
+  getDevicePerformanceProfile,
+  PerformanceProfile,
+} from "@/lib/performance-utils";
 
 const CTASection = () => {
   const { theme } = useTheme();
-  const [performanceProfile, setPerformanceProfile] = useState<PerformanceProfile | null>(null);
+  const [performanceProfile, setPerformanceProfile] =
+    useState<PerformanceProfile | null>(null);
 
   // Initialize performance profile
   useEffect(() => {
@@ -17,10 +21,13 @@ const CTASection = () => {
         const profile = await getDevicePerformanceProfile();
         setPerformanceProfile(profile);
       } catch (error) {
-        console.warn('Failed to get performance profile, using low-end defaults:', error);
+        console.warn(
+          "Failed to get performance profile, using low-end defaults:",
+          error
+        );
         // Fallback to low-end profile for safety
         setPerformanceProfile({
-          tier: 'low',
+          tier: "low",
           maxParticles: 300,
           maxSpheres: 40,
           targetFPS: 24,
@@ -36,14 +43,18 @@ const CTASection = () => {
   }, []);
 
   // Theme-aware colors for ballpit
-  const ballColors = theme === 'dark'
-    ? [0x333333, 0x0088ff, 0x00ccff, 0x66aaff, 0x4d79ff] // Brighter colors for dark theme
-    : [0x1a1a1a, 0x0066ff, 0x00aaff, 0x4d79ff]; // Original colors for light theme
+  const ballColors =
+    theme === "dark"
+      ? [0x333333, 0x0088ff, 0x00ccff, 0x66aaff, 0x4d79ff] // Brighter colors for dark theme
+      : [0x1a1a1a, 0x0066ff, 0x00aaff, 0x4d79ff]; // Original colors for light theme
 
   // Don't render ballpit until performance profile is loaded
   if (!performanceProfile) {
     return (
-      <section className="section-padding bg-primary relative overflow-hidden">
+      <section
+        id="contact"
+        className="section-padding bg-primary relative overflow-hidden"
+      >
         <div className="container-padding relative z-20">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-heading text-primary-foreground mb-6 fade-in">
@@ -77,24 +88,29 @@ const CTASection = () => {
   }
 
   return (
-    <section className="section-padding bg-primary relative overflow-hidden cursor-none">
+    <section
+      id="contact"
+      className="section-padding bg-primary relative overflow-hidden cursor-none"
+    >
       {/* Ballpit Background - Full Coverage */}
-      <div style={{
-        position: 'absolute',
-        inset: '0',
-        overflow: 'hidden',
-        width: '100%',
-        height: '100%',
-        opacity: '0.8',
-        zIndex: 1,
-        cursor: 'none'
-      }}>
+      <div
+        style={{
+          position: "absolute",
+          inset: "0",
+          overflow: "hidden",
+          width: "100%",
+          height: "100%",
+          opacity: "0.8",
+          zIndex: 1,
+          cursor: "none",
+        }}
+      >
         <Ballpit
           count={performanceProfile.maxSpheres}
-          gravity={performanceProfile.tier === 'low' ? 0.5 : 0.7}
-          friction={performanceProfile.tier === 'low' ? 0.9 : 0.8}
+          gravity={performanceProfile.tier === "low" ? 0.5 : 0.7}
+          friction={performanceProfile.tier === "low" ? 0.9 : 0.8}
           wallBounce={0.95}
-          followCursor={performanceProfile.tier !== 'low'}
+          followCursor={performanceProfile.tier !== "low"}
           colors={ballColors}
           className="cursor-none"
           // Additional performance optimizations

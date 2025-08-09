@@ -11,8 +11,11 @@ const HeroSection = () => {
   const { theme } = useTheme();
 
   return (
-    <section className="section-padding min-h-screen flex items-center relative">
-      {theme === 'dark' ? <DarkVeil speed={1.5} /> : <AuroraEffect />}
+    <section
+      id="hero"
+      className="section-padding min-h-screen flex items-center relative"
+    >
+      {theme === "dark" ? <DarkVeil speed={1.5} /> : <AuroraEffect />}
 
       <div className="container-padding w-full">
         <div className="max-w-4xl mx-auto text-center">
