@@ -43,7 +43,7 @@ const ElevenLabsSection = () => {
                   animationSpeed={6}
                   className="inline"
                 >
-                  <strong>ElevenLabs</strong>
+                  <strong>IIElevenLabs</strong>
                 </GradientText>
               </h2>
               <p className="text-body mb-8">
