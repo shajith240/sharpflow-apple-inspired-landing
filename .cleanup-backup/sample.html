@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Conic Visualizer</title>
+    <style>
+        /*
+        By defining the gradient's properties as CSS variables,
+        we can easily access and change them with JavaScript.
+        The @property rule helps the browser animate them smoothly.
+        */
+        @property --angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
+        }
+        @property --bass-stop {
+            syntax: '<percentage>';
+            initial-value: 10%;
+            inherits: false;
+        }
+        @property --treble-stop {
+            syntax: '<percentage>';
+            initial-value: 20%;
+            inherits: false;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: sans-serif;
+        }
+        
+        #visualizer {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            margin-bottom: 30px;
+            /* This is the core visual. We define a multi-part conic gradient
+            using our CSS variables. JavaScript will animate these variables.
+            */
+            background: conic-gradient(
+                from var(--angle),
+                #2A5B3D 0%, /* Dark Green */
+                #63C76A var(--bass-stop), /* Bright Green controlled by Bass */
+                #F8AFA6 180deg, /* Salmon Pink */
+                #ffffff var(--treble-stop), /* White controlled by Treble */
+                #2A5B3D 100% /* Back to Dark Green */
+            );
+            transition: --bass-stop 0.1s linear, --treble-stop 0.1s linear;
+        }
+
+        audio {
+            width: 80%;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Conic Gradient Visualizer</h1>
+    <div id="visualizer"></div>
+    <audio id="myAudio" src="your-audio-file.mp3" controls crossOrigin="anonymous"></audio>
+
+    <script>
+        window.addEventListener('load', () => {
+            const audioPlayer = document.getElementById('myAudio');
+            const visualizer = document.getElementById('visualizer');
+            let audioCtx;
+            let analyser;
+
+            function setupAudioContext() {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioCtx.createAnalyser();
+                const source = audioCtx.createMediaElementSource(audioPlayer);
+                source.connect(analyser);
+                analyser.connect(audioCtx.destination);
+                analyser.fftSize = 256;
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                const bufferLength = analyser.frequencyBinCount;
+                const dataArray = new Uint8Array(bufferLength);
+                analyser.getByteFrequencyData(dataArray);
+
+                // --- DATA PROCESSING ---
+                // We split the frequency data into "bass" and "treble" sections.
+
+                const bassFrequencies = dataArray.slice(0, Math.floor(bufferLength * 0.2));
+                const trebleFrequencies = dataArray.slice(Math.floor(bufferLength * 0.5), bufferLength);
+
+                // Calculate the average volume for each section
+                const avgBass = bassFrequencies.reduce((sum, val) => sum + val, 0) / bassFrequencies.length;
+                const avgTreble = trebleFrequencies.reduce((sum, val) => sum + val, 0) / trebleFrequencies.length;
+                const avgVolume = dataArray.reduce((sum, val) => sum + val, 0) / dataArray.length;
+
+                // --- VISUAL MAPPING ---
+                // Now, we map this audio data to our CSS variables.
+
+                // Map average bass to the green color stop percentage (e.g., 10% to 60%)
+                const bassStop = 10 + (avgBass / 255) * 50; 
+                // Map average treble to the white color stop percentage (e.g., 200deg to 300deg -> 55% to 83%)
+                const trebleStop = 200 + (avgTreble / 255) * 100;
+
+                // Map overall volume to rotation speed
+                const currentAngle = parseFloat(getComputedStyle(visualizer).getPropertyValue('--angle'));
+                const newAngle = currentAngle + (avgVolume / 255) * 2;
+
+                // Update the CSS variables on the visualizer element
+                visualizer.style.setProperty('--bass-stop', `${bassStop}%`);
+                visualizer.style.setProperty('--treble-stop', `${trebleStop}deg`);
+                visualizer.style.setProperty('--angle', `${newAngle}deg`);
+            }
+
+            audioPlayer.onplay = () => {
+                if (!audioCtx) {
+                    setupAudioContext();
+                }
+                audioCtx.resume();
+                animate();
+            };
+        });
+    </script>
+</body>
+</html>

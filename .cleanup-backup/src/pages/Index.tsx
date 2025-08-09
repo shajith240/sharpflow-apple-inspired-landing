@@ -1,6 +1,6 @@
 import Header from "@/components/landing/Header";
 import HeroSection from "@/components/landing/HeroSection";
-import HowWeWorkSection from "@/components/landing/HowWeWorkSection";
+import GlowingUseCasesSection from "@/components/landing/GlowingUseCasesSection";
 import ElevenLabsSection from "@/components/landing/ElevenLabsSection";
 import PricingSection from "@/components/landing/PricingSection";
 import CTASection from "@/components/landing/CTASection";
@@ -11,7 +11,7 @@ const Index = () => {
     <div className="min-h-screen">
       <Header />
       <HeroSection />
-      <HowWeWorkSection />
+      <GlowingUseCasesSection />
       <ElevenLabsSection />
       <PricingSection />
       <CTASection />

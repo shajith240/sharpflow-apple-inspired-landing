@@ -3,61 +3,63 @@ import { Pricing } from "@/components/ui/pricing";
 const PricingSection = () => {
   const plans = [
     {
-      name: "Basic Package",
-      price: "Starting from ₹1,999",
-      yearlyPrice: "Custom Quote",
-      period: "",
+      name: "Starter Plan",
+      price: "89",
+      yearlyPrice: "71",
+      period: "month",
       description: "Perfect for small businesses starting with voice automation",
       features: [
-        "Free consultation call",
-        "Query Bot functionality",
-        "1 Website integration",
-        "Custom script development",
+        "50 minutes of voice interactions/month",
+        "Basic voice agent setup",
+        "Website integration",
+        "Custom workflow creation",
         "Email support",
-        "Basic analytics setup"
+        "Monthly usage analytics",
+        "$249 one-time setup fee"
       ],
-      buttonText: "Schedule Consultation",
+      buttonText: "Get Started",
       href: "#contact",
       isPopular: false
     },
     {
-      name: "Growth Package",
-      price: "Starting from ₹3,999",
-      yearlyPrice: "Custom Quote",
-      period: "",
-      description: "Ideal for growing businesses with appointment booking needs",
+      name: "Professional Plan",
+      price: "159",
+      yearlyPrice: "127",
+      period: "month",
+      description: "Ideal for growing businesses with higher interaction needs",
       features: [
-        "Free consultation call",
-        "Query + Appointment booking",
-        "1 Website integration",
-        "Custom booking logic",
+        "250 minutes of voice interactions/month",
+        "Advanced voice agent with personality",
+        "Website integration",
+        "Complex workflow automation",
         "Priority support",
-        "Advanced analytics",
+        "Detailed analytics & reporting",
         "Custom voice training",
-        "API integration"
+        "Multiple integration options",
+        "$249 one-time setup fee"
       ],
-      buttonText: "Schedule Consultation",
+      buttonText: "Get Started",
       href: "#contact",
       isPopular: true
     },
     {
-      name: "Enterprise Package",
-      price: "Starting from ₹6,999",
-      yearlyPrice: "Custom Quote",
-      period: "",
-      description: "Complete automation solution for established businesses",
+      name: "Enterprise Plan",
+      price: "449",
+      yearlyPrice: "359",
+      period: "month",
+      description: "Complete solution for businesses with high-volume needs",
       features: [
-        "Free consultation call",
-        "Fully custom AI agent",
-        "Multiple site integrations",
-        "Full logic customization",
-        "Dedicated support + Dashboard",
-        "WhatsApp integration",
-        "CRM integration",
-        "Custom analytics",
-        "24/7 phone support"
+        "3,600 minutes of voice interactions/month",
+        "Premium voice agent with full customization",
+        "Multiple website integrations",
+        "Advanced workflow automation",
+        "Dedicated support manager",
+        "Real-time analytics dashboard",
+        "Custom integrations",
+        "24/7 priority support",
+        "$249 one-time setup fee"
       ],
-      buttonText: "Schedule Consultation",
+      buttonText: "Contact Sales",
       href: "#contact",
       isPopular: false
     }
@@ -68,9 +70,8 @@ const PricingSection = () => {
       <div className="container-padding">
         <Pricing
           plans={plans}
-          title="Service Packages"
-          description="Custom solutions tailored to your business needs. Every package includes a free consultation to understand your requirements and provide accurate pricing.
-Final pricing determined after consultation based on your specific needs."
+          title="Simple, Transparent Pricing"
+          description="Choose the plan that fits your business needs. All plans include setup, integration, and ongoing support. Start with our consultation to determine the best fit for your requirements."
           renderButton={() => null}
         />
 

@@ -1,0 +1,1761 @@
+{
+  "files": [
+    {
+      "filePath": "components.json",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 432
+    },
+    {
+      "filePath": "eslint.config.js",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 818
+    },
+    {
+      "filePath": "index.html",
+      "isUsed": true,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1180
+    },
+    {
+      "filePath": "package-lock.json",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 381999
+    },
+    {
+      "filePath": "package.json",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 3241
+    },
+    {
+      "filePath": "postcss.config.js",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 86
+    },
+    {
+      "filePath": "react bits\\Ballpit\\Ballpit.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 25537
+    },
+    {
+      "filePath": "react bits\\GradientText\\GradientText.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 2475
+    },
+    {
+      "filePath": "react bits\\MagicBento\\MagicBento.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 26837
+    },
+    {
+      "filePath": "react bits\\StarBorder\\StarBorder.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 2309
+    },
+    {
+      "filePath": "sample.html",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 5237
+    },
+    {
+      "filePath": "scripts\\cleanup\\cli.ts",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 3829
+    },
+    {
+      "filePath": "scripts\\cleanup\\file-scanner.ts",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 3394
+    },
+    {
+      "filePath": "scripts\\cleanup\\import-export-analyzer.ts",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 8205
+    },
+    {
+      "filePath": "scripts\\cleanup\\project-analyzer.ts",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 9696
+    },
+    {
+      "filePath": "scripts\\cleanup\\types.ts",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1320
+    },
+    {
+      "filePath": "src\\App.css",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 648
+    },
+    {
+      "filePath": "src\\App.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1207
+    },
+    {
+      "filePath": "src\\components\\ThemeProvider.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 392
+    },
+    {
+      "filePath": "src\\components\\backgrounds\\AnimatedDarkVeil.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 0
+    },
+    {
+      "filePath": "src\\components\\backgrounds\\DarkVeil.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 11999
+    },
+    {
+      "filePath": "src\\components\\landing\\CTASection.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 2575
+    },
+    {
+      "filePath": "src\\components\\landing\\ElevenLabsSection.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 2508
+    },
+    {
+      "filePath": "src\\components\\landing\\Footer.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 3688
+    },
+    {
+      "filePath": "src\\components\\landing\\GlowingUseCasesSection.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 810
+    },
+    {
+      "filePath": "src\\components\\landing\\Header.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 3424
+    },
+    {
+      "filePath": "src\\components\\landing\\HeroSection.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 2621
+    },
+    {
+      "filePath": "src\\components\\landing\\PricingSection.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 2552
+    },
+    {
+      "filePath": "src\\components\\landing\\UseCasesSection.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 2478
+    },
+    {
+      "filePath": "src\\components\\landing\\WhatWeDoSection.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 2853
+    },
+    {
+      "filePath": "src\\components\\ui\\accordion.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 2033
+    },
+    {
+      "filePath": "src\\components\\ui\\alert-dialog.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 4559
+    },
+    {
+      "filePath": "src\\components\\ui\\alert.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1643
+    },
+    {
+      "filePath": "src\\components\\ui\\aspect-ratio.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 145
+    },
+    {
+      "filePath": "src\\components\\ui\\aurora-background.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 2576
+    },
+    {
+      "filePath": "src\\components\\ui\\aurora-effect.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1563
+    },
+    {
+      "filePath": "src\\components\\ui\\avatar.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1453
+    },
+    {
+      "filePath": "src\\components\\ui\\badge.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1164
+    },
+    {
+      "filePath": "src\\components\\ui\\ballpit.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 29781
+    },
+    {
+      "filePath": "src\\components\\ui\\booking-dialog.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 691
+    },
+    {
+      "filePath": "src\\components\\ui\\breadcrumb.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 2816
+    },
+    {
+      "filePath": "src\\components\\ui\\button.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1957
+    },
+    {
+      "filePath": "src\\components\\ui\\calendar.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 3966
+    },
+    {
+      "filePath": "src\\components\\ui\\card.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1956
+    },
+    {
+      "filePath": "src\\components\\ui\\carousel.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 6470
+    },
+    {
+      "filePath": "src\\components\\ui\\chart.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 10829
+    },
+    {
+      "filePath": "src\\components\\ui\\checkbox.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1084
+    },
+    {
+      "filePath": "src\\components\\ui\\collapsible.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 324
+    },
+    {
+      "filePath": "src\\components\\ui\\command.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 5032
+    },
+    {
+      "filePath": "src\\components\\ui\\context-menu.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 7444
+    },
+    {
+      "filePath": "src\\components\\ui\\dialog.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 3955
+    },
+    {
+      "filePath": "src\\components\\ui\\drawer.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 3123
+    },
+    {
+      "filePath": "src\\components\\ui\\dropdown-menu.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 7493
+    },
+    {
+      "filePath": "src\\components\\ui\\form.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 4261
+    },
+    {
+      "filePath": "src\\components\\ui\\glowing-effect-demo.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 3272
+    },
+    {
+      "filePath": "src\\components\\ui\\glowing-effect.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 6087
+    },
+    {
+      "filePath": "src\\components\\ui\\gradient-text.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 2042
+    },
+    {
+      "filePath": "src\\components\\ui\\hover-card.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1211
+    },
+    {
+      "filePath": "src\\components\\ui\\input-otp.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 2223
+    },
+    {
+      "filePath": "src\\components\\ui\\input.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 813
+    },
+    {
+      "filePath": "src\\components\\ui\\label.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 734
+    },
+    {
+      "filePath": "src\\components\\ui\\menubar.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 8208
+    },
+    {
+      "filePath": "src\\components\\ui\\navigation-menu.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 5174
+    },
+    {
+      "filePath": "src\\components\\ui\\pagination.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 2868
+    },
+    {
+      "filePath": "src\\components\\ui\\popover.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1259
+    },
+    {
+      "filePath": "src\\components\\ui\\pricing.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 8677
+    },
+    {
+      "filePath": "src\\components\\ui\\progress.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 803
+    },
+    {
+      "filePath": "src\\components\\ui\\radio-group.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1509
+    },
+    {
+      "filePath": "src\\components\\ui\\rainbow-button-demo.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 171
+    },
+    {
+      "filePath": "src\\components\\ui\\rainbow-button.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1871
+    },
+    {
+      "filePath": "src\\components\\ui\\resizable.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1752
+    },
+    {
+      "filePath": "src\\components\\ui\\scroll-area.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1688
+    },
+    {
+      "filePath": "src\\components\\ui\\select.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 5773
+    },
+    {
+      "filePath": "src\\components\\ui\\separator.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 785
+    },
+    {
+      "filePath": "src\\components\\ui\\sheet.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 4381
+    },
+    {
+      "filePath": "src\\components\\ui\\sidebar.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 24128
+    },
+    {
+      "filePath": "src\\components\\ui\\skeleton.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 276
+    },
+    {
+      "filePath": "src\\components\\ui\\slider.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1103
+    },
+    {
+      "filePath": "src\\components\\ui\\sonner.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 923
+    },
+    {
+      "filePath": "src\\components\\ui\\spherical-audio-visualizer.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 9266
+    },
+    {
+      "filePath": "src\\components\\ui\\star-border.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1648
+    },
+    {
+      "filePath": "src\\components\\ui\\switch.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1457
+    },
+    {
+      "filePath": "src\\components\\ui\\table.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 2882
+    },
+    {
+      "filePath": "src\\components\\ui\\tabs.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1936
+    },
+    {
+      "filePath": "src\\components\\ui\\textarea.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 796
+    },
+    {
+      "filePath": "src\\components\\ui\\toast.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 4972
+    },
+    {
+      "filePath": "src\\components\\ui\\toaster.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 805
+    },
+    {
+      "filePath": "src\\components\\ui\\toggle-group.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1798
+    },
+    {
+      "filePath": "src\\components\\ui\\toggle.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1478
+    },
+    {
+      "filePath": "src\\components\\ui\\tooltip.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1173
+    },
+    {
+      "filePath": "src\\components\\ui\\use-toast.ts",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 85
+    },
+    {
+      "filePath": "src\\config\\booking.ts",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 1149
+    },
+    {
+      "filePath": "src\\config\\cal.ts",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 862
+    },
+    {
+      "filePath": "src\\hooks\\use-media-query.ts",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 507
+    },
+    {
+      "filePath": "src\\hooks\\use-mobile.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 584
+    },
+    {
+      "filePath": "src\\hooks\\use-toast.ts",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 4086
+    },
+    {
+      "filePath": "src\\index.css",
+      "isUsed": true,
+      "referencedBy": [
+        "src\\main.tsx"
+      ],
+      "exports": [],
+      "imports": [],
+      "size": 11299
+    },
+    {
+      "filePath": "src\\lib\\utils.ts",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 172
+    },
+    {
+      "filePath": "src\\main.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 388
+    },
+    {
+      "filePath": "src\\pages\\Index.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 735
+    },
+    {
+      "filePath": "src\\pages\\NotFound.tsx",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 766
+    },
+    {
+      "filePath": "src\\vite-env.d.ts",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 39
+    },
+    {
+      "filePath": "tailwind.config.ts",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 4639
+    },
+    {
+      "filePath": "tsconfig.app.json",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 682
+    },
+    {
+      "filePath": "tsconfig.json",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 400
+    },
+    {
+      "filePath": "tsconfig.node.json",
+      "isUsed": false,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 503
+    },
+    {
+      "filePath": "vite.config.ts",
+      "isUsed": true,
+      "referencedBy": [],
+      "exports": [],
+      "imports": [],
+      "size": 493
+    }
+  ],
+  "dependencies": [
+    {
+      "packageName": "@hookform/resolvers",
+      "isUsed": false,
+      "usageLocations": [],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@number-flow/react",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\pricing.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-accordion",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\accordion.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-alert-dialog",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\alert-dialog.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-aspect-ratio",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\aspect-ratio.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-avatar",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\avatar.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-checkbox",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\checkbox.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-collapsible",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\collapsible.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-context-menu",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\context-menu.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-dialog",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\command.tsx",
+        "src\\components\\ui\\dialog.tsx",
+        "src\\components\\ui\\sheet.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-dropdown-menu",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\dropdown-menu.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-hover-card",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\hover-card.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-label",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\form.tsx",
+        "src\\components\\ui\\label.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-menubar",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\menubar.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-navigation-menu",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\navigation-menu.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-popover",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\popover.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-progress",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\progress.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-radio-group",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\radio-group.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-scroll-area",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\scroll-area.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-select",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\select.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-separator",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\separator.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-slider",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\slider.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-slot",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\breadcrumb.tsx",
+        "src\\components\\ui\\button.tsx",
+        "src\\components\\ui\\form.tsx",
+        "src\\components\\ui\\sidebar.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-switch",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\switch.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-tabs",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\tabs.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-toast",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\toast.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-toggle",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\toggle.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-toggle-group",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\toggle-group.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@radix-ui/react-tooltip",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\tooltip.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@react-three/drei",
+      "isUsed": false,
+      "usageLocations": [],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@react-three/fiber",
+      "isUsed": false,
+      "usageLocations": [],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@tanstack/react-query",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\App.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "canvas-confetti",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\pricing.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "class-variance-authority",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\alert.tsx",
+        "src\\components\\ui\\badge.tsx",
+        "src\\components\\ui\\button.tsx",
+        "src\\components\\ui\\label.tsx",
+        "src\\components\\ui\\navigation-menu.tsx",
+        "src\\components\\ui\\sheet.tsx",
+        "src\\components\\ui\\sidebar.tsx",
+        "src\\components\\ui\\toast.tsx",
+        "src\\components\\ui\\toggle-group.tsx",
+        "src\\components\\ui\\toggle.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "clsx",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\lib\\utils.ts"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "cmdk",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\command.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "date-fns",
+      "isUsed": false,
+      "usageLocations": [],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "embla-carousel-react",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\carousel.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "framer-motion",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\pricing.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "gsap",
+      "isUsed": true,
+      "usageLocations": [
+        "react bits\\Ballpit\\Ballpit.tsx",
+        "react bits\\MagicBento\\MagicBento.tsx",
+        "src\\components\\ui\\ballpit.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "input-otp",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\input-otp.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "jsrepo",
+      "isUsed": false,
+      "usageLocations": [],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "lucide-react",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\landing\\ElevenLabsSection.tsx",
+        "src\\components\\landing\\Footer.tsx",
+        "src\\components\\landing\\Header.tsx",
+        "src\\components\\landing\\HeroSection.tsx",
+        "src\\components\\landing\\UseCasesSection.tsx",
+        "src\\components\\landing\\WhatWeDoSection.tsx",
+        "src\\components\\ui\\accordion.tsx",
+        "src\\components\\ui\\breadcrumb.tsx",
+        "src\\components\\ui\\calendar.tsx",
+        "src\\components\\ui\\carousel.tsx",
+        "src\\components\\ui\\checkbox.tsx",
+        "src\\components\\ui\\command.tsx",
+        "src\\components\\ui\\context-menu.tsx",
+        "src\\components\\ui\\dialog.tsx",
+        "src\\components\\ui\\dropdown-menu.tsx",
+        "src\\components\\ui\\glowing-effect-demo.tsx",
+        "src\\components\\ui\\input-otp.tsx",
+        "src\\components\\ui\\menubar.tsx",
+        "src\\components\\ui\\navigation-menu.tsx",
+        "src\\components\\ui\\pagination.tsx",
+        "src\\components\\ui\\pricing.tsx",
+        "src\\components\\ui\\radio-group.tsx",
+        "src\\components\\ui\\resizable.tsx",
+        "src\\components\\ui\\select.tsx",
+        "src\\components\\ui\\sheet.tsx",
+        "src\\components\\ui\\sidebar.tsx",
+        "src\\components\\ui\\toast.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "motion",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\glowing-effect.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "next-themes",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ThemeProvider.tsx",
+        "src\\components\\landing\\CTASection.tsx",
+        "src\\components\\landing\\ElevenLabsSection.tsx",
+        "src\\components\\landing\\Footer.tsx",
+        "src\\components\\landing\\Header.tsx",
+        "src\\components\\landing\\HeroSection.tsx",
+        "src\\components\\ui\\sonner.tsx",
+        "src\\components\\ui\\spherical-audio-visualizer.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "ogl",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\backgrounds\\DarkVeil.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "react",
+      "isUsed": true,
+      "usageLocations": [
+        "react bits\\Ballpit\\Ballpit.tsx",
+        "react bits\\GradientText\\GradientText.tsx",
+        "react bits\\MagicBento\\MagicBento.tsx",
+        "react bits\\StarBorder\\StarBorder.tsx",
+        "src\\components\\ThemeProvider.tsx",
+        "src\\components\\backgrounds\\DarkVeil.tsx",
+        "src\\components\\landing\\Footer.tsx",
+        "src\\components\\landing\\Header.tsx",
+        "src\\components\\ui\\accordion.tsx",
+        "src\\components\\ui\\alert-dialog.tsx",
+        "src\\components\\ui\\alert.tsx",
+        "src\\components\\ui\\aurora-background.tsx",
+        "src\\components\\ui\\aurora-effect.tsx",
+        "src\\components\\ui\\avatar.tsx",
+        "src\\components\\ui\\badge.tsx",
+        "src\\components\\ui\\ballpit.tsx",
+        "src\\components\\ui\\booking-dialog.tsx",
+        "src\\components\\ui\\breadcrumb.tsx",
+        "src\\components\\ui\\button.tsx",
+        "src\\components\\ui\\calendar.tsx",
+        "src\\components\\ui\\card.tsx",
+        "src\\components\\ui\\carousel.tsx",
+        "src\\components\\ui\\chart.tsx",
+        "src\\components\\ui\\checkbox.tsx",
+        "src\\components\\ui\\command.tsx",
+        "src\\components\\ui\\context-menu.tsx",
+        "src\\components\\ui\\dialog.tsx",
+        "src\\components\\ui\\drawer.tsx",
+        "src\\components\\ui\\dropdown-menu.tsx",
+        "src\\components\\ui\\form.tsx",
+        "src\\components\\ui\\glowing-effect.tsx",
+        "src\\components\\ui\\gradient-text.tsx",
+        "src\\components\\ui\\hover-card.tsx",
+        "src\\components\\ui\\input-otp.tsx",
+        "src\\components\\ui\\input.tsx",
+        "src\\components\\ui\\label.tsx",
+        "src\\components\\ui\\menubar.tsx",
+        "src\\components\\ui\\navigation-menu.tsx",
+        "src\\components\\ui\\pagination.tsx",
+        "src\\components\\ui\\popover.tsx",
+        "src\\components\\ui\\pricing.tsx",
+        "src\\components\\ui\\progress.tsx",
+        "src\\components\\ui\\radio-group.tsx",
+        "src\\components\\ui\\rainbow-button.tsx",
+        "src\\components\\ui\\scroll-area.tsx",
+        "src\\components\\ui\\select.tsx",
+        "src\\components\\ui\\separator.tsx",
+        "src\\components\\ui\\sheet.tsx",
+        "src\\components\\ui\\sidebar.tsx",
+        "src\\components\\ui\\slider.tsx",
+        "src\\components\\ui\\spherical-audio-visualizer.tsx",
+        "src\\components\\ui\\star-border.tsx",
+        "src\\components\\ui\\switch.tsx",
+        "src\\components\\ui\\table.tsx",
+        "src\\components\\ui\\tabs.tsx",
+        "src\\components\\ui\\textarea.tsx",
+        "src\\components\\ui\\toast.tsx",
+        "src\\components\\ui\\toggle-group.tsx",
+        "src\\components\\ui\\toggle.tsx",
+        "src\\components\\ui\\tooltip.tsx",
+        "src\\hooks\\use-media-query.ts",
+        "src\\hooks\\use-mobile.tsx",
+        "src\\hooks\\use-toast.ts",
+        "src\\pages\\NotFound.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "react-day-picker",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\calendar.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "react-dom",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\main.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "react-hook-form",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\form.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "react-resizable-panels",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\resizable.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "react-router-dom",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\App.tsx",
+        "src\\pages\\NotFound.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "recharts",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\chart.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "sonner",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\sonner.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "tailwind-merge",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\lib\\utils.ts"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "tailwindcss-animate",
+      "isUsed": true,
+      "usageLocations": [
+        "tailwind.config.ts"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "three",
+      "isUsed": true,
+      "usageLocations": [
+        "react bits\\Ballpit\\Ballpit.tsx",
+        "src\\components\\ui\\ballpit.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "vaul",
+      "isUsed": true,
+      "usageLocations": [
+        "src\\components\\ui\\drawer.tsx"
+      ],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "zod",
+      "isUsed": false,
+      "usageLocations": [],
+      "size": 0,
+      "isDev": false
+    },
+    {
+      "packageName": "@eslint/js",
+      "isUsed": true,
+      "usageLocations": [
+        "eslint.config.js"
+      ],
+      "size": 0,
+      "isDev": true
+    },
+    {
+      "packageName": "@tailwindcss/typography",
+      "isUsed": false,
+      "usageLocations": [],
+      "size": 0,
+      "isDev": true
+    },
+    {
+      "packageName": "@types/node",
+      "isUsed": false,
+      "usageLocations": [],
+      "size": 0,
+      "isDev": true
+    },
+    {
+      "packageName": "@types/react",
+      "isUsed": false,
+      "usageLocations": [],
+      "size": 0,
+      "isDev": true
+    },
+    {
+      "packageName": "@types/react-dom",
+      "isUsed": false,
+      "usageLocations": [],
+      "size": 0,
+      "isDev": true
+    },
+    {
+      "packageName": "@vitejs/plugin-react-swc",
+      "isUsed": true,
+      "usageLocations": [
+        "vite.config.ts"
+      ],
+      "size": 0,
+      "isDev": true
+    },
+    {
+      "packageName": "autoprefixer",
+      "isUsed": false,
+      "usageLocations": [],
+      "size": 0,
+      "isDev": true
+    },
+    {
+      "packageName": "eslint",
+      "isUsed": false,
+      "usageLocations": [],
+      "size": 0,
+      "isDev": true
+    },
+    {
+      "packageName": "eslint-plugin-react-hooks",
+      "isUsed": true,
+      "usageLocations": [
+        "eslint.config.js"
+      ],
+      "size": 0,
+      "isDev": true
+    },
+    {
+      "packageName": "eslint-plugin-react-refresh",
+      "isUsed": true,
+      "usageLocations": [
+        "eslint.config.js"
+      ],
+      "size": 0,
+      "isDev": true
+    },
+    {
+      "packageName": "globals",
+      "isUsed": true,
+      "usageLocations": [
+        "eslint.config.js"
+      ],
+      "size": 0,
+      "isDev": true
+    },
+    {
+      "packageName": "lovable-tagger",
+      "isUsed": true,
+      "usageLocations": [
+        "vite.config.ts"
+      ],
+      "size": 0,
+      "isDev": true
+    },
+    {
+      "packageName": "postcss",
+      "isUsed": false,
+      "usageLocations": [],
+      "size": 0,
+      "isDev": true
+    },
+    {
+      "packageName": "tailwindcss",
+      "isUsed": true,
+      "usageLocations": [
+        "tailwind.config.ts"
+      ],
+      "size": 0,
+      "isDev": true
+    },
+    {
+      "packageName": "tsx",
+      "isUsed": false,
+      "usageLocations": [],
+      "size": 0,
+      "isDev": true
+    },
+    {
+      "packageName": "typescript",
+      "isUsed": true,
+      "usageLocations": [
+        "scripts\\cleanup\\import-export-analyzer.ts"
+      ],
+      "size": 0,
+      "isDev": true
+    },
+    {
+      "packageName": "typescript-eslint",
+      "isUsed": true,
+      "usageLocations": [
+        "eslint.config.js"
+      ],
+      "size": 0,
+      "isDev": true
+    },
+    {
+      "packageName": "vite",
+      "isUsed": true,
+      "usageLocations": [
+        "vite.config.ts"
+      ],
+      "size": 0,
+      "isDev": true
+    }
+  ],
+  "totalFiles": 107,
+  "totalSize": 763999,
+  "unusedFiles": [
+    "components.json",
+    "package-lock.json",
+    "react bits\\Ballpit\\Ballpit.tsx",
+    "react bits\\GradientText\\GradientText.tsx",
+    "react bits\\MagicBento\\MagicBento.tsx",
+    "react bits\\StarBorder\\StarBorder.tsx",
+    "sample.html",
+    "scripts\\cleanup\\cli.ts",
+    "scripts\\cleanup\\file-scanner.ts",
+    "scripts\\cleanup\\import-export-analyzer.ts",
+    "scripts\\cleanup\\project-analyzer.ts",
+    "scripts\\cleanup\\types.ts",
+    "src\\App.css",
+    "src\\App.tsx",
+    "src\\components\\ThemeProvider.tsx",
+    "src\\components\\backgrounds\\AnimatedDarkVeil.tsx",
+    "src\\components\\backgrounds\\DarkVeil.tsx",
+    "src\\components\\landing\\CTASection.tsx",
+    "src\\components\\landing\\ElevenLabsSection.tsx",
+    "src\\components\\landing\\Footer.tsx",
+    "src\\components\\landing\\GlowingUseCasesSection.tsx",
+    "src\\components\\landing\\Header.tsx",
+    "src\\components\\landing\\HeroSection.tsx",
+    "src\\components\\landing\\PricingSection.tsx",
+    "src\\components\\landing\\UseCasesSection.tsx",
+    "src\\components\\landing\\WhatWeDoSection.tsx",
+    "src\\components\\ui\\accordion.tsx",
+    "src\\components\\ui\\alert-dialog.tsx",
+    "src\\components\\ui\\alert.tsx",
+    "src\\components\\ui\\aspect-ratio.tsx",
+    "src\\components\\ui\\aurora-background.tsx",
+    "src\\components\\ui\\aurora-effect.tsx",
+    "src\\components\\ui\\avatar.tsx",
+    "src\\components\\ui\\badge.tsx",
+    "src\\components\\ui\\ballpit.tsx",
+    "src\\components\\ui\\booking-dialog.tsx",
+    "src\\components\\ui\\breadcrumb.tsx",
+    "src\\components\\ui\\button.tsx",
+    "src\\components\\ui\\calendar.tsx",
+    "src\\components\\ui\\card.tsx",
+    "src\\components\\ui\\carousel.tsx",
+    "src\\components\\ui\\chart.tsx",
+    "src\\components\\ui\\checkbox.tsx",
+    "src\\components\\ui\\collapsible.tsx",
+    "src\\components\\ui\\command.tsx",
+    "src\\components\\ui\\context-menu.tsx",
+    "src\\components\\ui\\dialog.tsx",
+    "src\\components\\ui\\drawer.tsx",
+    "src\\components\\ui\\dropdown-menu.tsx",
+    "src\\components\\ui\\form.tsx",
+    "src\\components\\ui\\glowing-effect-demo.tsx",
+    "src\\components\\ui\\glowing-effect.tsx",
+    "src\\components\\ui\\gradient-text.tsx",
+    "src\\components\\ui\\hover-card.tsx",
+    "src\\components\\ui\\input-otp.tsx",
+    "src\\components\\ui\\input.tsx",
+    "src\\components\\ui\\label.tsx",
+    "src\\components\\ui\\menubar.tsx",
+    "src\\components\\ui\\navigation-menu.tsx",
+    "src\\components\\ui\\pagination.tsx",
+    "src\\components\\ui\\popover.tsx",
+    "src\\components\\ui\\pricing.tsx",
+    "src\\components\\ui\\progress.tsx",
+    "src\\components\\ui\\radio-group.tsx",
+    "src\\components\\ui\\rainbow-button-demo.tsx",
+    "src\\components\\ui\\rainbow-button.tsx",
+    "src\\components\\ui\\resizable.tsx",
+    "src\\components\\ui\\scroll-area.tsx",
+    "src\\components\\ui\\select.tsx",
+    "src\\components\\ui\\separator.tsx",
+    "src\\components\\ui\\sheet.tsx",
+    "src\\components\\ui\\sidebar.tsx",
+    "src\\components\\ui\\skeleton.tsx",
+    "src\\components\\ui\\slider.tsx",
+    "src\\components\\ui\\sonner.tsx",
+    "src\\components\\ui\\spherical-audio-visualizer.tsx",
+    "src\\components\\ui\\star-border.tsx",
+    "src\\components\\ui\\switch.tsx",
+    "src\\components\\ui\\table.tsx",
+    "src\\components\\ui\\tabs.tsx",
+    "src\\components\\ui\\textarea.tsx",
+    "src\\components\\ui\\toast.tsx",
+    "src\\components\\ui\\toaster.tsx",
+    "src\\components\\ui\\toggle-group.tsx",
+    "src\\components\\ui\\toggle.tsx",
+    "src\\components\\ui\\tooltip.tsx",
+    "src\\components\\ui\\use-toast.ts",
+    "src\\config\\booking.ts",
+    "src\\config\\cal.ts",
+    "src\\hooks\\use-media-query.ts",
+    "src\\hooks\\use-mobile.tsx",
+    "src\\hooks\\use-toast.ts",
+    "src\\lib\\utils.ts",
+    "src\\main.tsx",
+    "src\\pages\\Index.tsx",
+    "src\\pages\\NotFound.tsx",
+    "src\\vite-env.d.ts"
+  ],
+  "unusedDependencies": [
+    "@hookform/resolvers",
+    "@react-three/drei",
+    "@react-three/fiber",
+    "date-fns",
+    "jsrepo",
+    "zod",
+    "@tailwindcss/typography",
+    "@types/node",
+    "@types/react",
+    "@types/react-dom",
+    "autoprefixer",
+    "eslint",
+    "postcss",
+    "tsx"
+  ]
+}
