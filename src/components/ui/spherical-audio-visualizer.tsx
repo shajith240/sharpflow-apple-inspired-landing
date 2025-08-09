@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback, useState } from "react";
 import { useTheme } from "next-themes";
 import { TouchManager, TouchState, getTouchPosition } from "@/lib/touch-utils";
+import { getDevicePerformanceProfile, getAdaptiveComponentConfig, PerformanceProfile } from "@/lib/performance-utils";
 
 interface Particle {
   homeX: number;
@@ -34,8 +35,17 @@ const SphereAudioVisualizer = () => {
   const touchManagerRef = useRef<TouchManager | null>(null);
   const rotationRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
 
-  const numParticles = 1200;
+  // Performance-aware configuration
+  const [performanceProfile, setPerformanceProfile] = useState<PerformanceProfile | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
+  const lastFrameTime = useRef(0);
+  const frameCount = useRef(0);
+  const currentFPS = useRef(60);
+
+  // Dynamic particle count based on device performance
+  const numParticles = performanceProfile?.maxParticles || 300; // Default to low-end for safety
   const sphereRadiusRef = useRef(150);
+  const renderScale = performanceProfile?.renderScale || 0.6;
 
   const createParticle = useCallback((x: number, y: number, z: number): Particle => ({
     homeX: x,
@@ -134,9 +144,13 @@ const SphereAudioVisualizer = () => {
 
   const setupCanvas = useCallback(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if (!canvas || !performanceProfile) return;
 
-    const dpr = window.devicePixelRatio || 1;
+    // Use adaptive pixel ratio based on performance
+    const baseDPR = window.devicePixelRatio || 1;
+    const adaptiveDPR = Math.min(baseDPR, performanceProfile.tier === 'low' ? 1 : baseDPR);
+    const dpr = adaptiveDPR * renderScale;
+
     const rect = canvas.getBoundingClientRect();
     canvas.width = rect.width * dpr;
     canvas.height = rect.height * dpr;
@@ -144,18 +158,41 @@ const SphereAudioVisualizer = () => {
     const ctx = canvas.getContext('2d');
     if (ctx) {
       ctx.scale(dpr, dpr);
+      // Optimize canvas for performance
+      ctx.imageSmoothingEnabled = performanceProfile.tier !== 'low';
     }
 
     // Recreate particles with new container dimensions
     createParticles(rect.width, rect.height);
-  }, [createParticles]);
+  }, [createParticles, performanceProfile, renderScale]);
 
   const animate = useCallback(() => {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
-    if (!canvas || !ctx) return;
+    if (!canvas || !ctx || !performanceProfile) return;
 
-    const dpr = window.devicePixelRatio || 1;
+    // Performance monitoring and frame rate limiting
+    const now = performance.now();
+    const deltaTime = now - lastFrameTime.current;
+    const targetFrameTime = 1000 / performanceProfile.targetFPS;
+
+    // Skip frame if we're running too fast (frame rate limiting)
+    if (deltaTime < targetFrameTime) {
+      animationRef.current = requestAnimationFrame(animate);
+      return;
+    }
+
+    lastFrameTime.current = now;
+    frameCount.current++;
+
+    // Calculate current FPS every 60 frames
+    if (frameCount.current % 60 === 0) {
+      currentFPS.current = Math.round(1000 / deltaTime);
+    }
+
+    const baseDPR = window.devicePixelRatio || 1;
+    const adaptiveDPR = Math.min(baseDPR, performanceProfile.tier === 'low' ? 1 : baseDPR);
+    const dpr = adaptiveDPR * renderScale;
     const width = canvas.width / dpr;
     const height = canvas.height / dpr;
 
@@ -165,17 +202,26 @@ const SphereAudioVisualizer = () => {
     const rotation = rotationRef.current;
 
     // Smoothly interpolate rotation towards the target
-    rotation.x += (rotation.targetX - rotation.x) * 0.05;
-    rotation.y += (rotation.targetY - rotation.y) * 0.05;
+    const rotationSpeed = performanceProfile.tier === 'low' ? 0.03 : 0.05;
+    rotation.x += (rotation.targetX - rotation.x) * rotationSpeed;
+    rotation.y += (rotation.targetY - rotation.y) * rotationSpeed;
 
     // Add gentle auto-rotation when pointer is not active
     if (pointerRef.current.x === null) {
-      const time = Date.now() * 0.0005;
+      const time = Date.now() * (performanceProfile.tier === 'low' ? 0.0003 : 0.0005);
       rotation.targetX = Math.sin(time) * 0.2;
       rotation.targetY = Math.cos(time * 0.7) * 0.3;
     }
 
-    particlesRef.current.forEach(particle => {
+    // Particle culling and rendering optimization
+    let renderedParticles = 0;
+    const maxRenderParticles = performanceProfile.tier === 'low' ? numParticles * 0.7 : numParticles;
+
+    particlesRef.current.forEach((particle, index) => {
+      // Skip some particles on low-end devices for better performance
+      if (performanceProfile.tier === 'low' && index % 2 === 0) return;
+      if (renderedParticles >= maxRenderParticles) return;
+
       // Apply rotation
       const cosX = Math.cos(rotation.x);
       const sinX = Math.sin(rotation.x);
@@ -189,12 +235,15 @@ const SphereAudioVisualizer = () => {
 
       const rotatedParticle = createParticle(x1, y1, z2);
 
-      // Update and draw
+      // Update particle physics
       updateParticle(particle);
       const proj = projectParticle(rotatedParticle, width, height);
 
-      // Only draw particles that are in front
-      if (z2 > -sphereRadiusRef.current * 0.8) {
+      // Frustum culling - only draw particles that are visible
+      if (z2 > -sphereRadiusRef.current * 0.8 &&
+        proj.x >= -10 && proj.x <= width + 10 &&
+        proj.y >= -10 && proj.y <= height + 10) {
+
         ctx.beginPath();
         ctx.arc(proj.x, proj.y, proj.size, 0, Math.PI * 2);
 
@@ -204,19 +253,52 @@ const SphereAudioVisualizer = () => {
         ctx.fillStyle = particleColor;
         ctx.fill();
 
-        // Add subtle glow effect
-        const glowColor = theme === 'light' ? `rgba(0, 0, 0, 0.2)` : `rgba(173, 216, 230, 0.3)`;
-        ctx.shadowColor = glowColor;
-        ctx.shadowBlur = 2;
-        ctx.fill();
-        ctx.shadowBlur = 0;
+        // Add subtle glow effect only on medium/high performance devices
+        if (performanceProfile.enableGlow) {
+          const glowColor = theme === 'light' ? `rgba(0, 0, 0, 0.2)` : `rgba(173, 216, 230, 0.3)`;
+          ctx.shadowColor = glowColor;
+          ctx.shadowBlur = performanceProfile.tier === 'high' ? 2 : 1;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+
+        renderedParticles++;
       }
     });
 
     animationRef.current = requestAnimationFrame(animate);
-  }, [createParticle, updateParticle, projectParticle, theme]);
+  }, [createParticle, updateParticle, projectParticle, theme, performanceProfile, renderScale]);
+
+  // Initialize performance profile
+  useEffect(() => {
+    const initializePerformance = async () => {
+      try {
+        const profile = await getDevicePerformanceProfile();
+        setPerformanceProfile(profile);
+        setIsInitialized(true);
+      } catch (error) {
+        console.warn('Failed to get performance profile, using low-end defaults:', error);
+        // Fallback to low-end profile for safety
+        setPerformanceProfile({
+          tier: 'low',
+          maxParticles: 300,
+          maxSpheres: 40,
+          targetFPS: 24,
+          enableShadows: false,
+          enableGlow: false,
+          renderScale: 0.6,
+          physicsSteps: 3,
+        });
+        setIsInitialized(true);
+      }
+    };
+
+    initializePerformance();
+  }, []);
 
   useEffect(() => {
+    if (!isInitialized || !performanceProfile) return;
+
     setupCanvas();
     animate();
 
@@ -310,7 +392,16 @@ const SphereAudioVisualizer = () => {
         canvas.removeEventListener('mouseleave', handleMouseLeave);
       }
     };
-  }, [setupCanvas, createParticles, animate]);
+  }, [setupCanvas, createParticles, animate, isInitialized, performanceProfile]);
+
+  // Show loading state while performance profile is being determined
+  if (!isInitialized || !performanceProfile) {
+    return (
+      <div className="relative w-full h-64 md:h-80 flex items-center justify-center">
+        <div className="text-muted-foreground">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full h-64 md:h-80 flex items-center justify-center">
@@ -319,6 +410,12 @@ const SphereAudioVisualizer = () => {
         className="absolute top-0 left-0 w-full h-full cursor-pointer touch-none"
         style={{ background: 'transparent' }}
       />
+      {/* Performance indicator for debugging (remove in production) */}
+      {process.env.NODE_ENV === 'development' && (
+        <div className="absolute top-2 left-2 text-xs text-muted-foreground bg-background/80 px-2 py-1 rounded">
+          {performanceProfile.tier} | {numParticles}p | {currentFPS.current}fps
+        </div>
+      )}
     </div>
   );
 };
