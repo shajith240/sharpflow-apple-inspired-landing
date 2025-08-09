@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useCallback } from "react";
 import { useTheme } from "next-themes";
+import { TouchManager, TouchState, getTouchPosition } from "@/lib/touch-utils";
 
 interface Particle {
   homeX: number;
@@ -16,10 +17,11 @@ interface Particle {
   color: string;
 }
 
-interface Mouse {
+interface PointerState {
   x: number | null;
   y: number | null;
   radius: number;
+  isTouch: boolean;
 }
 
 const SphereAudioVisualizer = () => {
@@ -27,7 +29,9 @@ const SphereAudioVisualizer = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>();
   const particlesRef = useRef<Particle[]>([]);
-  const mouseRef = useRef<Mouse>({ x: null, y: null, radius: 100 });
+  // Unified pointer state for both mouse and touch interactions
+  const pointerRef = useRef<PointerState>({ x: null, y: null, radius: 100, isTouch: false });
+  const touchManagerRef = useRef<TouchManager | null>(null);
   const rotationRef = useRef({ x: 0, y: 0, targetX: 0, targetY: 0 });
 
   const numParticles = 1200;
@@ -61,18 +65,20 @@ const SphereAudioVisualizer = () => {
     const homeForceY = (particle.homeY - particle.y) * 0.01;
     const homeForceZ = (particle.homeZ - particle.z) * 0.01;
 
-    // Mouse repulsion force
-    let mouseForceX = 0, mouseForceY = 0;
-    const mouse = mouseRef.current;
-    if (mouse.x !== null && mouse.y !== null && canvasRef.current) {
+    // Pointer (mouse/touch) repulsion force
+    let pointerForceX = 0, pointerForceY = 0;
+    const pointer = pointerRef.current;
+    if (pointer.x !== null && pointer.y !== null && canvasRef.current) {
       const rect = canvasRef.current.getBoundingClientRect();
-      const dx = particle.x - (mouse.x - rect.width / 2);
-      const dy = particle.y - (mouse.y - rect.height / 2);
+      const dx = particle.x - (pointer.x - rect.width / 2);
+      const dy = particle.y - (pointer.y - rect.height / 2);
       const distance = Math.sqrt(dx * dx + dy * dy);
-      if (distance < mouse.radius) {
-        const force = (mouse.radius - distance) / mouse.radius;
-        mouseForceX = (dx / distance) * force * 2;
-        mouseForceY = (dy / distance) * force * 2;
+      if (distance < pointer.radius) {
+        const force = (pointer.radius - distance) / pointer.radius;
+        // Slightly stronger force for touch to compensate for finger size
+        const forceMultiplier = pointer.isTouch ? 2.5 : 2;
+        pointerForceX = (dx / distance) * force * forceMultiplier;
+        pointerForceY = (dy / distance) * force * forceMultiplier;
       }
     }
 
@@ -84,8 +90,8 @@ const SphereAudioVisualizer = () => {
     const audioForceY = Math.sin(angleToCenter) * audioForce;
 
     // Combine forces and apply velocity
-    particle.vx += homeForceX + mouseForceX + audioForceX;
-    particle.vy += homeForceY + mouseForceY + audioForceY;
+    particle.vx += homeForceX + pointerForceX + audioForceX;
+    particle.vy += homeForceY + pointerForceY + audioForceY;
     particle.vz += homeForceZ;
 
     // Apply damping/friction
@@ -162,8 +168,8 @@ const SphereAudioVisualizer = () => {
     rotation.x += (rotation.targetX - rotation.x) * 0.05;
     rotation.y += (rotation.targetY - rotation.y) * 0.05;
 
-    // Add gentle auto-rotation when mouse is not active
-    if (mouseRef.current.x === null) {
+    // Add gentle auto-rotation when pointer is not active
+    if (pointerRef.current.x === null) {
       const time = Date.now() * 0.0005;
       rotation.targetX = Math.sin(time) * 0.2;
       rotation.targetY = Math.cos(time * 0.7) * 0.3;
@@ -215,40 +221,90 @@ const SphereAudioVisualizer = () => {
     animate();
 
     const handleResize = () => setupCanvas();
-    const handleMouseMove = (e: MouseEvent) => {
+
+    // Update pointer position and rotation based on input
+    const updatePointerAndRotation = (x: number, y: number, isTouch: boolean = false) => {
       const canvas = canvasRef.current;
       if (!canvas) return;
 
       const rect = canvas.getBoundingClientRect();
-      mouseRef.current.x = e.clientX - rect.left;
-      mouseRef.current.y = e.clientY - rect.top;
+      pointerRef.current.x = x;
+      pointerRef.current.y = y;
+      pointerRef.current.isTouch = isTouch;
 
       const rotation = rotationRef.current;
-      rotation.targetY = (mouseRef.current.x - rect.width / 2) * 0.001;
-      rotation.targetX = (mouseRef.current.y - rect.height / 2) * 0.001;
+      rotation.targetY = (x - rect.width / 2) * 0.001;
+      rotation.targetX = (y - rect.height / 2) * 0.001;
     };
 
-    const handleMouseLeave = () => {
-      mouseRef.current.x = null;
-      mouseRef.current.y = null;
+    // Reset pointer state and rotation
+    const resetPointerAndRotation = () => {
+      pointerRef.current.x = null;
+      pointerRef.current.y = null;
+      pointerRef.current.isTouch = false;
       const rotation = rotationRef.current;
       rotation.targetX = 0;
       rotation.targetY = 0;
     };
 
-    window.addEventListener('resize', handleResize);
+    // Mouse event handlers
+    const handleMouseMove = (e: MouseEvent) => {
+      const canvas = canvasRef.current;
+      if (!canvas) return;
 
+      const rect = canvas.getBoundingClientRect();
+      updatePointerAndRotation(e.clientX - rect.left, e.clientY - rect.top, false);
+    };
+
+    const handleMouseLeave = () => {
+      resetPointerAndRotation();
+    };
+
+    // Touch event handlers using TouchManager
     const canvas = canvasRef.current;
     if (canvas) {
+      touchManagerRef.current = new TouchManager(canvas, {
+        enableTouch: true,
+        preventDefaultBehavior: true,
+        touchSensitivity: 1.0,
+        throttleInterval: 16, // 60fps
+      });
+
+      touchManagerRef.current.addTouchListeners({
+        onTouchStart: (touchState: TouchState) => {
+          updatePointerAndRotation(touchState.position.x, touchState.position.y, true);
+        },
+        onTouchMove: (touchState: TouchState) => {
+          updatePointerAndRotation(touchState.position.x, touchState.position.y, true);
+        },
+        onTouchEnd: () => {
+          resetPointerAndRotation();
+        },
+        onTouchCancel: () => {
+          resetPointerAndRotation();
+        },
+      });
+
+      // Add mouse event listeners
       canvas.addEventListener('mousemove', handleMouseMove);
       canvas.addEventListener('mouseleave', handleMouseLeave);
     }
+
+    window.addEventListener('resize', handleResize);
 
     return () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
       window.removeEventListener('resize', handleResize);
+
+      // Cleanup touch manager
+      if (touchManagerRef.current) {
+        touchManagerRef.current.cleanup();
+        touchManagerRef.current = null;
+      }
+
+      // Cleanup mouse events
       if (canvas) {
         canvas.removeEventListener('mousemove', handleMouseMove);
         canvas.removeEventListener('mouseleave', handleMouseLeave);
@@ -260,7 +316,7 @@ const SphereAudioVisualizer = () => {
     <div className="relative w-full h-64 md:h-80 flex items-center justify-center">
       <canvas
         ref={canvasRef}
-        className="absolute top-0 left-0 w-full h-full cursor-pointer"
+        className="absolute top-0 left-0 w-full h-full cursor-pointer touch-none"
         style={{ background: 'transparent' }}
       />
     </div>
