@@ -2,6 +2,8 @@ import DarkVeil from "@/components/backgrounds/DarkVeil";
 import { useTheme } from "next-themes";
 import StarBorder from "@/components/ui/star-border";
 import { Play } from "lucide-react";
+import { BookingDialog } from "@/components/ui/booking-dialog";
+import { CAL_CONFIG } from "@/config/cal";
 
 const HeroSection = () => {
   const { theme } = useTheme();
@@ -23,7 +25,9 @@ const HeroSection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center fade-in fade-in-delay-2">
-            <button className="btn-primary">Get Started Free</button>
+            <BookingDialog calLink={CAL_CONFIG.fullLink}>
+              <button className="btn-primary">Free Consultation</button>
+            </BookingDialog>
             <StarBorder
               as="button"
               className="hover:scale-105 transition-transform duration-200"
@@ -33,7 +37,7 @@ const HeroSection = () => {
             >
               <div className="flex items-center gap-2">
                 <Play className="w-4 h-4" />
-                Watch Demo
+                See Our Work
               </div>
             </StarBorder>
           </div>

@@ -1,57 +1,59 @@
 import { Pricing } from "@/components/ui/pricing";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { BookingDialog } from "@/components/ui/booking-dialog";
+import { CAL_CONFIG } from "@/config/cal";
 
 const PricingSection = () => {
   const plans = [
     {
-      name: "Starter",
-      price: "1999",
-      yearlyPrice: "1599", // 20% discount
-      period: "month",
+      name: "Basic Package",
+      price: "Starting from ₹1,999",
+      yearlyPrice: "Custom Quote",
+      period: "",
       description: "Perfect for small businesses starting with voice automation",
       features: [
-        "~300 voice minutes/month",
+        "Free consultation call",
         "Query Bot functionality",
         "1 Website integration",
-        "Fixed script templates",
+        "Custom script development",
         "Email support",
-        "Basic analytics"
+        "Basic analytics setup"
       ],
-      buttonText: "Get Started",
+      buttonText: "Schedule Consultation",
       href: "#contact",
       isPopular: false
     },
     {
-      name: "Growth",
-      price: "3999",
-      yearlyPrice: "3199", // 20% discount
-      period: "month",
+      name: "Growth Package",
+      price: "Starting from ₹3,999",
+      yearlyPrice: "Custom Quote",
+      period: "",
       description: "Ideal for growing businesses with appointment booking needs",
       features: [
-        "~750 voice minutes/month",
+        "Free consultation call",
         "Query + Appointment booking",
         "1 Website integration",
-        "Custom booking rules",
+        "Custom booking logic",
         "Priority support",
         "Advanced analytics",
         "Custom voice training",
-        "API access"
+        "API integration"
       ],
-      buttonText: "Start Growing",
+      buttonText: "Schedule Consultation",
       href: "#contact",
       isPopular: true
     },
     {
-      name: "Pro",
-      price: "6999",
-      yearlyPrice: "5599", // 20% discount
-      period: "month",
+      name: "Enterprise Package",
+      price: "Starting from ₹6,999",
+      yearlyPrice: "Custom Quote",
+      period: "",
       description: "Complete automation solution for established businesses",
       features: [
-        "1500+ voice minutes/month",
+        "Free consultation call",
         "Fully custom AI agent",
-        "Up to 3 site integrations",
+        "Multiple site integrations",
         "Full logic customization",
         "Dedicated support + Dashboard",
         "WhatsApp integration",
@@ -59,7 +61,7 @@ const PricingSection = () => {
         "Custom analytics",
         "24/7 phone support"
       ],
-      buttonText: "Go Pro",
+      buttonText: "Schedule Consultation",
       href: "#contact",
       isPopular: false
     }
@@ -70,9 +72,16 @@ const PricingSection = () => {
       <div className="container-padding">
         <Pricing
           plans={plans}
-          title="Simple, Transparent Pricing"
-          description="Choose the perfect plan for your business. Scale as you grow with our flexible pricing options.
-All plans include access to our platform, lead generation tools, and dedicated support."
+          title="Service Packages"
+          description="Custom solutions tailored to your business needs. Every package includes a free consultation to understand your requirements and provide accurate pricing.
+Final pricing determined after consultation based on your specific needs."
+          renderButton={(plan, buttonClassName) => (
+            <BookingDialog calLink={CAL_CONFIG.fullLink}>
+              <button className={buttonClassName}>
+                {plan.buttonText}
+              </button>
+            </BookingDialog>
+          )}
         />
 
       </div>

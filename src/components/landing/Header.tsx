@@ -3,6 +3,8 @@ import { useTheme } from "next-themes";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { BookingDialog } from "@/components/ui/booking-dialog";
+import { CAL_CONFIG } from "@/config/cal";
 
 const Header = () => {
   const { theme } = useTheme();
@@ -13,13 +15,13 @@ const Header = () => {
       <div className="floating-nav">
         <div className="flex items-center justify-between h-14 px-4 sm:px-6">
           <div className="flex items-center space-x-4">
-            <img 
-              src={theme === 'dark' ? '/sharpflow_white.svg' : '/sharpflow_black.svg'} 
-              alt="SharpFlow" 
-              className="h-8 transition-all duration-200" 
+            <img
+              src={theme === 'dark' ? '/sharpflow_white.svg' : '/sharpflow_black.svg'}
+              alt="SharpFlow"
+              className="h-8 transition-all duration-200"
             />
           </div>
-          
+
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-2">
             <nav className="flex items-center space-x-1">
@@ -27,17 +29,19 @@ const Header = () => {
               <a href="#pricing" className="nav-link">Pricing</a>
               <a href="#contact" className="nav-link">Contact</a>
             </nav>
-            
+
             <div className="flex items-center ml-4">
-              <Button size="sm" className="nav-cta">Get Started</Button>
+              <BookingDialog calLink={CAL_CONFIG.fullLink}>
+                <Button size="sm" className="nav-cta">Book Consultation</Button>
+              </BookingDialog>
             </div>
           </div>
 
           {/* Mobile Navigation */}
           <div className="md:hidden flex items-center">
-            <Button 
-              variant="ghost" 
-              size="sm" 
+            <Button
+              variant="ghost"
+              size="sm"
               className="nav-theme-toggle"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
@@ -54,29 +58,31 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden border-t border-border/50 px-4 py-4">
             <nav className="flex flex-col space-y-2">
-              <a 
-                href="#features" 
+              <a
+                href="#features"
                 className="nav-link text-left"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Features
               </a>
-              <a 
-                href="#pricing" 
+              <a
+                href="#pricing"
                 className="nav-link text-left"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Pricing
               </a>
-              <a 
-                href="#contact" 
+              <a
+                href="#contact"
                 className="nav-link text-left"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Contact
               </a>
               <div className="pt-2">
-                <Button size="sm" className="nav-cta w-full">Get Started</Button>
+                <BookingDialog calLink={CAL_CONFIG.fullLink}>
+                  <Button size="sm" className="nav-cta w-full">Book Consultation</Button>
+                </BookingDialog>
               </div>
             </nav>
           </div>
