@@ -50,10 +50,13 @@ const SphereAudioVisualizer = () => {
   const [isInitialized, setIsInitialized] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
   const lastFrameTime = useRef(0);
   const frameCount = useRef(0);
   const currentFPS = useRef(60);
   const scrollTimeoutRef = useRef<number>(0);
+  const intersectionObserverRef = useRef<IntersectionObserver | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // Dynamic particle count based on device performance
   const numParticles = performanceProfile?.maxParticles || 300; // Default to low-end for safety
@@ -207,6 +210,12 @@ const SphereAudioVisualizer = () => {
     const ctx = canvas?.getContext("2d");
     if (!canvas || !ctx || !performanceProfile) return;
 
+    // Completely pause animation when not visible (major performance boost)
+    if (!isVisible) {
+      animationRef.current = requestAnimationFrame(animate);
+      return;
+    }
+
     // Pause animation during mobile scrolling to prevent performance issues
     if (isMobile && isScrolling) {
       animationRef.current = requestAnimationFrame(animate);
@@ -216,7 +225,16 @@ const SphereAudioVisualizer = () => {
     // Performance monitoring and frame rate limiting
     const now = performance.now();
     const deltaTime = now - lastFrameTime.current;
-    const targetFrameTime = 1000 / performanceProfile.targetFPS;
+
+    // More aggressive FPS limiting during scroll on mobile
+    let targetFPS = performanceProfile.targetFPS;
+    if (isMobile && isScrolling) {
+      targetFPS = Math.min(targetFPS, 15); // Cap at 15fps during scroll
+    } else if (isMobile) {
+      targetFPS = Math.min(targetFPS, 24); // Cap at 24fps on mobile when not scrolling
+    }
+
+    const targetFrameTime = 1000 / targetFPS;
 
     // Skip frame if we're running too fast (frame rate limiting)
     if (deltaTime < targetFrameTime) {
@@ -261,12 +279,24 @@ const SphereAudioVisualizer = () => {
 
     // Particle culling and rendering optimization
     let renderedParticles = 0;
-    const maxRenderParticles =
-      performanceProfile.tier === "low" ? numParticles * 0.7 : numParticles;
+    let maxRenderParticles = numParticles;
+    let skipPattern = 1;
+
+    // More aggressive culling during mobile scroll
+    if (isMobile && isScrolling) {
+      maxRenderParticles = Math.floor(numParticles * 0.3); // Only render 30% during scroll
+      skipPattern = 3; // Skip 2 out of every 3 particles
+    } else if (isMobile) {
+      maxRenderParticles = Math.floor(numParticles * 0.6); // Render 60% on mobile
+      skipPattern = 2; // Skip every other particle
+    } else if (performanceProfile.tier === "low") {
+      maxRenderParticles = Math.floor(numParticles * 0.7);
+      skipPattern = 2;
+    }
 
     particlesRef.current.forEach((particle, index) => {
-      // Skip some particles on low-end devices for better performance
-      if (performanceProfile.tier === "low" && index % 2 === 0) return;
+      // Skip particles based on performance requirements
+      if (skipPattern > 1 && index % skipPattern === 0) return;
       if (renderedParticles >= maxRenderParticles) return;
 
       // Apply rotation
@@ -338,7 +368,33 @@ const SphereAudioVisualizer = () => {
     renderScale,
     isMobile,
     isScrolling,
+    isVisible,
   ]);
+
+  // Setup IntersectionObserver for visibility detection
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    intersectionObserverRef.current = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        setIsVisible(entry.isIntersecting);
+      },
+      {
+        root: null,
+        rootMargin: "50px", // Start animating 50px before entering viewport
+        threshold: 0.1, // Trigger when 10% visible
+      }
+    );
+
+    intersectionObserverRef.current.observe(containerRef.current);
+
+    return () => {
+      if (intersectionObserverRef.current) {
+        intersectionObserverRef.current.disconnect();
+      }
+    };
+  }, []);
 
   // Detect mobile device and handle scroll optimization
   useEffect(() => {
@@ -398,9 +454,9 @@ const SphereAudioVisualizer = () => {
           setPerformanceProfile({
             ...profile,
             tier: "low",
-            maxParticles: Math.min(profile.maxParticles, 200),
-            targetFPS: Math.min(profile.targetFPS, 30),
-            renderScale: Math.min(profile.renderScale, 0.7),
+            maxParticles: Math.min(profile.maxParticles, 120), // Reduced from 200 to 120
+            targetFPS: Math.min(profile.targetFPS, 24), // Reduced from 30 to 24
+            renderScale: Math.min(profile.renderScale, 0.5), // Reduced from 0.7 to 0.5
             enableGlow: false,
           });
         } else {
@@ -412,15 +468,17 @@ const SphereAudioVisualizer = () => {
           "Failed to get performance profile, using low-end defaults:",
           error
         );
-        // Fallback to low-end profile for safety
+        // Fallback to low-end profile for safety with even more aggressive mobile limits
+        const isMobileDevice =
+          window.innerWidth <= 768 || "ontouchstart" in window;
         setPerformanceProfile({
           tier: "low",
-          maxParticles: window.innerWidth <= 768 ? 150 : 300,
+          maxParticles: isMobileDevice ? 100 : 300, // Reduced from 150 to 100 for mobile
           maxSpheres: 40,
-          targetFPS: window.innerWidth <= 768 ? 24 : 30,
+          targetFPS: isMobileDevice ? 20 : 30, // Reduced from 24 to 20 for mobile
           enableShadows: false,
           enableGlow: false,
-          renderScale: window.innerWidth <= 768 ? 0.5 : 0.6,
+          renderScale: isMobileDevice ? 0.4 : 0.6, // Reduced from 0.5 to 0.4 for mobile
           physicsSteps: 3,
         });
         setIsInitialized(true);
@@ -560,7 +618,10 @@ const SphereAudioVisualizer = () => {
   }
 
   return (
-    <div className="relative w-full h-64 md:h-80 flex items-center justify-center">
+    <div
+      ref={containerRef}
+      className="relative w-full h-64 md:h-80 flex items-center justify-center"
+    >
       <canvas
         ref={canvasRef}
         className="absolute top-0 left-0 w-full h-full cursor-pointer touch-none"
@@ -570,6 +631,7 @@ const SphereAudioVisualizer = () => {
       {process.env.NODE_ENV === "development" && (
         <div className="absolute top-2 left-2 text-xs text-muted-foreground bg-background/80 px-2 py-1 rounded">
           {performanceProfile.tier} | {numParticles}p | {currentFPS.current}fps
+          | {isVisible ? "visible" : "hidden"}
         </div>
       )}
     </div>
