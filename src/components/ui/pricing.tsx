@@ -149,7 +149,7 @@ export function Pricing({
           >
             {plan.isPopular && (
               <div className="absolute top-0 right-0 bg-primary py-0.5 px-2 rounded-bl-xl rounded-tr-xl flex items-center">
-                <Star className="text-primary-foreground h-4 w-4 fill-current" />
+                <Star className="h-4 w-4 text-[#D4AF37] fill-current" />
                 <span className="text-primary-foreground ml-1 font-sans font-semibold">
                   Popular
                 </span>
