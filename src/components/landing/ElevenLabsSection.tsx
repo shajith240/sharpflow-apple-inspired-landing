@@ -2,12 +2,13 @@ import { useState, useEffect, lazy, Suspense } from "react";
 import GradientText from "@/components/ui/gradient-text";
 import { RainbowButton } from "@/components/ui/rainbow-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
-
-// Dynamically import the audio visualizer only when needed
 const SphereAudioVisualizer = lazy(() => import("@/components/ui/spherical-audio-visualizer"));
 
 const ElevenLabsSection = () => {
-  const [isMobile, setIsMobile] = useState(true); // Default to mobile for SSR
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return window.innerWidth <= 768 || "ontouchstart" in window;
+  });
   const [shouldLoadVisualizer, setShouldLoadVisualizer] = useState(false);
 
   // Enhanced mobile detection with performance considerations
@@ -31,8 +32,8 @@ const ElevenLabsSection = () => {
       }
     };
 
-    // Check on mount with a small delay to ensure proper hydration
-    const timer = setTimeout(checkMobile, 100);
+    // Check on mount
+    checkMobile();
 
     // Check on resize with debouncing
     let resizeTimer: NodeJS.Timeout;
@@ -43,7 +44,6 @@ const ElevenLabsSection = () => {
 
     window.addEventListener("resize", debouncedResize);
     return () => {
-      clearTimeout(timer);
       clearTimeout(resizeTimer);
       window.removeEventListener("resize", debouncedResize);
     };
@@ -84,27 +84,17 @@ const ElevenLabsSection = () => {
             </ScrollReveal>
 
             {/* Visual Content */}
-            <ScrollReveal delay={0.3}>
-              {shouldLoadVisualizer ? (
-                <Suspense fallback={
-                  <div className="w-full h-64 flex items-center justify-center">
-                    <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin"></div>
-                  </div>
-                }>
-                  <SphereAudioVisualizer />
-                </Suspense>
-              ) : !isMobile ? (
-                // Desktop fallback - simple placeholder
-                <div className="w-full h-64 flex items-center justify-center bg-gradient-to-br from-accent/10 to-accent/5 rounded-2xl border border-border">
-                  <div className="text-center">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-accent/20 rounded-full flex items-center justify-center">
-                      <div className="w-8 h-8 bg-accent/40 rounded-full"></div>
-                    </div>
-                    <p className="text-sm text-muted-foreground">Voice Visualization</p>
-                  </div>
-                </div>
-              ) : null}
-            </ScrollReveal>
+            {!isMobile ? (
+              <ScrollReveal delay={0.3}>
+                {shouldLoadVisualizer ? (
+                  <Suspense fallback={<div className="w-full h-64 md:h-80" />}>
+                    <SphereAudioVisualizer />
+                  </Suspense>
+                ) : (
+                  <div className="w-full h-64 md:h-80 flex items-center justify-center bg-gradient-to-br from-accent/10 to-accent/5 rounded-2xl border border-border" />
+                )}
+              </ScrollReveal>
+            ) : null}
           </div>
         </div>
       </div>

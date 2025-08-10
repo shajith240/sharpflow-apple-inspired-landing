@@ -84,6 +84,12 @@ All colors MUST be HSL.
 
     /* For glowing effect component */
     --black: 0 0% 0%;
+
+    /* Theme-aware glow palette for rainbow cards */
+    --glow-c1: 211 100% 50%; /* accent blue */
+    --glow-c2: 270 85% 62%;  /* purple */
+    --glow-c3: 195 90% 48%;  /* cyan */
+    --glow-c4: 140 60% 45%;  /* green */
   }
 
   .dark {
@@ -143,6 +149,12 @@ All colors MUST be HSL.
 
     /* For glowing effect component */
     --black: 0 0% 0%;
+
+    /* Dark theme glow palette (slightly brighter for contrast) */
+    --glow-c1: 211 100% 60%; /* accent blue brighter */
+    --glow-c2: 270 85% 70%;  /* purple brighter */
+    --glow-c3: 195 90% 58%;  /* cyan brighter */
+    --glow-c4: 140 60% 55%;  /* green brighter */
   }
 }
 
