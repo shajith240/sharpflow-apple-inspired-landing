@@ -96,13 +96,24 @@ export default function DarkVeil({
   useEffect(() => {
     const canvas = ref.current as HTMLCanvasElement;
     const parent = canvas.parentElement as HTMLElement;
-    const isMobile = typeof window !== 'undefined' && (window.innerWidth <= 768 || 'ontouchstart' in window);
+    const isMobile =
+      typeof window !== "undefined" &&
+      (window.innerWidth <= 768 || "ontouchstart" in window);
     const prefersReducedMotion =
-      typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const targetFPS = prefersReducedMotion ? 24 : isMobile ? 30 : 60;
-    const effectiveResolutionScale = prefersReducedMotion ? 0.6 : isMobile ? 0.75 : resolutionScale;
-    const effectiveDpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.25 : 2);
+    const effectiveResolutionScale = prefersReducedMotion
+      ? 0.6
+      : isMobile
+        ? 0.75
+        : resolutionScale;
+    const effectiveDpr = Math.min(
+      window.devicePixelRatio || 1,
+      isMobile ? 1.25 : 2
+    );
 
     const renderer = new Renderer({
       dpr: effectiveDpr,
@@ -131,7 +142,15 @@ export default function DarkVeil({
     const resize = () => {
       const w = parent.clientWidth,
         h = parent.clientHeight;
-      renderer.setSize(w * effectiveResolutionScale, h * effectiveResolutionScale);
+      const cssW = Math.ceil(w);
+      const cssH = Math.ceil(h);
+      renderer.setSize(
+        Math.ceil(cssW * effectiveResolutionScale),
+        Math.ceil(cssH * effectiveResolutionScale)
+      );
+      // Ensure CSS size matches parent to avoid any right/left gaps due to subpixel rounding
+      canvas.style.width = cssW + "px";
+      canvas.style.height = cssH + "px";
       program.uniforms.uResolution.value.set(w, h);
     };
 
@@ -147,12 +166,17 @@ export default function DarkVeil({
       const minDelta = 1000 / targetFPS;
       if (now - lastFrameTime >= minDelta) {
         lastFrameTime = now;
-        program.uniforms.uTime.value = ((now - start) / 1000) * (prefersReducedMotion ? speed * 0.6 : speed);
+        program.uniforms.uTime.value =
+          ((now - start) / 1000) * (prefersReducedMotion ? speed * 0.6 : speed);
         program.uniforms.uHueShift.value = hueShift;
-        program.uniforms.uNoise.value = prefersReducedMotion ? noiseIntensity * 0.5 : noiseIntensity;
+        program.uniforms.uNoise.value = prefersReducedMotion
+          ? noiseIntensity * 0.5
+          : noiseIntensity;
         program.uniforms.uScan.value = scanlineIntensity;
         program.uniforms.uScanFreq.value = scanlineFrequency;
-        program.uniforms.uWarp.value = prefersReducedMotion ? warpAmount * 0.5 : warpAmount;
+        program.uniforms.uWarp.value = prefersReducedMotion
+          ? warpAmount * 0.5
+          : warpAmount;
         renderer.render({ scene: mesh });
       }
       frame = requestAnimationFrame(loop);
@@ -168,16 +192,20 @@ export default function DarkVeil({
     };
 
     loop();
-    document.addEventListener('visibilitychange', handleVisibility, { passive: true });
+    document.addEventListener("visibilitychange", handleVisibility, {
+      passive: true,
+    });
 
     return () => {
       cancelAnimationFrame(frame);
       window.removeEventListener("resize", resize);
-      document.removeEventListener('visibilitychange', handleVisibility);
+      document.removeEventListener("visibilitychange", handleVisibility);
       try {
         // Release GL context on teardown to avoid spikes during theme switches
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const ext: any = (renderer.gl as any).getExtension('WEBGL_lose_context');
+        const ext: any = (renderer.gl as any).getExtension(
+          "WEBGL_lose_context"
+        );
         ext?.loseContext?.();
       } catch {}
     };
@@ -191,6 +219,9 @@ export default function DarkVeil({
     resolutionScale,
   ]);
   return (
-    <canvas ref={ref} className="absolute top-0 left-0 w-full h-full -z-10" />
+    <canvas
+      ref={ref}
+      className="absolute inset-0 block w-full h-full pointer-events-none -z-10"
+    />
   );
 }
