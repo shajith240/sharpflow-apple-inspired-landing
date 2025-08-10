@@ -1,18 +1,14 @@
-import { Sun, Moon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 
 const Footer = () => {
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-  };
 
   if (!mounted) {
     return null;
@@ -25,7 +21,7 @@ const Footer = () => {
           <div className="lg:col-span-1">
             <img src={theme === 'dark' ? '/sharpflow_white.svg' : '/sharpflow_black.svg'} alt="SharpFlow" className="h-12" />
           </div>
-          
+
           {/* Product */}
           <div>
             <h4 className="text-subheading text-primary mb-4 font-medium">Product</h4>
@@ -35,7 +31,7 @@ const Footer = () => {
               <li><a href="#" className="text-body text-text-secondary hover:text-primary transition-colors">Integrations</a></li>
             </ul>
           </div>
-          
+
           {/* Company */}
           <div>
             <h4 className="text-subheading text-primary mb-4 font-medium">Company</h4>
@@ -44,7 +40,7 @@ const Footer = () => {
               <li><a href="#" className="text-body text-text-secondary hover:text-primary transition-colors">Contact</a></li>
             </ul>
           </div>
-          
+
           {/* Support */}
           <div>
             <h4 className="text-subheading text-primary mb-4 font-medium">Support</h4>
@@ -53,25 +49,15 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        
+
         <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-caption text-text-tertiary">
             © 2024 SharpFlow. All rights reserved.
           </p>
           <div className="flex items-center gap-6 mt-4 md:mt-0">
             {/* Theme Toggle */}
-            <button 
-              onClick={toggleTheme}
-              className="w-10 h-10 rounded-lg bg-secondary hover:bg-secondary/80 transition-all duration-200 flex items-center justify-center border border-border"
-              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-            >
-              {theme === 'dark' ? (
-                <Sun className="w-5 h-5 text-text-secondary" />
-              ) : (
-                <Moon className="w-5 h-5 text-text-secondary" />
-              )}
-            </button>
-            
+            <AnimatedThemeToggler />
+
             {/* Links */}
             <a href="#" className="text-caption text-text-tertiary hover:text-primary transition-colors">Privacy</a>
             <a href="#" className="text-caption text-text-tertiary hover:text-primary transition-colors">Terms</a>

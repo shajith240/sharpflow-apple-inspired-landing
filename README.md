@@ -1,24 +1,26 @@
-# Welcome to your Lovable project
+# SharpFlow - Intelligent Voice Agents
 
-## Project info
+Transform your website with AI-powered voice agents that handle customer calls, book appointments, and manage conversations with human-like precision.
 
-**URL**: https://lovable.dev/projects/a6e69888-f3f0-436f-9c70-bf9c5445a002
+## 🚀 Features
 
-## How can I edit this code?
+- **Intelligent Voice Agents**: Human-like voice interactions powered by ElevenLabs
+- **Appointment Booking**: Automated scheduling and calendar integration
+- **Custom Workflows**: Tailored conversation flows for your business needs
+- **Real-time Analytics**: Detailed insights into customer interactions
+- **Multi-platform Integration**: Seamless website and system integration
 
-There are several ways of editing your application.
+## 🛠️ Tech Stack
 
-**Use Lovable**
+- **Frontend**: React 18 + TypeScript + Vite
+- **Styling**: Tailwind CSS + Framer Motion
+- **Voice AI**: ElevenLabs Integration
+- **UI Components**: Custom component library with shadcn/ui
+- **Animations**: Framer Motion + Custom CSS animations
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/a6e69888-f3f0-436f-9c70-bf9c5445a002) and start prompting.
+## 📦 Installation
 
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Make sure you have Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
 Follow these steps:
 
@@ -60,14 +62,18 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
+## 🚀 Deployment
 
-Simply open [Lovable](https://lovable.dev/projects/a6e69888-f3f0-436f-9c70-bf9c5445a002) and click on Share -> Publish.
+This project can be deployed to any static hosting service:
 
-## Can I connect a custom domain to my Lovable project?
+- **Vercel**: Connect your GitHub repo for automatic deployments
+- **Netlify**: Drag and drop the `dist` folder or connect via Git
+- **GitHub Pages**: Use GitHub Actions for automated deployment
 
-Yes, you can!
+## 🌐 Custom Domain
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+You can connect your custom domain through your hosting provider's dashboard.
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## 📞 Contact
+
+For business inquiries and custom implementations, visit [SharpFlow.ai](https://sharpflow.ai)
