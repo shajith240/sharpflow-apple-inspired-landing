@@ -1,6 +1,8 @@
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
+import { Link } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
 const Footer = () => {
   const { theme } = useTheme();
@@ -14,21 +16,32 @@ const Footer = () => {
     return null;
   };
   return (
-    <footer className="bg-surface-elevated border-t border-border">
+    <footer className="relative overflow-hidden bg-surface-elevated border-t border-border">
+      {/* subtle top glow */}
+      <div className="pointer-events-none absolute inset-x-0 -top-24 h-48 bg-gradient-to-b from-accent/10 to-transparent" />
       <div className="container-padding py-16">
         <div className="grid lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <img src={theme === 'dark' ? '/sharpflow_white.svg' : '/sharpflow_black.svg'} alt="SharpFlow" className="h-12" />
+            <Link to="/" className="inline-block group">
+              <img
+                src={theme === 'dark' ? '/sharpflow_white.svg' : '/sharpflow_black.svg'}
+                alt="SharpFlow"
+                className="h-12 transition-transform duration-300 group-hover:scale-[1.02]"
+              />
+            </Link>
+            <p className="mt-4 text-caption text-text-tertiary max-w-xs">
+              Conversational voice agents that turn visitors into customers.
+            </p>
           </div>
 
           {/* Product */}
           <div>
             <h4 className="text-subheading text-primary mb-4 font-medium">Product</h4>
             <ul className="space-y-3">
-              <li><a href="#" className="text-body text-text-secondary hover:text-primary transition-colors">Features</a></li>
-              <li><a href="#" className="text-body text-text-secondary hover:text-primary transition-colors">Pricing</a></li>
-              <li><a href="#" className="text-body text-text-secondary hover:text-primary transition-colors">Integrations</a></li>
+              <li><a href="/#hero" className="text-body text-text-secondary hover:text-primary transition-colors">Overview</a></li>
+              <li><a href="/#pricing" className="text-body text-text-secondary hover:text-primary transition-colors">Pricing</a></li>
+              <li><a href="/#contact" className="text-body text-text-secondary hover:text-primary transition-colors">Book a demo</a></li>
             </ul>
           </div>
 
@@ -36,8 +49,8 @@ const Footer = () => {
           <div>
             <h4 className="text-subheading text-primary mb-4 font-medium">Company</h4>
             <ul className="space-y-3">
-              <li><a href="#" className="text-body text-text-secondary hover:text-primary transition-colors">About</a></li>
-              <li><a href="#" className="text-body text-text-secondary hover:text-primary transition-colors">Contact</a></li>
+              <li><Link to="/about" className="text-body text-text-secondary hover:text-primary transition-colors">About</Link></li>
+              <li><a href="/#contact" className="text-body text-text-secondary hover:text-primary transition-colors">Contact</a></li>
             </ul>
           </div>
 
@@ -45,18 +58,21 @@ const Footer = () => {
           <div>
             <h4 className="text-subheading text-primary mb-4 font-medium">Support</h4>
             <ul className="space-y-3">
-              <li><a href="#" className="text-body text-text-secondary hover:text-primary transition-colors">Documentation</a></li>
+              <li><a href="mailto:contact@sharpflow.com" className="text-body text-text-secondary hover:text-primary transition-colors">Email support</a></li>
+              <li><a href="/#contact" className="text-body text-text-secondary hover:text-primary transition-colors">Help center</a></li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-caption text-text-tertiary">
             © 2024 SharpFlow. All rights reserved.
           </p>
-          <div className="flex items-center gap-6 mt-4 md:mt-0">
+          <div className="flex items-center gap-3 md:gap-6 mt-2 md:mt-0">
             {/* Theme Toggle */}
-            <AnimatedThemeToggler />
+            <div className="transition-transform duration-300 hover:scale-105">
+              <AnimatedThemeToggler />
+            </div>
 
             {/* Links */}
             <a href="#" className="text-caption text-text-tertiary hover:text-primary transition-colors">Privacy</a>
