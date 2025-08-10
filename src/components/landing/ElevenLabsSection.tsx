@@ -1,11 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import GradientText from "@/components/ui/gradient-text";
-import SphereAudioVisualizer from "@/components/ui/spherical-audio-visualizer";
 import { RainbowButton } from "@/components/ui/rainbow-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 const ElevenLabsSection = () => {
-  const [isMobile, setIsMobile] = useState(false);
+  // Initialize as mobile by default to avoid any desktop-only lazy imports kicking in before detection
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return window.innerWidth <= 768 || "ontouchstart" in window;
+  });
+
+  // Lazy-load the visualizer so it never loads on mobile
+  const SphereAudioVisualizerLazy = lazy(
+    () => import("@/components/ui/spherical-audio-visualizer")
+  );
 
   // Mobile detection logic
   useEffect(() => {
@@ -58,13 +66,13 @@ const ElevenLabsSection = () => {
             </ScrollReveal>
 
             {/* Visual Content */}
-            <ScrollReveal delay={0.3}>
-              {!isMobile ? (
-                // Desktop: Show audio visualizer without frame
-                <SphereAudioVisualizer />
-              ) : // Mobile: Hide audio visualizer completely - no visual content
-                null}
-            </ScrollReveal>
+            {!isMobile ? (
+              <ScrollReveal delay={0.3}>
+                <Suspense fallback={<div className="w-full h-64 md:h-80" />}>
+                  <SphereAudioVisualizerLazy />
+                </Suspense>
+              </ScrollReveal>
+            ) : null}
           </div>
         </div>
       </div>
