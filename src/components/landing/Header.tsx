@@ -43,7 +43,7 @@ const Header = () => {
             <div className="flex items-center ml-4">
               <BookingDialog calLink={CAL_CONFIG.fullLink}>
                 <RainbowButton className="h-9 px-4 text-sm">
-                  Book Consultation
+                  Free Consultation
                 </RainbowButton>
               </BookingDialog>
             </div>
