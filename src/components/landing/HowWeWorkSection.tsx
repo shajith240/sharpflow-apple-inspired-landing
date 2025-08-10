@@ -87,7 +87,7 @@ interface WorkflowItemProps {
 const WorkflowItem = ({ icon: Icon, stepNumber, title, description }: WorkflowItemProps) => {
     return (
         <div className="min-h-[16rem] list-none">
-            <div className="relative h-full rounded-[1.25rem] border-[0.75px] border-border p-2 md:rounded-[1.5rem] md:p-3">
+            <div className="relative h-full rounded-[1.25rem] border-[0.75px] border-border p-2 md:rounded-[1.5rem] md:p-3 overflow-hidden">
                 <GlowingEffect
                     spread={40}
                     glow={true}
@@ -96,7 +96,7 @@ const WorkflowItem = ({ icon: Icon, stepNumber, title, description }: WorkflowIt
                     inactiveZone={0.01}
                     borderWidth={3}
                 />
-                <div className="relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl border-[0.75px] bg-background p-6 shadow-sm dark:shadow-[0px_0px_27px_0px_rgba(45,45,45,0.3)] md:p-6">
+                <div className="relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl bg-background p-6 shadow-sm dark:shadow-[0px_0px_27px_0px_rgba(45,45,45,0.3)] md:p-6">
                     <div className="relative flex flex-1 flex-col justify-between gap-4">
                         {/* Step Number - Top Right Corner */}
                         <div className="absolute top-0 right-0 w-fit rounded-lg border-[0.75px] border-border bg-muted p-2">
