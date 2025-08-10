@@ -489,3 +489,78 @@ Accordion animations */
 .animate-accordion-up {
   animation: accordion-up 0.2s ease-out;
 }
+/* M
+obile Performance Optimizations */
+@media (max-width: 768px) {
+  /* Reduce motion for better performance on mobile */
+  *:not(.animate-gradient) {
+    animation-duration: 0.3s !important;
+    transition-duration: 0.3s !important;
+  }
+  
+  /* Keep gradient animation smooth on mobile */
+  .animate-gradient {
+    animation-duration: 8s !important;
+  }
+  
+  /* Optimize scrolling performance */
+  body {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: none;
+  }
+  
+  /* Reduce blur effects on mobile */
+  .backdrop-blur-xl {
+    backdrop-filter: blur(8px) !important;
+  }
+  
+  /* Disable expensive effects on mobile */
+  .floating-nav {
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+  }
+  
+  /* Optimize transforms for mobile */
+  .hover\:scale-105:hover {
+    transform: scale(1.02) !important;
+  }
+  
+  /* Reduce shadow complexity on mobile */
+  .shadow-xl {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  .shadow-2xl {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+  }
+}
+
+/* Prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Gradient Text Animation */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  animation: gradient ease-in-out infinite;
+  background-size: 300% 100%;
+}

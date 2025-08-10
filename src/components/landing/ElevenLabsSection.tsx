@@ -1,26 +1,52 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import GradientText from "@/components/ui/gradient-text";
-import SphereAudioVisualizer from "@/components/ui/spherical-audio-visualizer";
 import { RainbowButton } from "@/components/ui/rainbow-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
-const ElevenLabsSection = () => {
-  const [isMobile, setIsMobile] = useState(false);
+// Dynamically import the audio visualizer only when needed
+const SphereAudioVisualizer = lazy(() => import("@/components/ui/spherical-audio-visualizer"));
 
-  // Mobile detection logic
+const ElevenLabsSection = () => {
+  const [isMobile, setIsMobile] = useState(true); // Default to mobile for SSR
+  const [shouldLoadVisualizer, setShouldLoadVisualizer] = useState(false);
+
+  // Enhanced mobile detection with performance considerations
   useEffect(() => {
     const checkMobile = () => {
       const isMobileDevice =
-        window.innerWidth <= 768 || "ontouchstart" in window;
+        window.innerWidth <= 768 ||
+        "ontouchstart" in window ||
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
       setIsMobile(isMobileDevice);
+
+      // Only load visualizer for desktop with good performance
+      if (!isMobileDevice && window.innerWidth >= 1024) {
+        // Check if device has good performance indicators
+        const hasGoodPerformance =
+          navigator.hardwareConcurrency >= 4 && // At least 4 CPU cores
+          window.devicePixelRatio <= 2; // Not ultra-high DPI
+
+        setShouldLoadVisualizer(hasGoodPerformance);
+      }
     };
 
-    // Check on mount
-    checkMobile();
+    // Check on mount with a small delay to ensure proper hydration
+    const timer = setTimeout(checkMobile, 100);
 
-    // Check on resize
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    // Check on resize with debouncing
+    let resizeTimer: NodeJS.Timeout;
+    const debouncedResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(checkMobile, 250);
+    };
+
+    window.addEventListener("resize", debouncedResize);
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(resizeTimer);
+      window.removeEventListener("resize", debouncedResize);
+    };
   }, []);
   return (
     <section className="section-padding">
@@ -41,7 +67,7 @@ const ElevenLabsSection = () => {
                     "#3fc911ff",
                     "rgba(249, 5, 253, 1)",
                   ]}
-                  animationSpeed={6}
+                  animationSpeed={8}
                   className="inline"
                 >
                   <strong>IIElevenLabs</strong>
@@ -59,11 +85,25 @@ const ElevenLabsSection = () => {
 
             {/* Visual Content */}
             <ScrollReveal delay={0.3}>
-              {!isMobile ? (
-                // Desktop: Show audio visualizer without frame
-                <SphereAudioVisualizer />
-              ) : // Mobile: Hide audio visualizer completely - no visual content
-                null}
+              {shouldLoadVisualizer ? (
+                <Suspense fallback={
+                  <div className="w-full h-64 flex items-center justify-center">
+                    <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin"></div>
+                  </div>
+                }>
+                  <SphereAudioVisualizer />
+                </Suspense>
+              ) : !isMobile ? (
+                // Desktop fallback - simple placeholder
+                <div className="w-full h-64 flex items-center justify-center bg-gradient-to-br from-accent/10 to-accent/5 rounded-2xl border border-border">
+                  <div className="text-center">
+                    <div className="w-16 h-16 mx-auto mb-4 bg-accent/20 rounded-full flex items-center justify-center">
+                      <div className="w-8 h-8 bg-accent/40 rounded-full"></div>
+                    </div>
+                    <p className="text-sm text-muted-foreground">Voice Visualization</p>
+                  </div>
+                </div>
+              ) : null}
             </ScrollReveal>
           </div>
         </div>
