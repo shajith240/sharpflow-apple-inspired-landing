@@ -2,6 +2,7 @@
 
 import { Phone, FileText, Code, Zap, Globe, CreditCard } from "lucide-react";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
+import { ScrollReveal, ScrollRevealContainer, ScrollRevealItem } from "@/components/ui/scroll-reveal";
 import { cn } from "@/lib/utils";
 
 const HowWeWorkSection = () => {
@@ -47,28 +48,29 @@ const HowWeWorkSection = () => {
     return (
         <section className="section-padding">
             <div className="container-padding">
-                <div className="max-w-3xl mx-auto text-center mb-16">
-                    <h2 className="text-heading text-primary mb-6 fade-in">
+                <ScrollReveal className="max-w-3xl mx-auto text-center mb-16">
+                    <h2 className="text-heading text-primary mb-6">
                         How We Work
                     </h2>
-                    <p className="text-body fade-in fade-in-delay-1">
+                    <p className="text-body">
                         Our streamlined process ensures seamless integration of voice agents into your website,
                         from initial consultation to full deployment and ongoing support.
                     </p>
-                </div>
+                </ScrollReveal>
 
                 <div className="max-w-6xl mx-auto">
-                    <ul className="grid grid-cols-1 grid-rows-none gap-4 md:grid-cols-2 lg:gap-6">
+                    <ScrollRevealContainer className="grid grid-cols-1 grid-rows-none gap-4 md:grid-cols-2 lg:gap-6" staggerDelay={0.15}>
                         {workflowSteps.map((step, index) => (
-                            <WorkflowItem
-                                key={index}
-                                icon={step.icon}
-                                stepNumber={step.step}
-                                title={step.title}
-                                description={step.description}
-                            />
+                            <ScrollRevealItem key={index}>
+                                <WorkflowItem
+                                    icon={step.icon}
+                                    stepNumber={step.step}
+                                    title={step.title}
+                                    description={step.description}
+                                />
+                            </ScrollRevealItem>
                         ))}
-                    </ul>
+                    </ScrollRevealContainer>
                 </div>
             </div>
         </section>
@@ -84,7 +86,7 @@ interface WorkflowItemProps {
 
 const WorkflowItem = ({ icon: Icon, stepNumber, title, description }: WorkflowItemProps) => {
     return (
-        <li className="min-h-[16rem] list-none">
+        <div className="min-h-[16rem] list-none">
             <div className="relative h-full rounded-[1.25rem] border-[0.75px] border-border p-2 md:rounded-[1.5rem] md:p-3">
                 <GlowingEffect
                     spread={40}
@@ -118,7 +120,7 @@ const WorkflowItem = ({ icon: Icon, stepNumber, title, description }: WorkflowIt
                     </div>
                 </div>
             </div>
-        </li>
+        </div>
     );
 };
 

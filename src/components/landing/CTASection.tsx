@@ -8,6 +8,7 @@ import {
   getDevicePerformanceProfile,
   PerformanceProfile,
 } from "@/lib/performance-utils";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 const CTASection = () => {
   const { theme } = useTheme();
@@ -56,15 +57,15 @@ const CTASection = () => {
         className="section-padding bg-primary relative overflow-hidden"
       >
         <div className="container-padding relative z-20">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-heading text-primary-foreground mb-6 fade-in">
+          <ScrollReveal className="max-w-3xl mx-auto text-center">
+            <h2 className="text-heading text-primary-foreground mb-6">
               Ready to transform your customer experience?
             </h2>
-            <p className="text-body text-primary-foreground/80 mb-12 fade-in fade-in-delay-1">
+            <p className="text-body text-primary-foreground/80 mb-12">
               Let's discuss how voice AI can revolutionize your business!
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center fade-in fade-in-delay-2">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <BookingDialog calLink={CAL_CONFIG.fullLink}>
                 <RainbowButton className="relative z-30 cursor-pointer">
                   Book Your Call
@@ -78,12 +79,12 @@ const CTASection = () => {
               </a>
             </div>
 
-            <p className="text-caption text-primary-foreground/60 mt-8 fade-in fade-in-delay-3">
+            <p className="text-caption text-primary-foreground/60 mt-8">
               Free consultation • Custom solutions • Expert guidance
             </p>
-          </div>
+          </ScrollReveal>
         </div>
-      </section>
+      </section >
     );
   }
 
@@ -121,15 +122,15 @@ const CTASection = () => {
       </div>
 
       <div className="container-padding relative z-20">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-heading text-primary-foreground mb-6 fade-in">
+        <ScrollReveal className="max-w-3xl mx-auto text-center">
+          <h2 className="text-heading text-primary-foreground mb-6">
             Ready to transform your customer experience?
           </h2>
-          <p className="text-body text-primary-foreground/80 mb-12 fade-in fade-in-delay-1">
+          <p className="text-body text-primary-foreground/80 mb-12">
             Let's discuss how voice AI can revolutionize your business!
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center fade-in fade-in-delay-2">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <BookingDialog calLink={CAL_CONFIG.fullLink}>
               <RainbowButton className="relative z-30 cursor-pointer">
                 Book Your Call
@@ -143,12 +144,12 @@ const CTASection = () => {
             </a>
           </div>
 
-          <p className="text-caption text-primary-foreground/60 mt-8 fade-in fade-in-delay-3">
+          <p className="text-caption text-primary-foreground/60 mt-8">
             Free consultation • Custom solutions • Expert guidance
           </p>
-        </div>
+        </ScrollReveal>
       </div>
-    </section>
+    </section >
   );
 };
 

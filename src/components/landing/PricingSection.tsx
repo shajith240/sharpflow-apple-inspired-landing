@@ -1,4 +1,5 @@
 import { Pricing } from "@/components/ui/pricing";
+import { ScrollReveal } from "@/components/ui/scroll-reveal";
 
 const PricingSection = () => {
   const plans = [
@@ -68,13 +69,14 @@ const PricingSection = () => {
   return (
     <section id="pricing" className="pt-8 pb-20 lg:pt-16 lg:pb-32 bg-gradient-to-b from-background to-surface-subtle">
       <div className="container-padding">
-        <Pricing
-          plans={plans}
-          title="Simple, Transparent Pricing"
-          description="Choose the plan that fits your business needs. All plans include setup, integration, and ongoing support. Start with our consultation to determine the best fit for your requirements."
-          renderButton={() => null}
-        />
-
+        <ScrollReveal>
+          <Pricing
+            plans={plans}
+            title="Simple, Transparent Pricing"
+            description="Choose the plan that fits your business needs. All plans include setup, integration, and ongoing support. Start with our consultation to determine the best fit for your requirements."
+            renderButton={() => null}
+          />
+        </ScrollReveal>
       </div>
     </section>
   );
