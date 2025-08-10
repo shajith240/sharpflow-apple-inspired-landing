@@ -564,3 +564,45 @@ obile Performance Optimizations */
   animation: gradient ease-in-out infinite;
   background-size: 300% 100%;
 }
+
+/* Smooth Theme Transitions - Apple-inspired timing */
+html {
+  transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body {
+  transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Smooth transitions for theme-dependent elements */
+.bg-background,
+.bg-card,
+.bg-secondary,
+.bg-muted,
+.text-primary,
+.text-secondary,
+.text-muted-foreground {
+  transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Mobile-specific theme transition optimizations */
+@media (max-width: 768px) {
+  /* Smooth transitions on mobile with Apple timing */
+  html,
+  body,
+  .bg-background,
+  .bg-card,
+  .bg-secondary,
+  .bg-muted,
+  .text-primary,
+  .text-secondary,
+  .text-muted-foreground {
+    transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  /* Optimize theme toggle button for mobile */
+  .theme-toggle-mobile {
+    transform: translateZ(0); /* Force hardware acceleration */
+    backface-visibility: hidden;
+  }
+}
