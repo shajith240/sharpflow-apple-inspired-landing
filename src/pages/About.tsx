@@ -370,12 +370,13 @@ const About = () => {
                     Book Your Call
                   </RainbowButton>
                 </BookingDialog>
-                <a
-                  href="mailto:contact@sharpflow.com"
-                  className="text-primary-foreground px-6 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-white/10 relative z-30 cursor-pointer"
-                >
-                  Send Email
-                </a>
+                                <a
+                                    href="mailto:contact@sharpflow.com"
+                                    className="relative z-30 cursor-pointer inline-flex items-center gap-2 px-6 py-2 rounded-lg font-medium transition-all duration-200 text-primary-foreground border border-primary-foreground/30 bg-primary-foreground/10 hover:bg-primary-foreground/20"
+                                    aria-label="Send us an email"
+                                >
+                                    Send Email
+                                </a>
               </div>
 
               <p className="text-caption text-primary-foreground/60 mt-8">
@@ -397,7 +398,7 @@ const About = () => {
               overflow: "hidden",
               width: "100%",
               height: "100%",
-              opacity: "0.8",
+              opacity: "0.7",
               zIndex: 1,
               cursor: "none",
             }}
@@ -414,6 +415,9 @@ const About = () => {
                   : [0x2563eb, 0x3b82f6, 0x0ea5e9, 0x06b6d4, 0x38bdf8]
               }
               className="cursor-none"
+              ambientIntensity={0.6}
+              lightIntensity={120}
+              materialParams={{ roughness: 0.65, metalness: 0.35, clearcoat: 0.9, clearcoatRoughness: 0.25 }}
               physicsSteps={performanceProfile.physicsSteps}
               enableShadows={performanceProfile.enableShadows}
               renderQuality={performanceProfile.tier}
@@ -435,12 +439,13 @@ const About = () => {
                     Book Your Call
                   </RainbowButton>
                 </BookingDialog>
-                <a
-                  href="mailto:contact@sharpflow.com"
-                  className="text-primary-foreground px-6 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-white/10 relative z-30 cursor-pointer"
-                >
-                  Send Email
-                </a>
+                                <a
+                                    href="mailto:contact@sharpflow.com"
+                                    className="relative z-30 cursor-pointer inline-flex items-center gap-2 px-6 py-2 rounded-lg font-medium transition-all duration-200 text-primary-foreground border border-primary-foreground/30 bg-primary-foreground/10 hover:bg-primary-foreground/20"
+                                    aria-label="Send us an email"
+                                >
+                                    Send Email
+                                </a>
               </div>
 
               <p className="text-caption text-primary-foreground/60 mt-8">

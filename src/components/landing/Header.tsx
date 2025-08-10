@@ -33,9 +33,9 @@ const Header = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-2">
             <nav className="flex items-center space-x-1">
-              <Link to="/about" className="nav-link">
+              <a href="/#hero" className="nav-link">
                 About
-              </Link>
+              </a>
               <a href="/#pricing" className="nav-link">
                 Pricing
               </a>
@@ -74,13 +74,13 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden border-t border-border/50 px-4 py-4">
             <nav className="flex flex-col space-y-2">
-              <Link
-                to="/about"
+              <a
+                href="/#hero"
                 className="nav-link text-left"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 About
-              </Link>
+              </a>
               <a
                 href="/#pricing"
                 className="nav-link text-left"

@@ -74,7 +74,8 @@ const CTASection = () => {
               </BookingDialog>
               <a
                 href="mailto:contact@sharpflow.com"
-                className="text-primary-foreground px-6 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-white/10 relative z-30 cursor-pointer"
+                className="relative z-30 cursor-pointer inline-flex items-center gap-2 px-6 py-2 rounded-lg font-medium transition-all duration-200 text-primary-foreground border border-primary-foreground/30 bg-primary-foreground/10 hover:bg-primary-foreground/20"
+                aria-label="Send us an email"
               >
                 Send Email
               </a>
@@ -102,7 +103,7 @@ const CTASection = () => {
           overflow: "hidden",
           width: "100%",
           height: "100%",
-          opacity: "0.8",
+          opacity: "0.7",
           zIndex: 1,
           cursor: "none",
         }}
@@ -115,6 +116,9 @@ const CTASection = () => {
           followCursor={performanceProfile.tier !== "low"}
           colors={ballColors}
           className="cursor-none"
+          ambientIntensity={0.6}
+          lightIntensity={120}
+          materialParams={{ roughness: 0.65, metalness: 0.35, clearcoat: 0.9, clearcoatRoughness: 0.25 }}
           // Additional performance optimizations
           physicsSteps={performanceProfile.physicsSteps}
           enableShadows={performanceProfile.enableShadows}
@@ -139,7 +143,8 @@ const CTASection = () => {
             </BookingDialog>
             <a
               href="mailto:contact@sharpflow.com"
-              className="text-primary-foreground px-6 py-2 rounded-lg font-medium transition-all duration-200 hover:bg-white/10 relative z-30 cursor-pointer"
+              className="relative z-30 cursor-pointer inline-flex items-center gap-2 px-6 py-2 rounded-lg font-medium transition-all duration-200 text-primary-foreground border border-primary-foreground/30 bg-primary-foreground/10 hover:bg-primary-foreground/20"
+              aria-label="Send us an email"
             >
               Send Email
             </a>

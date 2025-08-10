@@ -565,13 +565,19 @@ function createPointerData(
         if (!globalPointerActive) {
             document.body.addEventListener(
                 "pointermove",
-                onPointerMove as EventListener
+                onPointerMove as EventListener,
+                { passive: true }
             );
             document.body.addEventListener(
                 "pointerleave",
-                onPointerLeave as EventListener
+                onPointerLeave as EventListener,
+                { passive: true }
             );
-            document.body.addEventListener("click", onPointerClick as EventListener);
+            document.body.addEventListener(
+                "click",
+                onPointerClick as EventListener,
+                { passive: true }
+            );
             globalPointerActive = true;
         }
     }
@@ -795,8 +801,15 @@ function createBallpit(
         spheres = new Z(threeInstance.renderer, cfg);
         threeInstance.scene.add(spheres);
     }
+    // Throttle physics updates on touch-drag to maintain smooth performance
+    let lastUpdate = 0;
     threeInstance.onBeforeRender = (deltaInfo) => {
-        if (!isPaused) spheres.update(deltaInfo);
+        if (isPaused) return;
+        const now = performance.now();
+        const minIntervalMs = 1000 / 60; // cap at 60fps
+        if (now - lastUpdate < minIntervalMs) return;
+        lastUpdate = now;
+        spheres.update(deltaInfo);
     };
     threeInstance.onAfterResize = (size) => {
         spheres.config.maxX = size.wWidth / 2;
