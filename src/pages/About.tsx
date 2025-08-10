@@ -409,8 +409,8 @@ const About = () => {
                             wallBounce={0.95}
                             followCursor={performanceProfile.tier !== "low"}
                             colors={theme === "dark"
-                                ? [0x333333, 0x0088ff, 0x00ccff, 0x66aaff, 0x4d79ff]
-                                : [0x1a1a1a, 0x0066ff, 0x00aaff, 0x4d79ff]
+                                ? [0x4f46e5, 0x3b82f6, 0x22d3ee, 0x06b6d4, 0x0ea5e9]
+                                : [0x2563eb, 0x3b82f6, 0x0ea5e9, 0x06b6d4, 0x38bdf8]
                             }
                             className="cursor-none"
                             physicsSteps={performanceProfile.physicsSteps}
