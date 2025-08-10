@@ -25,23 +25,29 @@ const MobileFounderCards = ({ founders }: { founders: ChromaItem[] }) => {
       {founders.map((founder, index) => (
         <div
           key={index}
-          className="group relative overflow-hidden rounded-2xl transition-all duration-300 hover:scale-105 bg-card/60 dark:bg-card/20 shadow-sm hover:shadow-md"
+          className="group relative overflow-hidden rounded-2xl border transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg p-2"
+          style={{
+            borderColor: founder.borderColor || "#3B82F6",
+            background: founder.gradient,
+          }}
         >
-          <div className="p-4">
+          <div className="rounded-xl overflow-hidden bg-black/30">
             <img
               src={founder.image}
               alt={founder.title}
-              className="w-full h-64 object-cover rounded-2xl mb-4"
+              className="w-full h-64 object-cover"
             />
-            <div className="text-white space-y-2">
-              <h3 className="text-xl font-semibold">{founder.title}</h3>
-              <p className="text-sm opacity-90">{founder.subtitle}</p>
-              {founder.handle && (
-                <p className="text-sm opacity-80">{founder.handle}</p>
-              )}
-              {founder.location && (
-                <p className="text-sm opacity-80">{founder.location}</p>
-              )}
+            <div className="p-4 bg-gradient-to-t from-black/70 via-black/50 to-transparent text-white">
+              <div className="space-y-1">
+                <h3 className="text-lg font-semibold">{founder.title}</h3>
+                <p className="text-sm opacity-90">{founder.subtitle}</p>
+                {founder.handle && (
+                  <p className="text-sm opacity-80">{founder.handle}</p>
+                )}
+                {founder.location && (
+                  <p className="text-sm opacity-80">{founder.location}</p>
+                )}
+              </div>
             </div>
           </div>
           {founder.url && (
