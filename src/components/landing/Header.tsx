@@ -1,6 +1,7 @@
 import { Menu, X } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import { BookingDialog } from "@/components/ui/booking-dialog";
@@ -16,7 +17,7 @@ const Header = () => {
       <div className="floating-nav">
         <div className="flex items-center justify-between h-14 px-4 sm:px-6">
           <div className="flex items-center space-x-4">
-            <a href="#hero" className="cursor-pointer">
+            <Link to="/" className="cursor-pointer">
               <img
                 src={
                   theme === "dark"
@@ -26,16 +27,19 @@ const Header = () => {
                 alt="SharpFlow"
                 className="h-8 transition-all duration-200 hover:opacity-80"
               />
-            </a>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-2">
             <nav className="flex items-center space-x-1">
-              <a href="#pricing" className="nav-link">
+              <Link to="/about" className="nav-link">
+                About
+              </Link>
+              <a href="/#pricing" className="nav-link">
                 Pricing
               </a>
-              <a href="#contact" className="nav-link">
+              <a href="/#contact" className="nav-link">
                 Contact
               </a>
             </nav>
@@ -70,15 +74,22 @@ const Header = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden border-t border-border/50 px-4 py-4">
             <nav className="flex flex-col space-y-2">
+              <Link
+                to="/about"
+                className="nav-link text-left"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                About
+              </Link>
               <a
-                href="#pricing"
+                href="/#pricing"
                 className="nav-link text-left"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Pricing
               </a>
               <a
-                href="#contact"
+                href="/#contact"
                 className="nav-link text-left"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
