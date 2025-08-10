@@ -96,9 +96,16 @@ export default function DarkVeil({
   useEffect(() => {
     const canvas = ref.current as HTMLCanvasElement;
     const parent = canvas.parentElement as HTMLElement;
+    const isMobile = typeof window !== 'undefined' && (window.innerWidth <= 768 || 'ontouchstart' in window);
+    const prefersReducedMotion =
+      typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const targetFPS = prefersReducedMotion ? 24 : isMobile ? 30 : 60;
+    const effectiveResolutionScale = prefersReducedMotion ? 0.6 : isMobile ? 0.75 : resolutionScale;
+    const effectiveDpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.25 : 2);
 
     const renderer = new Renderer({
-      dpr: Math.min(window.devicePixelRatio, 2),
+      dpr: effectiveDpr,
       canvas,
     });
 
@@ -124,7 +131,7 @@ export default function DarkVeil({
     const resize = () => {
       const w = parent.clientWidth,
         h = parent.clientHeight;
-      renderer.setSize(w * resolutionScale, h * resolutionScale);
+      renderer.setSize(w * effectiveResolutionScale, h * effectiveResolutionScale);
       program.uniforms.uResolution.value.set(w, h);
     };
 
@@ -133,24 +140,46 @@ export default function DarkVeil({
 
     const start = performance.now();
     let frame = 0;
+    let lastFrameTime = 0;
 
     const loop = () => {
-      program.uniforms.uTime.value =
-        ((performance.now() - start) / 1000) * speed;
-      program.uniforms.uHueShift.value = hueShift;
-      program.uniforms.uNoise.value = noiseIntensity;
-      program.uniforms.uScan.value = scanlineIntensity;
-      program.uniforms.uScanFreq.value = scanlineFrequency;
-      program.uniforms.uWarp.value = warpAmount;
-      renderer.render({ scene: mesh });
+      const now = performance.now();
+      const minDelta = 1000 / targetFPS;
+      if (now - lastFrameTime >= minDelta) {
+        lastFrameTime = now;
+        program.uniforms.uTime.value = ((now - start) / 1000) * (prefersReducedMotion ? speed * 0.6 : speed);
+        program.uniforms.uHueShift.value = hueShift;
+        program.uniforms.uNoise.value = prefersReducedMotion ? noiseIntensity * 0.5 : noiseIntensity;
+        program.uniforms.uScan.value = scanlineIntensity;
+        program.uniforms.uScanFreq.value = scanlineFrequency;
+        program.uniforms.uWarp.value = prefersReducedMotion ? warpAmount * 0.5 : warpAmount;
+        renderer.render({ scene: mesh });
+      }
       frame = requestAnimationFrame(loop);
     };
 
+    const handleVisibility = () => {
+      if (document.hidden) {
+        cancelAnimationFrame(frame);
+      } else {
+        lastFrameTime = 0;
+        frame = requestAnimationFrame(loop);
+      }
+    };
+
     loop();
+    document.addEventListener('visibilitychange', handleVisibility, { passive: true });
 
     return () => {
       cancelAnimationFrame(frame);
       window.removeEventListener("resize", resize);
+      document.removeEventListener('visibilitychange', handleVisibility);
+      try {
+        // Release GL context on teardown to avoid spikes during theme switches
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const ext: any = (renderer.gl as any).getExtension('WEBGL_lose_context');
+        ext?.loseContext?.();
+      } catch {}
     };
   }, [
     hueShift,
