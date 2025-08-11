@@ -36,6 +36,11 @@ const MobileFounderCards = ({ founders }: { founders: ChromaItem[] }) => {
               src={founder.image}
               alt={founder.title}
               className="w-full h-64 object-cover"
+              style={
+                founder.objectPosition
+                  ? { objectPosition: founder.objectPosition }
+                  : undefined
+              }
             />
             <div className="p-4 bg-gradient-to-t from-black/70 via-black/50 to-transparent text-white">
               <div className="space-y-1">
@@ -213,7 +218,7 @@ const About = () => {
   // Founders data for ChromaGrid (only 2 members)
   const founders: ChromaItem[] = [
     {
-      image: "https://i.pravatar.cc/300?img=1", // Placeholder - replace with actual image
+      image: "/Shajith%20Bathina.png",
       title: "Shajith Bathina",
       subtitle: "Founder & CEO",
       handle: "@founder1",
@@ -223,7 +228,7 @@ const About = () => {
       url: "https://linkedin.com/in/founder1",
     },
     {
-      image: "https://i.pravatar.cc/300?img=2", // Placeholder - replace with actual image
+      image: "/Dinesh%20Yeturi.png",
       title: "Dinesh Yeturi",
       subtitle: "CO-founder & CTO",
       handle: "@founder2",
@@ -231,16 +236,28 @@ const About = () => {
       borderColor: "#10B981",
       gradient: "linear-gradient(145deg, #10B981, #059669, #000)",
       url: "https://linkedin.com/in/founder2",
+      objectPosition: "50% 30%",
     },
   ];
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, []);
 
   return (
     <div className="min-h-screen">
       <Header />
 
       {/* Hero Section */}
-      <section className="relative min-h-[60vh] sm:min-h-[70vh] flex items-center justify-center overflow-hidden">
-        {theme === "dark" ? <DarkVeil speed={1.2} /> : <AuroraEffect />}
+      <section
+        id="hero"
+        className="relative min-h-[60vh] sm:min-h-[70vh] flex items-center justify-center overflow-hidden"
+      >
+        {theme === "dark" ? (
+          <DarkVeil speed={1.2} hueShift={120} />
+        ) : (
+          <AuroraEffect />
+        )}
 
         <div className="container-padding relative z-10 w-full">
           <ScrollReveal className="max-w-4xl mx-auto text-center px-4 sm:px-6">
@@ -256,41 +273,44 @@ const About = () => {
         </div>
       </section>
 
-            {/* Our Story Section - Redesigned for clarity and hierarchy */}
-            <section className="section-padding bg-gradient-to-b from-background to-surface-subtle">
-                <div className="w-full max-w-none mx-auto px-4 sm:px-6 lg:px-8">
-                    <ScrollReveal className="text-center mb-10 sm:mb-14">
-                        <h2 className="text-heading text-primary mb-4 font-bold">Our Story</h2>
-                        <p className="text-body max-w-3xl mx-auto">
-                            Built in 2024 to make every customer interaction instant, personal, and effortless.
-                        </p>
-                    </ScrollReveal>
+      {/* Our Story Section - Redesigned for clarity and hierarchy */}
+      <section className="section-padding bg-gradient-to-b from-background to-surface-subtle">
+        <div className="w-full max-w-none mx-auto px-4 sm:px-6 lg:px-8">
+          <ScrollReveal className="text-center mb-10 sm:mb-14">
+            <h2 className="text-heading text-primary mb-4 font-bold">
+              Our Story
+            </h2>
+            <p className="text-body max-w-3xl mx-auto">
+              Built in 2024 to make every customer interaction instant,
+              personal, and effortless.
+            </p>
+          </ScrollReveal>
 
-                    <div className="grid gap-6 md:gap-8 md:grid-cols-3 max-w-6xl mx-auto">
-                        <ScrollReveal>
-                            <StoryCard
-                                icon={Flag}
-                                title="Why we started"
-                                description="Businesses were losing time on repetitive calls and inconsistent service. We set out to fix that."
-                            />
-                        </ScrollReveal>
-                        <ScrollReveal delay={0.15}>
-                            <StoryCard
-                                icon={AlertCircle}
-                                title="The problem"
-                                description="Traditional support is slow and expensive. Customers expect real-time, human-quality help 24/7."
-                            />
-                        </ScrollReveal>
-                        <ScrollReveal delay={0.3}>
-                            <StoryCard
-                                icon={Bot}
-                                title="Our solution"
-                                description="Natural‑sounding voice agents powered by ElevenLabs that book, qualify and resolve—like your best rep."
-                            />
-                        </ScrollReveal>
-                    </div>
-                </div>
-            </section>
+          <div className="grid gap-6 md:gap-8 md:grid-cols-3 max-w-6xl mx-auto">
+            <ScrollReveal>
+              <StoryCard
+                icon={Flag}
+                title="Why we started"
+                description="Businesses were losing time on repetitive calls and inconsistent service. We set out to fix that."
+              />
+            </ScrollReveal>
+            <ScrollReveal delay={0.15}>
+              <StoryCard
+                icon={AlertCircle}
+                title="The problem"
+                description="Traditional support is slow and expensive. Customers expect real-time, human-quality help 24/7."
+              />
+            </ScrollReveal>
+            <ScrollReveal delay={0.3}>
+              <StoryCard
+                icon={Bot}
+                title="Our solution"
+                description="Natural‑sounding voice agents powered by ElevenLabs that book, qualify and resolve—like your best rep."
+              />
+            </ScrollReveal>
+          </div>
+        </div>
+      </section>
 
       {/* Mission & Vision Section with Rainbow Cards */}
       <section className="section-padding">
@@ -370,13 +390,13 @@ const About = () => {
                     Book Your Call
                   </RainbowButton>
                 </BookingDialog>
-                                <a
-                                    href="mailto:contact@sharpflow.com"
-                                    className="relative z-30 cursor-pointer inline-flex items-center gap-2 px-6 py-2 rounded-lg font-medium transition-all duration-200 text-primary-foreground border border-primary-foreground/30 bg-primary-foreground/10 hover:bg-primary-foreground/20"
-                                    aria-label="Send us an email"
-                                >
-                                    Send Email
-                                </a>
+                <a
+                  href="mailto:contact@sharpflow.com"
+                  className="relative z-30 cursor-pointer inline-flex items-center gap-2 px-6 py-2 rounded-lg font-medium transition-all duration-200 text-primary-foreground border border-primary-foreground/30 bg-primary-foreground/10 hover:bg-primary-foreground/20"
+                  aria-label="Send us an email"
+                >
+                  Send Email
+                </a>
               </div>
 
               <p className="text-caption text-primary-foreground/60 mt-8">
@@ -417,7 +437,12 @@ const About = () => {
               className="cursor-none"
               ambientIntensity={0.6}
               lightIntensity={120}
-              materialParams={{ roughness: 0.65, metalness: 0.35, clearcoat: 0.9, clearcoatRoughness: 0.25 }}
+              materialParams={{
+                roughness: 0.65,
+                metalness: 0.35,
+                clearcoat: 0.9,
+                clearcoatRoughness: 0.25,
+              }}
               physicsSteps={performanceProfile.physicsSteps}
               enableShadows={performanceProfile.enableShadows}
               renderQuality={performanceProfile.tier}
@@ -439,13 +464,13 @@ const About = () => {
                     Book Your Call
                   </RainbowButton>
                 </BookingDialog>
-                                <a
-                                    href="mailto:contact@sharpflow.com"
-                                    className="relative z-30 cursor-pointer inline-flex items-center gap-2 px-6 py-2 rounded-lg font-medium transition-all duration-200 text-primary-foreground border border-primary-foreground/30 bg-primary-foreground/10 hover:bg-primary-foreground/20"
-                                    aria-label="Send us an email"
-                                >
-                                    Send Email
-                                </a>
+                <a
+                  href="mailto:contact@sharpflow.com"
+                  className="relative z-30 cursor-pointer inline-flex items-center gap-2 px-6 py-2 rounded-lg font-medium transition-all duration-200 text-primary-foreground border border-primary-foreground/30 bg-primary-foreground/10 hover:bg-primary-foreground/20"
+                  aria-label="Send us an email"
+                >
+                  Send Email
+                </a>
               </div>
 
               <p className="text-caption text-primary-foreground/60 mt-8">
@@ -517,27 +542,38 @@ const MissionVisionCard = ({
 };
 
 export default About;
- 
+
 // Story card component for the "Our Story" section
 interface StoryCardProps {
-    icon: React.ComponentType<{ className?: string }>;
-    title: string;
-    description: string;
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  description: string;
 }
 
 const StoryCard = ({ icon: Icon, title, description }: StoryCardProps) => {
-    return (
-        <div className="relative rounded-2xl border border-border p-2">
-            <GlowingEffect glow spread={36} proximity={56} inactiveZone={0.05} borderWidth={2} disabled={false} />
-            <div className="relative rounded-xl bg-background p-5 h-full flex flex-col gap-4">
-                <div className="w-fit rounded-lg border border-border bg-muted p-3">
-                    <Icon className="h-6 w-6" />
-                </div>
-                <div className="space-y-2">
-                    <h3 className="text-lg md:text-xl font-semibold text-foreground">{title}</h3>
-                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed">{description}</p>
-                </div>
-            </div>
+  return (
+    <div className="relative rounded-2xl border border-border p-2">
+      <GlowingEffect
+        glow
+        spread={36}
+        proximity={56}
+        inactiveZone={0.05}
+        borderWidth={2}
+        disabled={false}
+      />
+      <div className="relative rounded-xl bg-background p-5 h-full flex flex-col gap-4">
+        <div className="w-fit rounded-lg border border-border bg-muted p-3">
+          <Icon className="h-6 w-6" />
         </div>
-    );
+        <div className="space-y-2">
+          <h3 className="text-lg md:text-xl font-semibold text-foreground">
+            {title}
+          </h3>
+          <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+            {description}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 };

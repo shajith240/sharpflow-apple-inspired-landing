@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Header from "@/components/landing/Header";
 import HeroSection from "@/components/landing/HeroSection";
 import HowWeWorkSection from "@/components/landing/HowWeWorkSection";
@@ -8,6 +9,9 @@ import CTASection from "@/components/landing/CTASection";
 import Footer from "@/components/landing/Footer";
 
 const Index = () => {
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, []);
   return (
     <div className="min-h-screen">
       <Header />

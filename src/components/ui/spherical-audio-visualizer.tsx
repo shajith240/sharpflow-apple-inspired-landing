@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useCallback, useState } from "react";
+import { useEffect, useRef, useCallback, useState, useMemo } from "react";
 import { useTheme } from "next-themes";
 import { TouchManager, TouchState, getTouchPosition } from "@/lib/touch-utils";
 import {
@@ -57,6 +57,37 @@ const SphereAudioVisualizer = () => {
   const sphereRadiusRef = useRef(150);
   const renderScale = performanceProfile?.renderScale || 0.6;
 
+  // Read CSS HSL variables and convert to HSL numeric tuples for canvas colors
+  const readCssHslVar = useCallback(
+    (varName: string): { h: number; s: number; l: number } | null => {
+      if (typeof window === "undefined") return null;
+      const raw = getComputedStyle(document.documentElement)
+        .getPropertyValue(varName)
+        .trim();
+      // Expecting format: "H S% L%" or "H S L" with percentages
+      if (!raw) return null;
+      const parts = raw.split(/\s+/);
+      if (parts.length < 3) return null;
+      const h = parseFloat(parts[0]);
+      const s = parseFloat(parts[1]);
+      const l = parseFloat(parts[2]);
+      if (Number.isNaN(h) || Number.isNaN(s) || Number.isNaN(l)) return null;
+      return { h, s, l };
+    },
+    []
+  );
+
+  const toHsla = (h: number, s: number, l: number, a: number) =>
+    `hsla(${h}, ${s}%, ${l}%, ${a})`;
+
+  // Single accent blue from theme (fallback to design token if missing)
+  const accentHsl = useMemo(() => {
+    const v = readCssHslVar("--accent");
+    if (v) return v;
+    // Fallbacks: light 211/100/50, dark 211/100/60 per index.css
+    return { h: 211, s: 100, l: theme === "dark" ? 60 : 50 };
+  }, [readCssHslVar, theme]);
+
   const createParticle = useCallback(
     (x: number, y: number, z: number): Particle => ({
       homeX: x,
@@ -69,9 +100,11 @@ const SphereAudioVisualizer = () => {
       vy: 0,
       vz: 0,
       color:
-        theme === "light" ? `rgba(0, 0, 0, 0.8)` : `rgba(173, 216, 230, 0.8)`, // Pure black in light theme, light blue in dark theme
+        theme === "light"
+          ? toHsla(accentHsl.h, accentHsl.s, accentHsl.l, 0.8)
+          : `rgba(173, 216, 230, 0.8)`,
     }),
-    [theme]
+    [theme, accentHsl]
   );
 
   const projectParticle = useCallback(
@@ -296,20 +329,27 @@ const SphereAudioVisualizer = () => {
             (z2 + sphereRadiusRef.current) / (sphereRadiusRef.current * 1.5)
           )
         );
-        const particleColor =
-          theme === "light"
-            ? `rgba(0, 0, 0, ${alpha})`
-            : `rgba(173, 216, 230, ${alpha})`;
-        ctx.fillStyle = particleColor;
+        if (theme === "light") {
+          // Light theme: single accent blue
+          ctx.fillStyle = toHsla(accentHsl.h, accentHsl.s, accentHsl.l, alpha);
+        } else {
+          // Dark theme: keep soft light blue for contrast
+          ctx.fillStyle = `rgba(173, 216, 230, ${alpha})`;
+        }
         ctx.fill();
 
         // Add subtle glow effect only on medium/high performance devices
         if (performanceProfile.enableGlow) {
-          const glowColor =
-            theme === "light"
-              ? `rgba(0, 0, 0, 0.2)`
-              : `rgba(173, 216, 230, 0.3)`;
-          ctx.shadowColor = glowColor;
+          if (theme === "light") {
+            ctx.shadowColor = toHsla(
+              accentHsl.h,
+              accentHsl.s,
+              accentHsl.l,
+              0.25
+            );
+          } else {
+            ctx.shadowColor = `rgba(173, 216, 230, 0.3)`;
+          }
           ctx.shadowBlur = performanceProfile.tier === "high" ? 2 : 1;
           ctx.fill();
           ctx.shadowBlur = 0;

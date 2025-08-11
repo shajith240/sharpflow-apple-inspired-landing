@@ -87,9 +87,16 @@ All colors MUST be HSL.
 
     /* Theme-aware glow palette for rainbow cards */
     --glow-c1: 211 100% 50%; /* accent blue */
-    --glow-c2: 270 85% 62%;  /* purple */
-    --glow-c3: 195 90% 48%;  /* cyan */
-    --glow-c4: 140 60% 45%;  /* green */
+    --glow-c2: 270 85% 62%; /* purple */
+    --glow-c3: 195 90% 48%; /* cyan */
+    --glow-c4: 140 60% 45%; /* green */
+
+    /* Metallic gradient stops for light theme (higher contrast for visibility) */
+    --metal-1: 0 0% 95%; /* highlight */
+    --metal-2: 0 0% 80%; /* light silver */
+    --metal-3: 0 0% 52%; /* steel */
+    --metal-4: 0 0% 28%; /* deep shadow */
+    --metal-5: 0 0% 88%; /* bounce highlight */
   }
 
   .dark {
@@ -152,9 +159,16 @@ All colors MUST be HSL.
 
     /* Dark theme glow palette (slightly brighter for contrast) */
     --glow-c1: 211 100% 60%; /* accent blue brighter */
-    --glow-c2: 270 85% 70%;  /* purple brighter */
-    --glow-c3: 195 90% 58%;  /* cyan brighter */
-    --glow-c4: 140 60% 55%;  /* green brighter */
+    --glow-c2: 270 85% 70%; /* purple brighter */
+    --glow-c3: 195 90% 58%; /* cyan brighter */
+    --glow-c4: 140 60% 55%; /* green brighter */
+
+    /* Metallic gradient stops for dark theme (cool steel) */
+    --metal-1: 0 0% 86%; /* bright edge */
+    --metal-2: 0 0% 70%; /* silver */
+    --metal-3: 0 0% 54%; /* steel */
+    --metal-4: 0 0% 36%; /* deep shadow */
+    --metal-5: 0 0% 78%; /* bounce light */
   }
 }
 
@@ -309,9 +323,14 @@ All colors MUST be HSL.
 
   /* Apple-inspired animations */
   .fade-in {
-    animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    opacity: 0;
-    transform: translateY(20px);
+    opacity: 1; /* Always visible even if animations are disabled */
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .fade-in {
+      animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      transform: translateY(20px);
+    }
   }
 
   .fade-in-delay-1 {
@@ -337,6 +356,54 @@ All colors MUST be HSL.
   .btn-primary {
     @apply bg-accent text-accent-foreground px-8 py-3 rounded-xl font-medium transition-all duration-200;
     @apply hover:bg-accent/90 hover:shadow-lg hover:scale-[1.02];
+  }
+
+  /* Apple-inspired metallic headline */
+  .metallic-text {
+    /* Fallback color for browsers without background-clip support */
+    color: hsl(var(--primary));
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    position: relative;
+  }
+
+  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    .metallic-text {
+      background-image: linear-gradient(
+        -12deg,
+        hsl(var(--metal-1)) 0%,
+        hsl(var(--metal-2)) 12%,
+        hsl(var(--metal-3)) 28%,
+        hsl(var(--metal-4)) 45%,
+        hsl(var(--metal-2)) 62%,
+        hsl(var(--metal-5)) 78%,
+        hsl(var(--metal-1)) 100%
+      );
+      background-size: 200% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      /* Subtle readability aid */
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+    }
+
+    .dark .metallic-text {
+      text-shadow: 0 1px 1px rgba(255, 255, 255, 0.08);
+    }
+  }
+
+  .metallic-shine {
+    animation: metallic-sheen 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.2s 1 both;
+  }
+
+  @keyframes metallic-sheen {
+    from {
+      background-position: 0% 0;
+    }
+    to {
+      background-position: 100% 0;
+    }
   }
 
   .btn-secondary {
@@ -470,9 +537,10 @@ All colors MUST be HSL.
   }
 }
 
-::view-transition-old(root), ::view-transition-new(root) {
-    animation: none;
-    mix-blend-mode: normal;
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 /* 
 Accordion animations */
@@ -509,39 +577,39 @@ obile Performance Optimizations */
     animation-duration: 0.3s !important;
     transition-duration: 0.3s !important;
   }
-  
+
   /* Keep gradient animation smooth on mobile */
   .animate-gradient {
     animation-duration: 8s !important;
   }
-  
+
   /* Optimize scrolling performance */
   body {
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: none;
   }
-  
+
   /* Reduce blur effects on mobile */
   .backdrop-blur-xl {
     backdrop-filter: blur(8px) !important;
   }
-  
+
   /* Disable expensive effects on mobile */
   .floating-nav {
     backdrop-filter: blur(8px) !important;
     -webkit-backdrop-filter: blur(8px) !important;
   }
-  
+
   /* Optimize transforms for mobile */
   .hover\:scale-105:hover {
     transform: scale(1.02) !important;
   }
-  
+
   /* Reduce shadow complexity on mobile */
   .shadow-xl {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
   }
-  
+
   .shadow-2xl {
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
   }
@@ -579,11 +647,29 @@ obile Performance Optimizations */
 
 /* Smooth Theme Transitions - Apple-inspired timing */
 html {
-  transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 body {
-  transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* When view transition is active, disable CSS transitions to prevent jank */
+html[data-vt-active="1"],
+html[data-vt-active="1"] body,
+html[data-vt-active="1"] .bg-background,
+html[data-vt-active="1"] .bg-card,
+html[data-vt-active="1"] .bg-secondary,
+html[data-vt-active="1"] .bg-muted,
+html[data-vt-active="1"] .text-primary,
+html[data-vt-active="1"] .text-secondary,
+html[data-vt-active="1"] .text-muted-foreground {
+  transition: none !important;
+  will-change: transform, clip-path, opacity;
 }
 
 /* Smooth transitions for theme-dependent elements */
@@ -594,7 +680,10 @@ body {
 .text-primary,
 .text-secondary,
 .text-muted-foreground {
-  transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Mobile-specific theme transition optimizations */
@@ -609,9 +698,12 @@ body {
   .text-primary,
   .text-secondary,
   .text-muted-foreground {
-    transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1), color 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    transition:
+      background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+      color 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  
+
   /* Optimize theme toggle button for mobile */
   .theme-toggle-mobile {
     transform: translateZ(0); /* Force hardware acceleration */

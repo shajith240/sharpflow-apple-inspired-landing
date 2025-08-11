@@ -222,6 +222,7 @@ export default function DarkVeil({
     <canvas
       ref={ref}
       className="absolute inset-0 block w-full h-full pointer-events-none -z-10"
+      style={{ zIndex: -10 }}
     />
   );
 }

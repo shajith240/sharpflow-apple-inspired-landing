@@ -19,8 +19,10 @@ export const AnimatedThemeToggler = ({ className }: props) => {
         setMounted(true);
     }, []);
 
+    const [isAnimating, setIsAnimating] = useState(false);
+
     const changeTheme = async () => {
-        if (!buttonRef.current || !mounted) return;
+        if (!buttonRef.current || !mounted || isAnimating) return;
 
         const newTheme = theme === 'dark' ? 'light' : 'dark';
 
@@ -48,11 +50,17 @@ export const AnimatedThemeToggler = ({ className }: props) => {
 
         // Desktop: Use view transitions with optimized animation
         try {
-            await document.startViewTransition(() => {
+            setIsAnimating(true);
+            // Temporarily disable global CSS transitions to avoid double-animating
+            document.documentElement.setAttribute('data-vt-active', '1');
+
+            const vt = document.startViewTransition(() => {
                 flushSync(() => {
                     setTheme(newTheme);
                 });
-            }).ready;
+            });
+
+            await vt.ready;
 
             const { top, left, width, height } = buttonRef.current.getBoundingClientRect();
             const y = top + height / 2;
@@ -61,7 +69,7 @@ export const AnimatedThemeToggler = ({ className }: props) => {
             const bottom = window.innerHeight - top;
             const maxRad = Math.hypot(Math.max(left, right), Math.max(top, bottom));
 
-            document.documentElement.animate(
+            const animation = document.documentElement.animate(
                 {
                     clipPath: [
                         `circle(0px at ${x}px ${y}px)`,
@@ -69,15 +77,21 @@ export const AnimatedThemeToggler = ({ className }: props) => {
                     ],
                 },
                 {
-                    duration: 800, // Slower for buttery smooth Apple feel
-                    easing: "cubic-bezier(0.16, 1, 0.3, 1)", // Apple's signature easing
+                    duration: 800,
+                    easing: "cubic-bezier(0.16, 1, 0.3, 1)",
                     pseudoElement: "::view-transition-new(root)",
                 }
             );
+
+            // Ensure cleanup after the animation completes
+            await animation.finished.catch(() => {});
         } catch (error) {
             // Fallback if view transition fails
             console.warn('View transition failed, using fallback:', error);
             setTheme(newTheme);
+        } finally {
+            document.documentElement.removeAttribute('data-vt-active');
+            setIsAnimating(false);
         }
     };
 

@@ -20,12 +20,14 @@ const HeroSection = () => {
       const isMobileDevice =
         window.innerWidth <= 768 ||
         "ontouchstart" in window ||
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        );
 
       setIsMobile(isMobileDevice);
 
       // Load DarkVeil for most devices, with performance considerations
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         // Always load for desktop
         if (!isMobileDevice && window.innerWidth >= 1024) {
           setShouldLoadDarkVeil(true);
@@ -61,9 +63,11 @@ const HeroSection = () => {
     if (theme === "dark") {
       if (shouldLoadDarkVeil) {
         return (
-          <Suspense fallback={
-            <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20" />
-          }>
+          <Suspense
+            fallback={
+              <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20" />
+            }
+          >
             <DarkVeil speed={isMobile ? 0.8 : 1.5} />
           </Suspense>
         );
@@ -74,7 +78,7 @@ const HeroSection = () => {
         );
       }
     } else {
-      return <AuroraEffect />;
+      return <AuroraEffect className="-z-10" />;
     }
   };
 
@@ -85,16 +89,16 @@ const HeroSection = () => {
     >
       {renderBackground()}
 
-      <div className="container-padding w-full">
+      <div className="container-padding w-full relative z-10">
         <div className="max-w-5xl mx-auto text-center">
-          <h1 className="text-display text-primary mb-4 fade-in">
+          <h1 className="text-display metallic-text metallic-shine mb-4 fade-in relative z-20">
             Turn visitors into conversations
           </h1>
 
           <p className="text-body max-w-2xl mx-auto mb-6 fade-in fade-in-delay-1">
-            SharpFlow integrates natural‑sounding voice agents into your website to
-            answer questions, book appointments, and qualify leads—instantly and
-            24/7.
+            SharpFlow integrates natural‑sounding voice agents into your website
+            to answer questions, book appointments, and qualify leads—instantly
+            and 24/7.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 mb-10 fade-in fade-in-delay-1">
@@ -126,7 +130,13 @@ const HeroSection = () => {
   );
 };
 
-const HeroPill = ({ Icon, text }: { Icon: React.ComponentType<{ className?: string }>; text: string }) => (
+const HeroPill = ({
+  Icon,
+  text,
+}: {
+  Icon: React.ComponentType<{ className?: string }>;
+  text: string;
+}) => (
   <div className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-secondary/50 px-3 py-1.5 text-sm text-foreground/80">
     <Icon className="w-4 h-4" />
     <span>{text}</span>
