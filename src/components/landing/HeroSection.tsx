@@ -78,7 +78,17 @@ const HeroSection = () => {
         );
       }
     } else {
-      return <AuroraEffect className="-z-10" />;
+      // Light theme background with enhanced visibility
+      return (
+        <div className="absolute inset-0 -z-10">
+          {/* Base gradient background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/80 via-indigo-50/60 to-purple-50/80" />
+          {/* Aurora effect overlay */}
+          <AuroraEffect className="opacity-60" />
+          {/* Additional subtle pattern */}
+          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-blue-100/30 to-transparent" />
+        </div>
+      );
     }
   };
 
@@ -91,7 +101,7 @@ const HeroSection = () => {
 
       <div className="container-padding w-full relative z-10">
         <div className="max-w-5xl mx-auto text-center">
-          <h1 className="text-display metallic-text metallic-shine mb-4 fade-in relative z-20">
+          <h1 className="text-display text-primary mb-4 fade-in relative z-20">
             Turn visitors into conversations
           </h1>
 

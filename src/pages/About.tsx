@@ -159,6 +159,13 @@ const About = () => {
     initializePerformance();
   }, []);
 
+  // Theme-aware colors for ballpit
+  // Theme-aligned, vibrant cool palette (brand-focused blues/cyans/purples)
+  const ballColors =
+    theme === "dark"
+      ? [0x4f46e5, 0x3b82f6, 0x22d3ee, 0x06b6d4, 0x0ea5e9]
+      : [0x2563eb, 0x3b82f6, 0x0ea5e9, 0x06b6d4, 0x38bdf8];
+
   // SEO optimization
   useEffect(() => {
     document.title = "About Us - SharpFlow | AI Voice Automation Experts";
@@ -425,24 +432,22 @@ const About = () => {
           >
             <Ballpit
               count={performanceProfile.maxSpheres}
-              gravity={performanceProfile.tier === "low" ? 0.5 : 0.7}
-              friction={performanceProfile.tier === "low" ? 0.9 : 0.8}
-              wallBounce={0.95}
-              followCursor={performanceProfile.tier !== "low"}
-              colors={
-                theme === "dark"
-                  ? [0x4f46e5, 0x3b82f6, 0x22d3ee, 0x06b6d4, 0x0ea5e9]
-                  : [0x2563eb, 0x3b82f6, 0x0ea5e9, 0x06b6d4, 0x38bdf8]
-              }
+              gravity={performanceProfile.tier === "low" ? 0.5 : 0.1}
+              friction={performanceProfile.tier === "low" ? 0.9 : 0.999}
+              wallBounce={1.0}
+              // followCursor={performanceProfile.tier !== "low"}
+              followCursor={false}
+              colors={ballColors}
               className="cursor-none"
               ambientIntensity={0.6}
-              lightIntensity={120}
+              lightIntensity={80}
               materialParams={{
                 roughness: 0.65,
                 metalness: 0.35,
                 clearcoat: 0.9,
                 clearcoatRoughness: 0.25,
               }}
+              // Additional performance optimizations
               physicsSteps={performanceProfile.physicsSteps}
               enableShadows={performanceProfile.enableShadows}
               renderQuality={performanceProfile.tier}
