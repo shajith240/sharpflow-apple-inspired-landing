@@ -110,14 +110,15 @@ const CTASection = () => {
       >
         <Ballpit
           count={performanceProfile.maxSpheres}
-          gravity={performanceProfile.tier === "low" ? 0.5 : 0.7}
-          friction={performanceProfile.tier === "low" ? 0.9 : 0.8}
-          wallBounce={0.95}
-          followCursor={performanceProfile.tier !== "low"}
+          gravity={performanceProfile.tier === "low" ? 0.5 : 0.1}
+          friction={performanceProfile.tier === "low" ? 0.9 : 0.999}
+          wallBounce={1.0}
+          // followCursor={performanceProfile.tier !== "low"}
+          followCursor={false}
           colors={ballColors}
           className="cursor-none"
           ambientIntensity={0.6}
-          lightIntensity={120}
+          lightIntensity={80}
           materialParams={{ roughness: 0.65, metalness: 0.35, clearcoat: 0.9, clearcoatRoughness: 0.25 }}
           // Additional performance optimizations
           physicsSteps={performanceProfile.physicsSteps}

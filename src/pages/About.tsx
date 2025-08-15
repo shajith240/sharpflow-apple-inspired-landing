@@ -225,7 +225,7 @@ const About = () => {
       location: "India",
       borderColor: "#3B82F6",
       gradient: "linear-gradient(145deg, #3B82F6, #1E40AF, #000)",
-      url: "https://linkedin.com/in/founder1",
+      url: "https://linkedin.com/in/shajith240",
     },
     {
       image: "/Dinesh%20Yeturi.png",
@@ -235,7 +235,7 @@ const About = () => {
       location: "India",
       borderColor: "#10B981",
       gradient: "linear-gradient(145deg, #10B981, #059669, #000)",
-      url: "https://linkedin.com/in/founder2",
+      url: "https://linkedin.com/in/dineshydk",
       objectPosition: "50% 30%",
     },
   ];
