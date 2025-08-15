@@ -2,44 +2,31 @@ import { useState, useEffect, lazy, Suspense } from "react";
 import GradientText from "@/components/ui/gradient-text";
 import { RainbowButton } from "@/components/ui/rainbow-button";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
-const SphereAudioVisualizer = lazy(() => import("@/components/ui/spherical-audio-visualizer"));
+const SphereAudioVisualizer = lazy(
+  () => import("@/components/ui/spherical-audio-visualizer")
+);
 
 const ElevenLabsSection = () => {
-  const [isMobile, setIsMobile] = useState(() => {
-    if (typeof window === "undefined") return true;
-    return window.innerWidth <= 768 || "ontouchstart" in window;
+  const [isDesktop, setIsDesktop] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.innerWidth >= 1024;
   });
-  const [shouldLoadVisualizer, setShouldLoadVisualizer] = useState(false);
 
-  // Enhanced mobile detection with performance considerations
+  // Simple desktop detection - only show visualizer on desktop
   useEffect(() => {
-    const checkMobile = () => {
-      const isMobileDevice =
-        window.innerWidth <= 768 ||
-        "ontouchstart" in window ||
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-      setIsMobile(isMobileDevice);
-
-      // Only load visualizer for desktop with good performance
-      if (!isMobileDevice && window.innerWidth >= 1024) {
-        // Check if device has good performance indicators
-        const hasGoodPerformance =
-          navigator.hardwareConcurrency >= 4 && // At least 4 CPU cores
-          window.devicePixelRatio <= 2; // Not ultra-high DPI
-
-        setShouldLoadVisualizer(hasGoodPerformance);
-      }
+    const checkDesktop = () => {
+      const isDesktopSize = window.innerWidth >= 1024;
+      setIsDesktop(isDesktopSize);
     };
 
     // Check on mount
-    checkMobile();
+    checkDesktop();
 
     // Check on resize with debouncing
     let resizeTimer: NodeJS.Timeout;
     const debouncedResize = () => {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(checkMobile, 250);
+      resizeTimer = setTimeout(checkDesktop, 250);
     };
 
     window.addEventListener("resize", debouncedResize);
@@ -83,18 +70,22 @@ const ElevenLabsSection = () => {
               </div>
             </ScrollReveal>
 
-            {/* Visual Content */}
-            {!isMobile ? (
+            {/* Visual Content - Only show on desktop */}
+            {isDesktop && (
               <ScrollReveal delay={0.3}>
-                {shouldLoadVisualizer ? (
-                  <Suspense fallback={<div className="w-full h-64 md:h-80" />}>
-                    <SphereAudioVisualizer />
-                  </Suspense>
-                ) : (
-                  <div className="w-full h-64 md:h-80 flex items-center justify-center bg-gradient-to-br from-accent/10 to-accent/5 rounded-2xl border border-border" />
-                )}
+                <Suspense
+                  fallback={
+                    <div className="w-full h-64 md:h-80 flex items-center justify-center bg-gradient-to-br from-accent/10 to-accent/5 rounded-2xl border border-border">
+                      <div className="text-muted-foreground">
+                        Loading visualizer...
+                      </div>
+                    </div>
+                  }
+                >
+                  <SphereAudioVisualizer />
+                </Suspense>
               </ScrollReveal>
-            ) : null}
+            )}
           </div>
         </div>
       </div>

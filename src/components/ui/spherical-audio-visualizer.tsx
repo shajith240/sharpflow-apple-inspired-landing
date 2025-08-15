@@ -52,10 +52,10 @@ const SphereAudioVisualizer = () => {
   const frameCount = useRef(0);
   const currentFPS = useRef(60);
 
-  // Dynamic particle count based on device performance
-  const numParticles = performanceProfile?.maxParticles || 300; // Default to low-end for safety
+  // Optimized particle count for desktop gaming PCs
+  const numParticles = performanceProfile?.maxParticles || 800; // Higher default for desktop
   const sphereRadiusRef = useRef(150);
-  const renderScale = performanceProfile?.renderScale || 0.6;
+  const renderScale = performanceProfile?.renderScale || 1.0; // Full resolution by default
 
   // Read CSS HSL variables and convert to HSL numeric tuples for canvas colors
   const readCssHslVar = useCallback(
@@ -209,13 +209,8 @@ const SphereAudioVisualizer = () => {
     const canvas = canvasRef.current;
     if (!canvas || !performanceProfile) return;
 
-    // Use adaptive pixel ratio based on performance
-    const baseDPR = window.devicePixelRatio || 1;
-    const adaptiveDPR = Math.min(
-      baseDPR,
-      performanceProfile.tier === "low" ? 1 : baseDPR
-    );
-    const dpr = adaptiveDPR * renderScale;
+    // Use full device pixel ratio for crisp visuals
+    const dpr = (window.devicePixelRatio || 1) * renderScale;
 
     const rect = canvas.getBoundingClientRect();
     canvas.width = rect.width * dpr;
@@ -224,8 +219,8 @@ const SphereAudioVisualizer = () => {
     const ctx = canvas.getContext("2d");
     if (ctx) {
       ctx.scale(dpr, dpr);
-      // Optimize canvas for performance
-      ctx.imageSmoothingEnabled = performanceProfile.tier !== "low";
+      // Enable image smoothing for better quality
+      ctx.imageSmoothingEnabled = true;
     }
 
     // Recreate particles with new container dimensions
@@ -237,17 +232,9 @@ const SphereAudioVisualizer = () => {
     const ctx = canvas?.getContext("2d");
     if (!canvas || !ctx || !performanceProfile) return;
 
-    // Performance monitoring and frame rate limiting
+    // Simplified performance monitoring without frame limiting
     const now = performance.now();
     const deltaTime = now - lastFrameTime.current;
-    const targetFrameTime = 1000 / performanceProfile.targetFPS;
-
-    // Skip frame if we're running too fast (frame rate limiting)
-    if (deltaTime < targetFrameTime) {
-      animationRef.current = requestAnimationFrame(animate);
-      return;
-    }
-
     lastFrameTime.current = now;
     frameCount.current++;
 
@@ -256,12 +243,7 @@ const SphereAudioVisualizer = () => {
       currentFPS.current = Math.round(1000 / deltaTime);
     }
 
-    const baseDPR = window.devicePixelRatio || 1;
-    const adaptiveDPR = Math.min(
-      baseDPR,
-      performanceProfile.tier === "low" ? 1 : baseDPR
-    );
-    const dpr = adaptiveDPR * renderScale;
+    const dpr = (window.devicePixelRatio || 1) * renderScale;
     const width = canvas.width / dpr;
     const height = canvas.height / dpr;
 
@@ -271,28 +253,21 @@ const SphereAudioVisualizer = () => {
     const rotation = rotationRef.current;
 
     // Smoothly interpolate rotation towards the target
-    const rotationSpeed = performanceProfile.tier === "low" ? 0.03 : 0.05;
+    const rotationSpeed = 0.08; // Faster, smoother rotation for gaming PCs
     rotation.x += (rotation.targetX - rotation.x) * rotationSpeed;
     rotation.y += (rotation.targetY - rotation.y) * rotationSpeed;
 
     // Add gentle auto-rotation when pointer is not active
     if (pointerRef.current.x === null) {
-      const time =
-        Date.now() * (performanceProfile.tier === "low" ? 0.0003 : 0.0005);
+      const time = Date.now() * 0.0008; // Slightly faster auto-rotation
       rotation.targetX = Math.sin(time) * 0.2;
       rotation.targetY = Math.cos(time * 0.7) * 0.3;
     }
 
-    // Particle culling and rendering optimization
+    // Render all particles for smooth visuals
     let renderedParticles = 0;
-    const maxRenderParticles =
-      performanceProfile.tier === "low" ? numParticles * 0.7 : numParticles;
 
     particlesRef.current.forEach((particle, index) => {
-      // Skip some particles on low-end devices for better performance
-      if (performanceProfile.tier === "low" && index % 2 === 0) return;
-      if (renderedParticles >= maxRenderParticles) return;
-
       // Apply rotation
       const cosX = Math.cos(rotation.x);
       const sinX = Math.sin(rotation.x);
@@ -381,16 +356,16 @@ const SphereAudioVisualizer = () => {
           "Failed to get performance profile, using low-end defaults:",
           error
         );
-        // Fallback to low-end profile for safety
+        // Fallback to medium profile for desktop
         setPerformanceProfile({
-          tier: "low",
-          maxParticles: 300,
-          maxSpheres: 40,
-          targetFPS: 24,
+          tier: "medium",
+          maxParticles: 800,
+          maxSpheres: 75,
+          targetFPS: 60,
           enableShadows: false,
-          enableGlow: false,
-          renderScale: 0.6,
-          physicsSteps: 3,
+          enableGlow: true,
+          renderScale: 1.0,
+          physicsSteps: 8,
         });
         setIsInitialized(true);
       }
