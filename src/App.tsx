@@ -32,7 +32,7 @@ const ConditionalVoiceAgent = () => {
   }
 
   return (
-    <elevenlabs-convai agent-id="agent_4901k2qa86asf8w8k6r5z624xcew"></elevenlabs-convai>
+    <elevenlabs-convai agent-id="agent_6301k2wr21x3e1xsycxhwqc1b9jy"></elevenlabs-convai>
   );
 };
 
