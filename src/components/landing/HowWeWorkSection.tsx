@@ -119,7 +119,7 @@ const WorkflowItem = ({
           inactiveZone={0.01}
           borderWidth={4}
         />
-        <div className="relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl bg-background p-6 shadow-sm dark:shadow-[0px_0px_27px_0px_rgba(45,45,45,0.3)] md:p-6">
+        <div className="relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl bg-background p-6 shadow-sm border-[1px] border-border/70 outline outline-1 outline-border/60 ring-1 ring-border/40 dark:border-white/15 dark:outline-white/10 dark:ring-white/10 dark:shadow-[0px_0px_27px_0px_rgba(45,45,45,0.3)] md:p-6">
           <div className="relative flex flex-1 flex-col justify-between gap-4">
             {/* Step Number - Top Right Corner */}
             <div className="absolute top-0 right-0 w-fit rounded-lg border-[0.75px] border-border bg-muted p-2">

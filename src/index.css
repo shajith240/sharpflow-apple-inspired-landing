@@ -460,19 +460,7 @@ All colors MUST be HSL.
     display: none;
   }
 
-  /* Ballpit cursor styles */
-  .cursor-none {
-    cursor: none !important;
-  }
 
-  .cursor-none * {
-    cursor: none !important;
-  }
-
-  /* Override cursor for interactive elements in ballpit sections */
-  .cursor-pointer {
-    cursor: pointer !important;
-  }
 }
 
 ::view-transition-old(root),

@@ -42,12 +42,6 @@ export interface AdaptiveComponentConfig {
     enableGlow: boolean;
     renderScale: number;
   };
-  ballpit: {
-    sphereCount: number;
-    physicsSteps: number;
-    enableShadows: boolean;
-    renderQuality: "high" | "medium" | "low";
-  };
 }
 
 // Performance tier configurations optimized for desktop gaming PCs
@@ -320,12 +314,6 @@ export function getAdaptiveComponentConfig(
       updateFrequency: profile.targetFPS,
       enableGlow: profile.enableGlow,
       renderScale: profile.renderScale,
-    },
-    ballpit: {
-      sphereCount: profile.maxSpheres,
-      physicsSteps: profile.physicsSteps,
-      enableShadows: profile.enableShadows,
-      renderQuality: profile.tier,
     },
   };
 }

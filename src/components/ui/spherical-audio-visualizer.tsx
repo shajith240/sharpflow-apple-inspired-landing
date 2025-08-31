@@ -52,8 +52,8 @@ const SphereAudioVisualizer = () => {
   const frameCount = useRef(0);
   const currentFPS = useRef(60);
 
-  // Optimized particle count for desktop gaming PCs
-  const numParticles = performanceProfile?.maxParticles || 800; // Higher default for desktop
+  // Fixed particle count for consistent smooth animation
+  const numParticles = 600; // Constant particle count for optimal performance
   const sphereRadiusRef = useRef(150);
   const renderScale = performanceProfile?.renderScale || 1.0; // Full resolution by default
 
@@ -207,7 +207,7 @@ const SphereAudioVisualizer = () => {
 
   const setupCanvas = useCallback(() => {
     const canvas = canvasRef.current;
-    if (!canvas || !performanceProfile) return;
+    if (!canvas) return;
 
     // Use full device pixel ratio for crisp visuals
     const dpr = (window.devicePixelRatio || 1) * renderScale;
@@ -225,7 +225,7 @@ const SphereAudioVisualizer = () => {
 
     // Recreate particles with new container dimensions
     createParticles(rect.width, rect.height);
-  }, [createParticles, performanceProfile, renderScale]);
+  }, [createParticles, renderScale]);
 
   const animate = useCallback(() => {
     const canvas = canvasRef.current;

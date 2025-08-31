@@ -46,6 +46,12 @@ export function Pricing({
   const handleToggle = (checked: boolean) => {
     setIsMonthly(!checked);
     if (checked && switchRef.current) {
+      const tmp = document.createElement("div");
+      tmp.style.color = "hsl(var(--accent))";
+      document.body.appendChild(tmp);
+      const resolved = getComputedStyle(tmp).color;
+      document.body.removeChild(tmp);
+      const accentColor = resolved && resolved !== "" ? resolved : "#3b82f6"; // Tailwind blue-500 fallback
       const rect = switchRef.current.getBoundingClientRect();
       const x = rect.left + rect.width / 2;
       const y = rect.top + rect.height / 2;
@@ -56,12 +62,7 @@ export function Pricing({
           x: x / window.innerWidth,
           y: y / window.innerHeight,
         },
-        colors: [
-          "hsl(var(--primary))",
-          "hsl(var(--accent))",
-          "hsl(var(--secondary))",
-          "hsl(var(--muted))",
-        ],
+        colors: [accentColor],
         ticks: 200,
         gravity: 1.2,
         decay: 0.94,
@@ -136,8 +137,10 @@ export function Pricing({
               opacity: { duration: 0.5 },
             }}
             className={cn(
-              `rounded-2xl border-[1px] p-6 bg-background text-center lg:flex lg:flex-col lg:justify-center relative`,
-              plan.isPopular ? "border-primary border-2" : "border-border",
+              `rounded-2xl border-[1px] p-6 bg-background/95 dark:bg-background/80 text-center lg:flex lg:flex-col lg:justify-center relative transition-shadow`,
+              plan.isPopular
+                ? "border-primary border-2"
+                : "border-border/70 outline outline-1 outline-border/60 dark:border-white/15 dark:outline-white/10 ring-1 ring-border/40 dark:ring-white/10 shadow-sm dark:shadow-[0_0_0_1px_rgba(255,255,255,0.04),0_12px_24px_rgba(0,0,0,0.6)]",
               "flex flex-col",
               !plan.isPopular && "mt-5",
               index === 0 || index === 2

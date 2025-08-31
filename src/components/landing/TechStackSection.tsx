@@ -59,7 +59,6 @@ const TechStackSection = () => {
             <ScrollReveal delay={0.2}>
               <div className="text-center py-6">
                 <h3 className="text-xl lg:text-2xl text-primary mb-0 flex items-center justify-center gap-4">
-                  RAG using{" "}
                   <GradientText
                     colors={[
                       "#22c55e",
@@ -91,7 +90,6 @@ const TechStackSection = () => {
             <ScrollReveal delay={0.3}>
               <div className="text-center py-6">
                 <h3 className="text-xl lg:text-2xl text-primary mb-0 flex items-center justify-center gap-4">
-                  Constructed using{" "}
                   <GradientText
                     colors={[
                       "#ff6d6b",
@@ -119,7 +117,6 @@ const TechStackSection = () => {
             <ScrollReveal delay={0.4}>
               <div className="text-center py-6">
                 <h3 className="text-xl lg:text-2xl text-primary mb-0 flex items-center justify-center gap-4">
-                  Chat model by{" "}
                   <GradientText
                     colors={[
                       "#4285f4",

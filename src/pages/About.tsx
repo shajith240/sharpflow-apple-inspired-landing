@@ -1,170 +1,80 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useTheme } from "next-themes";
 import Header from "@/components/landing/Header";
 import Footer from "@/components/landing/Footer";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
-import ChromaGrid, { ChromaItem } from "../../react bits/ChromaGrid/ChromaGrid";
+// Removed ChromaGrid import
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import DarkVeil from "@/components/backgrounds/DarkVeil";
 import { AuroraEffect } from "@/components/ui/aurora-effect";
-import Ballpit from "@/components/ui/ballpit";
 import { BookingDialog } from "@/components/ui/booking-dialog";
 import { CAL_CONFIG } from "@/config/cal";
 import { RainbowButton } from "@/components/ui/rainbow-button";
-import {
-  getDevicePerformanceProfile,
-  PerformanceProfile,
-} from "@/lib/performance-utils";
+import PixelBlast from "../blocks/Backgrounds/PixelBlast/PixelBlast";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { Target, Eye, Flag, AlertCircle, Bot } from "lucide-react";
 
-// Mobile-optimized founder cards component
-const MobileFounderCards = ({ founders }: { founders: ChromaItem[] }) => {
+// Founder data interface
+interface FounderData {
+  image: string;
+  name: string;
+  title: string;
+  linkedinUrl: string;
+}
+
+// New founder cards component matching the reference image
+const FounderCards = ({ founders }: { founders: FounderData[] }) => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+    <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
       {founders.map((founder, index) => (
         <div
           key={index}
-          className="group relative overflow-hidden rounded-2xl border transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg p-2"
-          style={{
-            borderColor: founder.borderColor || "#3B82F6",
-            background: founder.gradient,
-          }}
+          className="group relative bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden w-[300px] h-[400px]"
         >
-          <div className="rounded-xl overflow-hidden bg-black/30">
+          {/* Image section */}
+          <div className="h-[320px] overflow-hidden">
             <img
               src={founder.image}
-              alt={founder.title}
-              className="w-full h-64 object-cover"
-              style={
-                founder.objectPosition
-                  ? { objectPosition: founder.objectPosition }
-                  : undefined
-              }
+              alt={founder.name}
+              className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-110"
             />
-            <div className="p-4 bg-gradient-to-t from-black/70 via-black/50 to-transparent text-white">
-              <div className="space-y-1">
-                <h3 className="text-lg font-semibold">{founder.title}</h3>
-                <p className="text-sm opacity-90">{founder.subtitle}</p>
-                {founder.handle && (
-                  <p className="text-sm opacity-80">{founder.handle}</p>
-                )}
-                {founder.location && (
-                  <p className="text-sm opacity-80">{founder.location}</p>
-                )}
-              </div>
-            </div>
           </div>
-          {founder.url && (
+
+          {/* Content section */}
+          <div className="p-4 h-[80px] flex items-center justify-between">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-1">{founder.name}</h3>
+              <p className="text-sm text-gray-600">{founder.title}</p>
+            </div>
+
+            {/* LinkedIn icon */}
             <a
-              href={founder.url}
+              href={founder.linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="absolute inset-0"
-              aria-label={`View ${founder.title}'s profile`}
-            />
-          )}
+              className="flex-shrink-0 w-8 h-8 bg-[#0077B5] rounded flex items-center justify-center hover:bg-[#005885] transition-colors duration-200"
+              aria-label={`View ${founder.name}'s LinkedIn profile`}
+            >
+              <svg
+                className="w-4 h-4 text-white"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg>
+            </a>
+          </div>
         </div>
       ))}
     </div>
   );
 };
 
-// Responsive ChromaGrid wrapper component
-const ResponsiveChromaGrid = ({ founders }: { founders: ChromaItem[] }) => {
-  const [isMobile, setIsMobile] = useState(false);
-  const [radius, setRadius] = useState(250);
-
-  useEffect(() => {
-    const updateDimensions = () => {
-      const width = window.innerWidth;
-      const mobile = width < 768;
-      setIsMobile(mobile);
-
-      if (width < 640) {
-        setRadius(120);
-      } else if (width < 768) {
-        setRadius(150);
-      } else if (width < 1024) {
-        setRadius(200);
-      } else {
-        setRadius(250);
-      }
-    };
-
-    updateDimensions();
-    window.addEventListener("resize", updateDimensions);
-    return () => window.removeEventListener("resize", updateDimensions);
-  }, []);
-
-  // Use simple cards on mobile, ChromaGrid on desktop
-  if (isMobile) {
-    return (
-      <div className="w-full mb-16 px-4">
-        <MobileFounderCards founders={founders} />
-      </div>
-    );
-  }
-
-  return (
-    <div
-      className="w-full max-w-6xl mx-auto mb-16 sm:mb-20 lg:mb-24 px-4"
-      style={{
-        height: "600px",
-        minHeight: "600px",
-        position: "relative",
-        zIndex: 1,
-      }}
-    >
-      <ChromaGrid
-        items={founders}
-        radius={radius}
-        damping={0.4}
-        fadeOut={0.7}
-        ease="power3.out"
-      />
-    </div>
-  );
-};
+// Removed ResponsiveChromaGrid component
 
 const About = () => {
   const { theme } = useTheme();
-  const [performanceProfile, setPerformanceProfile] =
-    useState<PerformanceProfile | null>(null);
 
-  // Initialize performance profile for CTA section
-  useEffect(() => {
-    const initializePerformance = async () => {
-      try {
-        const profile = await getDevicePerformanceProfile();
-        setPerformanceProfile(profile);
-      } catch (error) {
-        console.warn(
-          "Failed to get performance profile, using low-end defaults:",
-          error
-        );
-        setPerformanceProfile({
-          tier: "low",
-          maxParticles: 300,
-          maxSpheres: 40,
-          targetFPS: 24,
-          enableShadows: false,
-          enableGlow: false,
-          renderScale: 0.6,
-          physicsSteps: 3,
-        });
-      }
-    };
-
-    initializePerformance();
-  }, []);
-
-  // Theme-aware colors for ballpit
-  // Theme-aligned, vibrant cool palette (brand-focused blues/cyans/purples)
-  const ballColors =
-    theme === "dark"
-      ? [0x4f46e5, 0x3b82f6, 0x22d3ee, 0x06b6d4, 0x0ea5e9]
-      : [0x2563eb, 0x3b82f6, 0x0ea5e9, 0x06b6d4, 0x38bdf8];
 
   // SEO optimization
   useEffect(() => {
@@ -222,28 +132,19 @@ const About = () => {
     };
   }, []);
 
-  // Founders data for ChromaGrid (only 2 members)
-  const founders: ChromaItem[] = [
+  // Founders data
+  const founders: FounderData[] = [
     {
       image: "/Shajith%20Bathina.png",
-      title: "Shajith Bathina",
-      subtitle: "Founder & CEO",
-      handle: "@founder1",
-      location: "India",
-      borderColor: "#3B82F6",
-      gradient: "linear-gradient(145deg, #3B82F6, #1E40AF, #000)",
-      url: "https://linkedin.com/in/shajith240",
+      name: "Shajith Bathina",
+      title: "Co-Founder & CEO",
+      linkedinUrl: "https://linkedin.com/in/shajith240",
     },
     {
       image: "/Dinesh%20Yeturi.png",
-      title: "Dinesh Yeturi",
-      subtitle: "CO-founder & CTO",
-      handle: "@founder2",
-      location: "India",
-      borderColor: "#10B981",
-      gradient: "linear-gradient(145deg, #10B981, #059669, #000)",
-      url: "https://linkedin.com/in/dineshydk",
-      objectPosition: "50% 30%",
+      name: "Dinesh Yeturi",
+      title: "Co-Founder & CTO",
+      linkedinUrl: "https://linkedin.com/in/dineshydk",
     },
   ];
 
@@ -366,9 +267,9 @@ const About = () => {
             </p>
           </ScrollReveal>
 
-          {/* Responsive ChromaGrid */}
+          {/* Founder Cards */}
           <ScrollReveal delay={0.3}>
-            <ResponsiveChromaGrid founders={founders} />
+            <FounderCards founders={founders} />
           </ScrollReveal>
         </div>
       </section>
@@ -376,115 +277,58 @@ const About = () => {
       {/* Enhanced Spacer for section separation - force black to merge with founders dark section */}
       <div className="h-16 sm:h-20 lg:h-24 bg-black"></div>
 
-      {/* CTA Section - Exact copy from landing page */}
-      {!performanceProfile ? (
-        <section
-          id="contact"
-          className="section-padding bg-primary relative overflow-hidden"
-        >
-          <div className="container-padding relative z-20">
-            <ScrollReveal className="max-w-3xl mx-auto text-center">
-              <h2 className="text-heading text-primary-foreground mb-6">
-                Ready to transform your customer experience?
-              </h2>
-              <p className="text-body text-primary-foreground/80 mb-12">
-                Let's discuss how voice AI can revolutionize your business!
-              </p>
+      {/* CTA Section */}
+      <section
+        id="contact"
+        className="section-padding bg-primary relative overflow-hidden"
+      >
+        {/* PixelBlast Background */}
+        <div className="absolute inset-0 z-0 opacity-60">
+          <PixelBlast
+            variant="circle"
+            pixelSize={6}
+            color="#22d3ee"
+            patternScale={2}
+            patternDensity={1.2}
+            enableRipples={true}
+            rippleIntensityScale={1.5}
+            rippleSpeed={0.5}
+            speed={0.4}
+            edgeFade={0.2}
+            transparent={true}
+          />
+        </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <BookingDialog calLink={CAL_CONFIG.fullLink}>
-                  <RainbowButton className="relative z-30 cursor-pointer">
-                    Book Your Call
-                  </RainbowButton>
-                </BookingDialog>
-                <a
-                  href="mailto:contact@sharpflow.com"
-                  className="relative z-30 cursor-pointer inline-flex items-center gap-2 px-6 py-2 rounded-lg font-medium transition-all duration-200 text-primary-foreground border border-primary-foreground/30 bg-primary-foreground/10 hover:bg-primary-foreground/20"
-                  aria-label="Send us an email"
-                >
-                  Send Email
-                </a>
-              </div>
+        <div className="container-padding relative z-20">
+          <ScrollReveal className="max-w-3xl mx-auto text-center">
+            <h2 className="text-heading text-primary-foreground mb-6">
+              Ready to transform your customer experience?
+            </h2>
+            <p className="text-body text-primary-foreground/80 mb-12">
+              Let's discuss how voice AI can revolutionize your business!
+            </p>
 
-              <p className="text-caption text-primary-foreground/60 mt-8">
-                Free consultation • Custom solutions • Expert guidance
-              </p>
-            </ScrollReveal>
-          </div>
-        </section>
-      ) : (
-        <section
-          id="contact"
-          className="section-padding bg-primary relative overflow-hidden cursor-none"
-        >
-          {/* Ballpit Background - Full Coverage */}
-          <div
-            style={{
-              position: "absolute",
-              inset: "0",
-              overflow: "hidden",
-              width: "100%",
-              height: "100%",
-              opacity: "0.7",
-              zIndex: 1,
-              cursor: "none",
-            }}
-          >
-            <Ballpit
-              count={performanceProfile.maxSpheres}
-              gravity={performanceProfile.tier === "low" ? 0.5 : 0.1}
-              friction={performanceProfile.tier === "low" ? 0.9 : 0.999}
-              wallBounce={1.0}
-              // followCursor={performanceProfile.tier !== "low"}
-              followCursor={false}
-              colors={ballColors}
-              className="cursor-none"
-              ambientIntensity={0.6}
-              lightIntensity={80}
-              materialParams={{
-                roughness: 0.65,
-                metalness: 0.35,
-                clearcoat: 0.9,
-                clearcoatRoughness: 0.25,
-              }}
-              // Additional performance optimizations
-              physicsSteps={performanceProfile.physicsSteps}
-              enableShadows={performanceProfile.enableShadows}
-              renderQuality={performanceProfile.tier}
-            />
-          </div>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <BookingDialog calLink={CAL_CONFIG.fullLink}>
+                <RainbowButton className="!bg-[linear-gradient(#fff,#fff),linear-gradient(#fff_50%,rgba(255,255,255,0.6)_80%,rgba(0,0,0,0)),linear-gradient(90deg,hsl(var(--color-1)),hsl(var(--color-5)),hsl(var(--color-3)),hsl(var(--color-4)),hsl(var(--color-2)))] !text-black dark:!bg-[linear-gradient(#121213,#121213),linear-gradient(#121213_50%,rgba(18,18,19,0.6)_80%,rgba(18,18,19,0)),linear-gradient(90deg,hsl(var(--color-1)),hsl(var(--color-5)),hsl(var(--color-3)),hsl(var(--color-4)),hsl(var(--color-2)))] dark:!text-white">
+                  Book Your Call
+                </RainbowButton>
+              </BookingDialog>
+              <a
+                href="mailto:contact@sharpflow.com"
+                className="inline-flex items-center gap-2 px-6 py-2 rounded-lg font-medium transition-all duration-200 text-primary-foreground border border-primary-foreground/30 bg-primary-foreground/10 hover:bg-primary-foreground/20"
+                aria-label="Send us an email"
+              >
+                Send Email
+              </a>
+            </div>
 
-          <div className="container-padding relative z-20">
-            <ScrollReveal className="max-w-3xl mx-auto text-center">
-              <h2 className="text-heading text-primary-foreground mb-6">
-                Ready to transform your customer experience?
-              </h2>
-              <p className="text-body text-primary-foreground/80 mb-12">
-                Let's discuss how voice AI can revolutionize your business!
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <BookingDialog calLink={CAL_CONFIG.fullLink}>
-                  <RainbowButton className="relative z-30 cursor-pointer">
-                    Book Your Call
-                  </RainbowButton>
-                </BookingDialog>
-                <a
-                  href="mailto:contact@sharpflow.com"
-                  className="relative z-30 cursor-pointer inline-flex items-center gap-2 px-6 py-2 rounded-lg font-medium transition-all duration-200 text-primary-foreground border border-primary-foreground/30 bg-primary-foreground/10 hover:bg-primary-foreground/20"
-                  aria-label="Send us an email"
-                >
-                  Send Email
-                </a>
-              </div>
-
-              <p className="text-caption text-primary-foreground/60 mt-8">
-                Free consultation • Custom solutions • Expert guidance
-              </p>
-            </ScrollReveal>
-          </div>
-        </section>
-      )}
+            <p className="text-caption text-primary-foreground/60 mt-8">
+              Free consultation • Custom solutions • Expert guidance
+            </p>
+          </ScrollReveal>
+        </div>
+      </section>
 
       <Footer />
     </div>
