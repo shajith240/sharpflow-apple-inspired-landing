@@ -51,7 +51,7 @@ const IntegrationsSection = () => {
               Integrate With Tools You Know and Love
             </h2>
             <p className="text-muted-foreground mb-6">
-              TrueHorizon offers integration with 850+ industry standard tools.
+              SharpFlow offers integration with 850+ industry standard tools.
             </p>
             <a
               href="#tech-stack"
