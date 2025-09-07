@@ -6,7 +6,7 @@ import { ScrollReveal } from "@/components/ui/scroll-reveal";
 // Removed ChromaGrid import
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import DarkVeil from "@/components/backgrounds/DarkVeil";
-import { AuroraEffect } from "@/components/ui/aurora-effect";
+import { AnimatedBackground } from "@/components/ui/animated-blur-blob-background";
 import { BookingDialog } from "@/components/ui/booking-dialog";
 import { CAL_CONFIG } from "@/config/cal";
 import { RainbowButton } from "@/components/ui/rainbow-button";
@@ -43,7 +43,9 @@ const FounderCards = ({ founders }: { founders: FounderData[] }) => {
           {/* Content section */}
           <div className="p-4 h-[80px] flex items-center justify-between">
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-1">{founder.name}</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                {founder.name}
+              </h3>
               <p className="text-sm text-gray-600">{founder.title}</p>
             </div>
 
@@ -74,7 +76,6 @@ const FounderCards = ({ founders }: { founders: FounderData[] }) => {
 
 const About = () => {
   const { theme } = useTheme();
-
 
   // SEO optimization
   useEffect(() => {
@@ -159,12 +160,14 @@ const About = () => {
       {/* Hero Section */}
       <section
         id="hero"
-        className="relative min-h-[60vh] sm:min-h-[70vh] flex items-center justify-center overflow-hidden"
+        className="section-padding min-h-screen flex items-center relative overflow-hidden"
       >
         {theme === "dark" ? (
           <DarkVeil speed={1.2} hueShift={120} />
         ) : (
-          <AuroraEffect />
+          <div className="absolute inset-0 -z-10">
+            <AnimatedBackground />
+          </div>
         )}
 
         <div className="container-padding relative z-10 w-full">

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { Home, ArrowLeft, Sparkles } from "lucide-react";
 import GradientText from "@/components/ui/gradient-text";
 import { RainbowButton } from "@/components/ui/rainbow-button";
-import { AuroraEffect } from "@/components/ui/aurora-effect";
+import { AnimatedBackground } from "@/components/ui/animated-blur-blob-background";
 
 const NotFound = () => {
   const location = useLocation();
@@ -17,9 +17,9 @@ const NotFound = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-background">
-      {/* Aurora Background Effect */}
+      {/* Animated Blur Background Effect */}
       <div className="absolute inset-0 z-0">
-        <AuroraEffect />
+        <AnimatedBackground />
       </div>
 
       {/* Content */}

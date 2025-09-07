@@ -5,7 +5,7 @@ import { Play, Sparkles, PhoneCall, Clock } from "lucide-react";
 import { BookingDialog } from "@/components/ui/booking-dialog";
 import { CAL_CONFIG } from "@/config/cal";
 import { RainbowButton } from "@/components/ui/rainbow-button";
-import { AuroraEffect } from "@/components/ui/aurora-effect";
+import { AnimatedBackground } from "@/components/ui/animated-blur-blob-background";
 
 // Dynamically import DarkVeil only for desktop
 const DarkVeil = lazy(() => import("@/components/backgrounds/DarkVeil"));
@@ -78,15 +78,10 @@ const HeroSection = () => {
         );
       }
     } else {
-      // Light theme background with enhanced visibility
+      // Light theme background: Animated blur blobs
       return (
         <div className="absolute inset-0 -z-10">
-          {/* Base gradient background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/80 via-indigo-50/60 to-purple-50/80" />
-          {/* Aurora effect overlay */}
-          <AuroraEffect className="opacity-60" />
-          {/* Additional subtle pattern */}
-          <div className="absolute inset-0 bg-gradient-to-br from-transparent via-blue-100/30 to-transparent" />
+          <AnimatedBackground />
         </div>
       );
     }

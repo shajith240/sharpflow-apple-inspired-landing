@@ -46,12 +46,6 @@ export function Pricing({
   const handleToggle = (checked: boolean) => {
     setIsMonthly(!checked);
     if (checked && switchRef.current) {
-      const tmp = document.createElement("div");
-      tmp.style.color = "hsl(var(--accent))";
-      document.body.appendChild(tmp);
-      const resolved = getComputedStyle(tmp).color;
-      document.body.removeChild(tmp);
-      const accentColor = resolved && resolved !== "" ? resolved : "#3b82f6"; // Tailwind blue-500 fallback
       const rect = switchRef.current.getBoundingClientRect();
       const x = rect.left + rect.width / 2;
       const y = rect.top + rect.height / 2;
@@ -62,7 +56,6 @@ export function Pricing({
           x: x / window.innerWidth,
           y: y / window.innerHeight,
         },
-        colors: [accentColor],
         ticks: 200,
         gravity: 1.2,
         decay: 0.94,
